@@ -1,12 +1,3 @@
-% This text is proprietary.
-% It's a part of presentation made by myself.
-% It may not used commercial.
-% The noncommercial use such as private and study is free
-% Sep. 2005 
-% Author: Sascha Frank 
-% University Freiburg 
-% www.informatik.uni-freiburg.de/~frank/
-% additional use of \usepackage{beamerthemesplit}
 \documentclass{beamer}
 \usepackage{beamerthemesplit} % new 
 \usepackage[utf8]{inputenc}
@@ -14,6 +5,8 @@
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 \date{\today} 
+
+
 
 \frame{
 \titlepage
@@ -24,24 +17,136 @@
 } 
 
 \frame{\frametitle{Sommaire}\tableofcontents} 
-
-\section{Introduction} 
-\subsection{De quoi on va parler ?}
+ 
+\section{Présentation et objectifs du cours}
+\subsection{Organisation administrative}
+\frame{
+\frametitle{Planning}
+\begin{itemize}
+  \item{30 janvier : 6h de cours}
+  \item{6 février : 3h de TP}
+  \item{13 février : 6h de TP}
+  \item{20 février : 6h de TP}
+\end{itemize}
+}
+\frame{
+\frametitle{Evaluation}
+}
+\subsection{Champ du cours}
+\frame{
+\frametitle{???}
+\begin{itemize}
+  \item Smartphones, tablettes et assimilés (TV, montre, autoradio \ldots)
+  \item On parle de dev d'application, pas de dev de la plateforme
+  \item 1ère partie : le dev mobile en général
+  \item 2ème partie : application sous android
+\end{itemize}
+}
+\section{Le développement mobile} 
 \subsection{Comparaison des différents OS mobile}
-
-\section{Les spécificités du développement mobile} 
-\subsection{Spécificités techniques}
-
+\subsection{Spécificités du développement mobile}
+\frame{
+\frametitle{Des appareils suréquipés}
+\begin{itemize}
+  \item Téléphonie (SMS, MMS, appels)
+  \item Internet (GPRS, edge, 3g, 4g, wifi)
+  \item Réseaux locaux (Bluetooth, réseaux adhoc, NFC)
+  \item Capteurs (Luminosité, proximité)
+  \item Localisation (GPS, triangulation, SSID wifi)
+  \item Notifications (Vibreur, haut-parleurs, LED)
+  \item Stockage de données (Mémoire flash, SD externe, SQLite)
+  \item Interactions (Ecran tactile, gestures, boutons physique)
+  \item Et encore d'autres \ldots
+\end{itemize}
+Et des API pour utiliser tout ça !
+}
+\frame{
+\frametitle{Des contraintes techniques importantes}
+\begin{itemize}
+  \item Processeur
+  \item Mémoire RAM
+  \item Stockage de données
+  \item Gestion de la batterie
+  \item Stabilité et débit de la connexion internet
+  \item Cycle de vie de l'application
+  \item Taille d'écran 
+  \item Inputs atypiques (clavier virtuel, gestures, peu de boutons \ldots)
+\end{itemize}
+Contraintes à garder en tête en permanence.
+}
+\frame{
+\frametitle{La fragmentation}
+Une application publiée sur le playstore cible plus de 2400 appareils différents !\\
+\begin{itemize}
+  \item Eviter de géner l'utilisateur (versions HD, appareils non compatibles)
+  \item Comment tester / débugger pour tous ces appareils ?
+  \item S'adapter quand une fonctionnalité n'est pas disponible
+\end{itemize}
+}
+\frame{
+\frametitle{La fragmentation, taille d'écran}
+Comment gérer toutes les tailles d'écran ? 
+\begin{itemize}
+  \item Montres connéctées : de 1 à 2 pouces
+  \item Smartphones lowcost : 3 pouces (Galaxy pocket, galaxy y \ldots)
+  \item Smartphones high-end : 4 à 5 pouces (IPhone 5, nexus 4)
+  \item Phablets : 5 à 6 pouces (Galaxy note, HTC butterfly)
+  \item Tablettes : 7 pouces (Nexus 7, IPad mini), 8 pouces (Archos 80g9), 10 pouces (Nexus 10, IPad)
+\end{itemize}
+}
+\frame{
+\frametitle{De nombreuses autres sources de fragmentation}
+\begin{itemize}
+  \item Versions de l'OS
+  \item Résolutions d'écran
+  \item Elements hardware présents
+  \item Puissance
+  \item Modifications constructeur / ``rom custom''
+\end{itemize}
+}
+\frame{
+\frametitle{Des Ecosystèmes forts}
+}
 \section{Le développement sur android} 
 \subsection{Mise en place}
-\subsection{Hello world}
-\subsection{Les composants}
-
-
-
-\frame{ 
-Without title somethink is missing. 
+\frame{
+\frametitle{Bien commencer}
+La programmation android fait partie des plus accessibles :
+\begin{itemize}
+  \item Des (bonnes) bases de programmation en JAVA
+  \item Un ordinateur (Windows, Linux, Mac OS X)
+  \item Un appareil android (conseillé, l'émulateur étant \ldots moyen)
+\end{itemize}
+Et c'est tout !
 }
+\frame{
+\frametitle{Téléchargement et installation du SDK}
+}
+\frame{
+\frametitle{Les marque-page}
+\begin{itemize}
+  \item Actu android : FRAndroid (FR), AndroidPolice (EN), AndroidCentral (EN)
+  \item Question dev : Stackoverflow (EN)
+  \item Chat IRC : #android (EN) et #android-dev (EN) sur freenode
+\end{itemize}
+}
+\frame{
+\frametitle{Distribuer l'application}
+\begin{itemize}
+  \item Une application android = un(e) APK (+/- équivalent d'un jar)
+  \item Distribution directe de l'APK (ex : pour tester, béta fermée)
+  \item Publication sur le playstore, 25\$ à l'inscription
+  \item Application gratuite ou payante (30pourcents pour google)
+ \end{itemize}
+}
+\subsection{Architecture}
+\frame{
+\frametitle{Activity et cycle de vie de l'application}
+}
+\subsection{IHM}
+\subsection{Données}
+
+
 
 
 \end{document}
