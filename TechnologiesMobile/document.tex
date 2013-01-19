@@ -58,7 +58,7 @@
 \frametitle{Des appareils suréquipés}
 \begin{itemize}
   \item Téléphonie (SMS, MMS, appels)
-  \item Internet (GPRS, edge, 3g, 4g, wifi)
+  \item Internet (GPRS, EDGE, 3G, 4G, WIFI)
   \item Réseaux locaux (Bluetooth, réseaux adhoc, NFC)
   \item Capteurs (Luminosité, proximité)
   \item Localisation (GPS, triangulation, SSID wifi)
@@ -138,8 +138,10 @@ Comment gérer toutes les tailles d'écran ?
   \item www.frandroid.com (actu FR)
   \item www.androidpolice.com (actu EN)
   \item www.androidcentral.com (actu EN)
+  \item www.d.android.com (la bible EN)
   \item www.stackoverflow (Q/A EN)
   \item \#android et \#android-dev sur freenode (chat irc EN)
+  \item www.breizhjug.org et www.paug.fr (communautés FR)
 \end{itemize}
 }
 \frame{
@@ -150,16 +152,35 @@ La programmation android fait partie des plus accessibles :
   \item Un ordinateur (Windows, Linux, Mac OS X)
   \item Un appareil android (conseillé, l'émulateur étant \ldots moyen)
 \end{itemize}
-C'est tout et c'est gratuit !
+C'est tout !
 }
 \frame{
-\frametitle{Téléchargement et installation du SDK}
+\frametitle{Présentation du SDK android}
+Téléchargement gratuit : www.d.android.com/sdk
+\includegraphics[width=300pt]{sdk.png}
 }
-
+\frame{
+\frametitle{Plugin android pour eclipse : ADT}
+ADT fait le lien entre eclipse et le SDK android
+\includegraphics[width=100pt]{adt.png}
+\includegraphics[width=200pt]{views.png}\\\\
+\includegraphics[width=100pt]{project.png}
+}
+\frame{
+\frametitle{L'émulateur}
+\begin{itemize}
+  \item Utile pour tester certaines configurations
+  \item ((très) (très)) lent
+  \item Utiliser un appareil android à la place quand c'est possible
+\end{itemize}
+\includegraphics[width=300pt]{avd.png}
+\includegraphics[width=42pt]{emu.png}
+}
 \frame{
 \frametitle{Distribuer l'application}
 \begin{itemize}
   \item Une application android = un APK (+/- équivalent d'un jar)
+  \item Création et signature de l'APK simple sous eclipse
   \item Distribution directe de l'APK (ex : pour tester, béta fermée)
   \item Publication sur le playstore, 25\$ à l'inscription
   \item Application gratuite ou payante (30\% pour google)
