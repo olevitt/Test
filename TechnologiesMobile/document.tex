@@ -165,6 +165,28 @@ La programmation android fait partie des plus accessibles :
 C'est tout !
 }
 \frame{
+\frametitle{Les niveaux d'API}
+\begin{table}
+\begin{tabular}{|l|c|c|c|r|}
+  \hline
+  Version & Nom & API level & Distribution & Cumulé \\
+  \hline
+  1.5 & Cupcake & 3 & 0\% & 0\% \\
+  1.6 & Donut & 4 & 0.2\% & 0.2\% \\
+  2.1 & Eclair & 7 & 2.4\% & 2.6\% \\
+  2.2 & Froyo & 8 & 9\% & 11.6\% \\
+  2.3 & Gingerbread & 9/10 & 47.6\% & 59.2\% \\
+  3.X & Honeycomb & 12/13 & 1.5\% & 60.7\% \\
+  4.0.X & Ice cream sandwich & 15 & 29.1\% & 89.8\% \\
+  4.1 & Jelly bean & 16 & 9\% & 98.8\% \\
+  4.2 & Jelly bean & 17 & 1.2\% & 100\% \\
+  \hline
+\end{tabular}
+\caption{\label{s}Répartition des versions pour les accès au google play sur la
+dernière quinzaine de 2012}
+\end{table}
+}
+\frame{
 \frametitle{Présentation du SDK android}
 Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=300pt]{sdk.png}
@@ -225,6 +247,31 @@ ADT fait le lien entre eclipse et le SDK android
  \end{itemize}
 }
 \subsection{Architecture}
+\frame{
+\frametitle{Organisation d'un projet android}
+\includegraphics[width=150pt]{structure.png}
+}
+\frame{
+\frametitle{Détail de l'organisation}
+\begin{itemize}
+  \item src : code source java
+  \item gen : identifiants des ressources (généré par le sdk)
+  \item Android 4.2 : jar correspondant à l'API cible
+  \item Android Dependencies : jar rajoutés, correspond à libs
+  \item assets : fichiers fournis avec l'app
+  \item bin : résultat de la compilation (dont l'apk)
+  \item libs : jar rajoutés
+  \item res : ressources (layouts, strings, images \ldots)
+  \item AndroidManifest.xml : métadonnées sur l'application, composants,
+  permissions \ldots
+  \item proguard-project.txt : configuration de proguard
+  \item project.properties : généré par le sdk
+ \end{itemize}
+}
+\frame{
+\frametitle{AndroidManifest.xml : le coeur de l'application}
+\includegraphics[width=150pt]{manifest.png}
+}
 \frame{
 \frametitle{Activity et cycle de vie de l'application}
 }
