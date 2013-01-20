@@ -1,11 +1,18 @@
 \documentclass{beamer}
 \usepackage{beamerthemesplit} % new 
 \usepackage[utf8]{inputenc}
+\usetheme{Warsaw}
 \begin{document}
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 \date{\today} 
-
+\AtBeginSubsection[]
+{
+  \begin{frame}
+  \frametitle{Contents}
+  \tiny{\tableofcontents[currentsubsection]}
+  \end{frame}
+}
 
 
 \frame{
@@ -34,10 +41,11 @@
 \frame{
 \frametitle{Evaluation}
 \begin{itemize}
-  \item{Projet + soutenance}
+  \item{Projet : création d'une application}
   \item{Groupe de 2}
   \item{Sujet ``libre''}
   \item{6h de TP dédiées au projet + travail personnel}
+  \item{Soutenance / Présentation de l'application}
 \end{itemize}
 }
 \subsection{Champ du cours}
@@ -52,7 +60,6 @@
 }
 
 \section{Le développement mobile} 
-\subsection{Comparaison des différents OS mobile}
 \subsection{Spécificités du développement mobile}
 \frame{
 \frametitle{Des appareils suréquipés}
@@ -123,14 +130,16 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Obligation d'utiliser le SDK fourni
   \item Suivre les guidelines
-  \item Restrictions liées à la plateforme 
+  \item Restrictions liées à la plateforme
   \item Utilisation des services de la plateforme
   \item Processus de déploiement des applications
   \item Règles des ``store'' (validation, monétisation \ldots)
 \end{itemize}
 }
+\subsection{Comparaison des différents OS mobile}
+
 \section{Le développement sur android} 
-\frame{\frametitle{Sommaire}\tableofcontents} 
+
 \subsection{Mise en place}
 \frame{
 \frametitle{Les marque-page}
@@ -142,6 +151,7 @@ Comment gérer toutes les tailles d'écran ?
   \item www.stackoverflow (Q/A EN)
   \item \#android et \#android-dev sur freenode (chat irc EN)
   \item www.breizhjug.org et www.paug.fr (communautés FR)
+  \item www.google.fr (réservoir à tutoriels)
 \end{itemize}
 }
 \frame{
@@ -160,7 +170,25 @@ Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=300pt]{sdk.png}
 }
 \frame{
+\frametitle{Présentation du SDK android}
+\begin{itemize}
+  \item add-ons : Google APIs
+  \item docs : Copie de la documentation disponible sur d.android.com
+  \item extras : Lib de compatibilité, lib pour les achats in-app \ldots
+  \item platform-tools : Binaires de communication avec les appareils android
+  (adb, fastboot \ldots)
+  \item platforms : 1 dossier par niveau d'API téléchargé
+  \item samples : Exemples de projets
+  \item sources : Sources de chaque niveau d'API
+  \item system-images : Images pour l'émulateur
+  \item temp
+  \item tools : Outils pour le dev (ddms, apkbuilder, lint \ldots)
+\end{itemize}
+}
+\frame{
 \frametitle{Plugin android pour eclipse : ADT}
+Installation comme un plugin eclipse classique\\ 
+https://dl-ssl.google.com/android/eclipse/\\
 ADT fait le lien entre eclipse et le SDK android
 \includegraphics[width=100pt]{adt.png}
 \includegraphics[width=200pt]{views.png}\\\\
@@ -175,6 +203,16 @@ ADT fait le lien entre eclipse et le SDK android
 \end{itemize}
 \includegraphics[width=300pt]{avd.png}
 \includegraphics[width=42pt]{emu.png}
+}
+\frame{
+\frametitle{Alternative à l'émulateur}
+\begin{itemize}
+  \item Problème : émuler de l'ARM sur nos machines x86
+  \item Résultat : émulateur (très (très)) lent
+  \item Solution proposée : porter android sur x86
+  \item http://www.android-x86.org/
+\end{itemize}
+\includegraphics[width=170pt]{x86.png}
 }
 \frame{
 \frametitle{Distribuer l'application}
