@@ -1,6 +1,7 @@
 \documentclass{beamer}
 \usepackage{beamerthemesplit} % new 
 \usepackage[utf8]{inputenc}
+\usepackage{tabularx} % in the preamble
 \usetheme{Warsaw}
 \begin{document}
 \title{Technologies mobiles} 
@@ -17,10 +18,12 @@
 
 \frame{
 \titlepage
+\begin{center}
 \includegraphics[width=60pt]{google-android.jpg}
 \includegraphics[width=60pt]{ios.png}
 \includegraphics[width=60pt]{wp8.jpg}
 \includegraphics[width=60pt]{bb10.jpg}
+\end{center}
 } 
 
 \frame{\frametitle{Sommaire}\tableofcontents} 
@@ -48,11 +51,12 @@
   \item{Soutenance / Présentation de l'application}
 \end{itemize}
 }
-\subsection{Champ du cours}
+\subsection{Contexte et objectifs}
 \frame{
-\frametitle{Contexte}
+\frametitle{Contexte et objectifs}
 \begin{itemize}
-  \item Smartphones, tablettes et assimilés (TV, montre, autoradio \ldots)
+  \item Smartphones, tablettes et assimilés (TV, montre, autoradio, consoles de
+  jeu \ldots)
   \item Dev d'application, pas de dev de la plateforme
   \item 1ère partie : le dev mobile en général
   \item 2ème partie : application sous android
@@ -70,6 +74,7 @@
   \item Capteurs (Luminosité, proximité)
   \item Localisation (GPS, triangulation, SSID wifi)
   \item Notifications (Vibreur, haut-parleurs, LED)
+  \item Photo / vidéo
   \item Stockage de données (Mémoire flash, SD externe, SQLite)
   \item Interactions (Ecran tactile, gestures, boutons physique)
   \item Et encore d'autres \ldots
@@ -136,8 +141,63 @@ Comment gérer toutes les tailles d'écran ?
   \item Règles des ``store'' (validation, monétisation \ldots)
 \end{itemize}
 }
-\subsection{Comparaison des différents OS mobile}
-
+\subsection{Présentation des différents OS mobile}
+\frame{
+\frametitle{iOS}
+\begin{itemize}
+  \item Soutenu par Apple
+  \item Présenté le 9 janvier 2007
+  \item Dédié aux produits apple (iPhone, iPad, iPod)
+  \item 400 millions d'appareils (Septembre 2012)
+  \item Programmation en objective-C, sur mac OS X uniquement
+  \item Appstore : validation + 100\$ / an
+\end{itemize}
+}
+\frame{
+\frametitle{Android}
+\begin{itemize}
+  \item Soutenu par Google
+  \item 1.0 en septembre 2008, 1.5 en avril 2009
+  \item Plus de 2400 appareils officiellement supportés, + de 50 constructeurs
+  \item 480 millions d'appareils activés (Septembre 2012)
+  \item Programmation en JAVA, sur windows / OS X / linux
+  \item Open-source
+  \item Google playstore : pas de validation + 25\$
+\end{itemize}
+}
+\frame{
+\frametitle{Windows phone 8}
+\begin{itemize}
+  \item Soutenu par Microsoft
+  \item Présentation au public le 29 octobre 2012
+  \item Successeur de windows phone 7 (logique)
+  \item Plusieurs constructeurs dont Nokia, HTC et Samsung
+  \item Programmation en C# sur windows 
+  \item Windows marketplace : validation + 100\$ / an
+\end{itemize}
+}
+\frame{
+\frametitle{Blackberry 10}
+\begin{itemize}
+  \item Soutenu par RIM (Research in motion)
+  \item Présentation au public le 30 janvier 2012 (!)
+  \item Appareils produits par RIM
+  \item C / C++, HTML5, Adobe AIR, Portage android
+  \item Blackberry appworld : validation + gratuit
+\end{itemize}
+}
+\frame{
+\frametitle{Ubuntu for phones}
+\begin{itemize}
+  \item Soutenu par Cannonical
+  \item Teaser le 2 janvier 2012, testable sur galaxy nexus fin février
+  \item Premiers ubuntu phones promis pour début 2014
+  \item Facilement utilisable sur les téléphones android ?
+  \item HTML5, C/C++ + QML
+  \item Open-source
+  \item Peu d'infos sur le store
+\end{itemize}
+}
 \section{Le développement sur android} 
 
 \subsection{Mise en place}
@@ -271,9 +331,22 @@ ADT fait le lien entre eclipse et le SDK android
 \frame{
 \frametitle{AndroidManifest.xml : le coeur de l'application}
 \includegraphics[width=150pt]{manifest.png}
+\begin{itemize}
+  \item Déclaration des composants
+  \item Déclaration des permissions
+  \item Analysé par l'OS à l'installation
+ \end{itemize}
 }
 \frame{
-\frametitle{Activity et cycle de vie de l'application}
+\frametitle{Activity, le composant de base}
+  \includegraphics[width=50pt]{activity.png}
+\begin{itemize}
+
+  \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
+  \item Une application peut avoir 0-n activities
+  \item A ajouter dans le manifest (sinon crash)
+  \item Créer une classe java héritant de Activity
+ \end{itemize}
 }
 \subsection{IHM}
 \subsection{Données}
