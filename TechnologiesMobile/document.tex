@@ -3,8 +3,29 @@
 \usepackage{beamerthemesplit} % new 
 \usepackage[utf8]{inputenc}
 \usepackage{tabularx} % in the preamble
+\usepackage{listings}
 \usetheme{Warsaw}
 \begin{document}
+\lstset{
+	tabsize=4,
+	language=Java,
+        basicstyle=\scriptsize,
+        columns=fixed,
+        extendedchars=true,
+        breaklines=true,
+		frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+        numbers=left, 
+        numberstyle=\tiny,
+        xleftmargin=\parindent
+}
+
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 \date{\today} 
@@ -346,20 +367,163 @@ ADT fait le lien entre eclipse et le SDK android
  \end{itemize}
 }
 \frame{
-\frametitle{Activity, le composant de base}
-  \includegraphics[width=50pt]{activity.png}
+\frametitle{Le système de ressources}
+\includegraphics[width=150pt]{ressources.png}
 \begin{itemize}
-
-  \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
-  \item Une application peut avoir 0-n activities
-  \item A ajouter dans le manifest (sinon crash)
-  \item Créer une classe java héritant de Activity
+  \item Un identifiant est généré pour chaque ressource (drawable, layout, menu,
+  values, style \ldots)
+  \item Nom de l'identifiant = nom de la ressource sans l'extension
  \end{itemize}
 }
 \subsection{IHM}
+\frame{
+\frametitle{Activity, le composant de base}
+  \includegraphics[width=50pt]{activity.png}
+\begin{itemize}
+  \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
+  \item Une application peut avoir 0-n activities
+  \item A ajouter dans le manifest (sinon crash)
+  \item Créer une classe java héritant de Activity 
+ \end{itemize}
+}
+\frame{
+\frametitle{Cycle de vie d'une activity} 
+  \includegraphics[width=150pt]{activity_lifecycle.png}
+}
+\begin{frame}[fragile]
+\frametitle{Créer une activity : étendre Activity} 
+\begin{lstlisting}
+public Class MyActivity extends Activity {
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+	}
+}
+\end{lstlisting}
+ \begin{itemize}
+ \item onCreate est appellé à la création de l'activity (cf cycle de vie)
+ \item appel obligatoire à super.onCreate
+ \item le bundle savedInstanceState contient les informations en cas de
+ relancement de l'activity
+ \item savedInstanceState est null s'il s'agit du premier lancement
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{L'organisation d'une activity : les layouts} 
+\begin{lstlisting}
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+
+</LinearLayout>
+\end{lstlisting}
+ \begin{itemize}
+ \item Ils sont définis en XML dans le dossier res/layout
+ \item Ils définissent l'organisation des vues
+ \item Eviter au maximum de modifier / créer les layouts au runtime
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les Views}
+  \begin{itemize}
+    \item Une vue = un élement à l'écran
+    \item TextView = Un texte
+    \item EditText = Un champ de texte remplissable
+    \item ImageView = Une image
+    \item Button
+    \item CheckBox
+    \item Plein d'autres views de base dans android
+    \item Possibilité de créer ses propres views en étendant View ou SurfaceView
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les ViewGroups}
+  \includegraphics[width=150pt]{viewgroup.png}
+  \begin{itemize}
+ \item LinearLayout
+ \item RelativeLayout
+ \item ListView
+ \item Plein d'autres
+ \item Les vôtres :)
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Accéder aux éléments de l'UI en java}
+Etape 1 : donner un identifiant à la vue
+\begin{lstlisting}
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/monlayout">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/matextview"
+        android:text="@string/hello_world" />
+
+</LinearLayout>
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Accéder aux éléments de l'UI en java}
+Etape 2 : récupérer les réferences vers les views
+\begin{lstlisting}
+public Class MyActivity extends Activity {
+
+	ViewGroup layout = null;
+	TextView monTexte = null;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		layout = (ViewGroup) findViewById(R.id.monlayout);
+		monTexte = (TextView) findViewById(R.id.matextview);
+	}
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Accéder aux éléments de l'UI en java}
+\begin{lstlisting}
+public Class MyActivity extends Activity {
+
+	ViewGroup layout = null;
+	TextView monTexte = null;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_main);
+		layout = (ViewGroup) findViewById(R.id.monlayout);
+		monTexte = (TextView) findViewById(R.id.matextview);
+	}
+	
+	public void changerTexte(String texte) {
+		monTexte.setText(texte);
+	}
+	
+	public void cacherTout() {
+		layout.setVisibility(View.INVISIBLE);
+	}
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ecouter les évenements}
+Système de listeners, comme sur swing
+\end{frame}
+
 \subsection{Données}
-
-
-
 
 \end{document}
