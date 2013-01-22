@@ -199,7 +199,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Présentation au public le 29 octobre 2012
   \item Successeur de windows phone 7 (logique)
   \item Plusieurs constructeurs dont Nokia, HTC et Samsung
-  \item Programmation en C# sur windows 
+  \item Programmation en C\# sur windows 
   \item Windows marketplace : validation + 100\$ / an
 \end{itemize}
 }
@@ -382,7 +382,7 @@ ADT fait le lien entre eclipse et le SDK android
 \begin{itemize}
   \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
   \item Une application peut avoir 0-n activities
-  \item A ajouter dans le manifest (sinon crash)
+  \item A ajouter dans le manifest
   \item Créer une classe java héritant de Activity 
  \end{itemize}
 }
@@ -433,8 +433,8 @@ public Class MyActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Les Views}
+   Une vue = un élement à l'écran
   \begin{itemize}
-    \item Une vue = un élement à l'écran
     \item TextView = Un texte
     \item EditText = Un champ de texte remplissable
     \item ImageView = Une image
@@ -456,7 +456,7 @@ public Class MyActivity extends Activity {
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Accéder aux éléments de l'UI en java}
+\frametitle{Manipuler les éléments de l'UI en java}
 Etape 1 : donner un identifiant à la vue
 \begin{lstlisting}
 <LinearLayout 
@@ -465,52 +465,52 @@ Etape 1 : donner un identifiant à la vue
     android:layout_height="match_parent"
     android:id="@+id/monlayout">
 
-    <TextView
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/matextview"
+        android:id="@+id/monbouton"
         android:text="@string/hello_world" />
 
 </LinearLayout>
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Accéder aux éléments de l'UI en java}
+\frametitle{Manipuler les éléments de l'UI en java}
 Etape 2 : récupérer les réferences vers les views
 \begin{lstlisting}
 public Class MyActivity extends Activity {
 
 	ViewGroup layout = null;
-	TextView monTexte = null;
+	Button bouton = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		layout = (ViewGroup) findViewById(R.id.monlayout);
-		monTexte = (TextView) findViewById(R.id.matextview);
+		bouton = (Button) findViewById(R.id.monbouton);
 	}
 }
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Accéder aux éléments de l'UI en java}
+\frametitle{Manipuler les éléments de l'UI en java}
 \begin{lstlisting}
 public Class MyActivity extends Activity {
 
 	ViewGroup layout = null;
-	TextView monTexte = null;
+	Button bouton = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		layout = (ViewGroup) findViewById(R.id.monlayout);
-		monTexte = (TextView) findViewById(R.id.matextview);
+		bouton = (Button) findViewById(R.id.monbouton);
 	}
 	
 	public void changerTexte(String texte) {
-		monTexte.setText(texte);
+		bouton.setText(texte);
 	}
 	
 	public void cacherTout() {
@@ -521,9 +521,129 @@ public Class MyActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Ecouter les évenements}
-Système de listeners, comme sur swing
+\begin{itemize}
+ \item Système de listeners (cf swing)
+ \item Il se passe quelque chose sur la vue (touch, focus \ldots) : le listener
+ est prévenu
+ \item Pour simplifier, sur android on a en général qu'un listener par évenement
+ et par view (setXListener au lieu de addXListener sous swing)
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ecouter les évenements, guide du bon listener}
+Etape 1 : Les interfaces XListener
+\begin{lstlisting}
+public Interface OnClickListener {
+	void onClick(View v);
+}
+\end{lstlisting}
+Etape 2 : Implémenter l'interface
+\begin{lstlisting}
+public MaClasse implements OnClickListener {
+	public void onClick(View v) {
+		//Un click a ete fait sur la vue v
+	}
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ecouter les évenements, guide du bon listener}
+Etape 3 : S'enregistrer comme listener
+\begin{lstlisting}
+public Class MyActivity extends Activity implements OnClickListener {
+
+	Button bouton = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bouton = (Button) findViewById(R.id.monbouton);
+        bouton.setOnClickListener(this);
+    }
+	
+    public void onClick(View v) {
+        //Un Click a ete fait sur la vue v
+    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ecouter les évenements, quelques feintes}
+Feinte 1 : Utiliser des listeners anonymes
+\begin{lstlisting}
+public Class MyActivity extends Activity implements OnClickListener {
+
+    Button bouton = null;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        bouton = (Button) findViewById(R.id.monbouton);
+        bouton.setOnClickListener(new OnClickListener() {
+                public void onClick(View v) {
+                //Un Click a ete fait sur la vue v
+                }
+            });
+	    }
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Ecouter les évenements, quelques feintes}
+Feinte 2 : Définir le listener directement dans le layout
+\begin{lstlisting}
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/monlayout">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/monbouton"
+        android:text="@string/hello_world"
+        android:onClick="clickSurLeBouton" />
+
+</LinearLayout>
+\end{lstlisting}
+\begin{lstlisting}
+public void clickSurLeBouton(View v) //dans MyActivity
+\end{lstlisting}
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Les intents}
+\begin{itemize}
+ \item On déclare son intention, android réagit en conséquence
+ \item Intents implicites ``Je veux ouvrir la page web https://twitter.com/Ensai35''
+ \item ``Je veux envoyer un mail à jlegouic@ensai.fr avec le titre URGENT : FOOT''
+ \item Intents explicites ``Je veux lancer l'activity MyActivity''
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Lancer un intent implicite}
+\begin{lstlisting}
+public MyActivity extends Activity {
+    
+    public void envoyerMail() {
+        Intent i = new Intent(Intent.ACTION_SEND);
+        i.setType("message/rfc822");
+        i.putExtra(Intent.EXTRA_EMAIL  , "annee2@ensai.fr");
+        i.putExtra(Intent.EXTRA_SUBJECT,"URGENT : FOOT"); 
+        i.putExtra(Intent.EXTRA_TEXT   , "...");
+        try {
+            startActivity(i);
+        } 
+        catch (ActivityNotFoundException ex) {
+            //Pas de client mail installe
+        }
+    }	
+}
+\end{lstlisting}
+\end{frame}
 \subsection{Données}
 
 \end{document}
