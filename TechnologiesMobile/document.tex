@@ -69,8 +69,18 @@
   \item{Projet : création d'une application}
   \item{Groupe de 2}
   \item{Sujet ``libre''}
-  \item{6h de TP dédiées au projet + travail personnel}
+  \item{6h de TP dédiées au projet + \textbf{travail personnel}}
   \item{Soutenance / Présentation de l'application}
+\end{itemize}
+}
+\frame{
+\frametitle{Evaluation, exemples de sujets}
+\begin{itemize}
+  \item{PamplemousseViewer v2}
+  \item{Gestion d'une bibliothèque}
+  \item{Quiz}
+  \item{Tape-taupes}
+  \item{Serveur SMS}
 \end{itemize}
 }
 \subsection{Contexte et objectifs}
@@ -79,8 +89,8 @@
 \begin{itemize}
   \item Smartphones, tablettes et assimilés (TV, montre, autoradio, consoles de
   jeu \ldots)
-  \item Dev d'application, pas de dev de la plateforme
-  \item 1ère partie : le dev mobile en général
+  \item Développement d'application, pas de dev de la plateforme
+  \item 1ère partie : le développement mobile en général
   \item 2ème partie : application sous android
 \end{itemize}
 }
@@ -227,6 +237,18 @@ Comment gérer toutes les tailles d'écran ?
   \item Peu d'infos sur le store
 \end{itemize}
 }
+\frame{
+\frametitle{Firefox OS}
+\begin{itemize}
+  \item Soutenu par Mozilla
+  \item Premiers téléphones présentés le 22 janvier (geeksphone), disponibles en
+  février ?
+  \item Simulateur sous forme d'addon firefox
+  \item HTML5
+  \item Open-source
+  \item Peu d'infos sur le store
+\end{itemize}
+}
 \section{Le développement sur android} 
 
 \subsection{Mise en place}
@@ -244,14 +266,18 @@ Comment gérer toutes les tailles d'écran ?
 \end{itemize}
 }
 \frame{
-\frametitle{Bien commencer}
-La programmation android fait partie des plus accessibles :
+\frametitle{Avant de commencer, la checklist}
+Obligatoire :\\
 \begin{itemize}
   \item Des (bonnes) bases de programmation en JAVA
   \item Un ordinateur (Windows, Linux, Mac OS X)
-  \item Un appareil android (conseillé, l'émulateur étant \ldots moyen)
 \end{itemize}
-C'est tout !
+Conseillé :\\
+\begin{itemize}
+  \item Un appareil android (l'émulateur est \ldots moyen)
+  \item Parler anglais
+  \item Suivre l'actualité
+\end{itemize}
 }
 \frame{
 \frametitle{Les niveaux d'API}
@@ -325,16 +351,6 @@ ADT fait le lien entre eclipse et le SDK android
 \end{itemize}
 \includegraphics[width=170pt]{x86.png}
 }
-\frame{
-\frametitle{Distribuer l'application}
-\begin{itemize}
-  \item Une application android = un APK (+/- équivalent d'un jar)
-  \item Création et signature de l'APK simple sous eclipse
-  \item Distribution directe de l'APK (ex : pour tester, béta fermée)
-  \item Publication sur le playstore, 25\$ à l'inscription
-  \item Application gratuite ou payante (30\% pour google)
- \end{itemize}
-}
 \subsection{Architecture}
 \frame{
 \frametitle{Organisation d'un projet android}
@@ -363,6 +379,7 @@ ADT fait le lien entre eclipse et le SDK android
 \begin{itemize}
   \item Déclaration des composants
   \item Déclaration des permissions
+  \item Déclaration d'autres métadonnées de l'application
   \item Analysé par l'OS à l'installation
  \end{itemize}
 }
@@ -373,7 +390,67 @@ ADT fait le lien entre eclipse et le SDK android
   \item Un identifiant est généré pour chaque ressource (drawable, layout, menu,
   values, style \ldots)
   \item Nom de l'identifiant = nom de la ressource sans l'extension
+  \item Utiliser des ressources différentes en fonction de la configuration
+  (values et values-fr, drawable et drawable-hdpi)
  \end{itemize}
+}
+\frame{
+\frametitle{Déployer l'application}
+\begin{itemize}
+  \item Une application android = un APK (+/- équivalent d'un jar)
+  \item Une application android doît être signée 
+  \item Attention à ne pas perdre la clé !
+  \item Création et signature de l'APK simple sous eclipse (export)
+ \end{itemize}
+}
+\frame{
+\frametitle{Processus de déploiement en dev}
+\includegraphics[width=50pt]{runas.png}
+\includegraphics[width=300pt]{console.png}
+\begin{itemize}
+  \item Comme pour une application JAVA classique, ctrl + F11
+  \item Eclipse demande au SDK de builder l'APK
+  \item Eclipse signe l'APK avec la clé debug 
+  \item Eclipse demande à adb (SDK) d'installer l'application
+  \item Soit sur un appareil android connécté soit sur un émulateur
+ \end{itemize}
+}
+\frame{
+\frametitle{Distribuer l'application}
+\begin{itemize}
+  \item Distribution directe de l'APK (ex : pour tester, béta fermée)
+  \item Publication sur le playstore, 25\$ à l'inscription
+  \item Application gratuite ou payante (30\% pour google)
+ \end{itemize}
+}
+\frame{
+\frametitle{Déboguer l'application}
+\includegraphics[width=120pt]{fc.png}
+\begin{itemize}
+  \item Si une exception n'est pas rattrapée, android tue l'application
+  \item On parle de ``force close'' (FC)
+  \item Comment déboguer une application qui tourne sur un appareil (ou
+  émulateur) ?
+ \end{itemize}
+}
+\frame{
+\frametitle{Stacktrace of GTFO}
+\includegraphics[width=120pt]{jacoj.jpg}
+}
+\frame{
+\frametitle{Logcat, le sauveur}
+\includegraphics[width=120pt]{logcat.jpg}
+\begin{itemize}
+  \item Le SDK fournit un outil très pratique : logcat
+  \item On appelle logcat par adb : adb logcat ou on utilise la vue LogCat du
+  plugin ADT
+  \item Logcat affiche l'ensemble des logs, système et application
+ \end{itemize}
+}
+\frame{
+\frametitle{Logcat, exemple}
+\includegraphics[width=340pt]{logeclipse.png}\\
+\includegraphics[width=340pt]{logterminal.png}
 }
 \subsection{IHM}
 \frame{
@@ -615,6 +692,33 @@ public void clickSurLeBouton(View v) //dans MyActivity
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{La classe abstraite context}
+\begin{itemize}
+ \item La plupart des fonctions d'android (accéder à une ressource,
+ lancer une activité \ldots) nécessitent une instance de Context
+ \item Un Context regroupe des informations globales sur l'environnement de
+ l'application
+ \item Android se charge de créer les contextes
+ \item Activity hérite (indirectement) de Context
+ \item Les views ont toutes une réference vers un context
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Affichage d'un court message : le toast}
+\includegraphics[width=60pt]{coucou.png}
+\begin{lstlisting}
+public MyActivity extends Activity {
+    
+    public void faireCoucou() {
+        Toast.makeText(this,"Coucou",Toast.LENGTH_LONG).show();
+        Toast.makeText(this,R.string.coucou,Toast.LENGTH_SHORT).show();
+    }	
+}
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{Les intents}
 \begin{itemize}
  \item On déclare son intention, android réagit en conséquence
@@ -640,6 +744,19 @@ public MyActivity extends Activity {
         catch (ActivityNotFoundException ex) {
             //Pas de client mail installe
         }
+    }	
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Lancer un intent explicite}
+\begin{lstlisting}
+public MyActivity extends Activity {
+    
+    public void lancerMyActivity2() {
+        Intent intent = new Intent(this, MyActivity2.class); 
+        //this fait reference a un context
+        startActivity(intent);
     }	
 }
 \end{lstlisting}
