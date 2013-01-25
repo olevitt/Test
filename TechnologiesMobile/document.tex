@@ -32,7 +32,7 @@
 \AtBeginSubsection[]
 {
   \begin{frame}
-  \frametitle{Contents}
+  \frametitle{Sommaire}
   \tiny{\tableofcontents[currentsubsection]}
   \end{frame}
 }
@@ -63,6 +63,7 @@
   \item {? mars : Soutenance du projet}
 \end{itemize}
 }
+
 \frame{
 \frametitle{Evaluation}
 \begin{itemize}
@@ -325,7 +326,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frame{
 \frametitle{Plugin android pour eclipse : ADT}
 Installation comme un plugin eclipse classique\\ 
-https://dl-ssl.google.com/android/eclipse/\\
+\url{https://dl-ssl.google.com/android/eclipse/}\\
 ADT fait le lien entre eclipse et le SDK android
 \includegraphics[width=100pt]{adt.png}
 \includegraphics[width=200pt]{views.png}\\\\
@@ -347,7 +348,9 @@ ADT fait le lien entre eclipse et le SDK android
   \item Problème : émuler de l'ARM sur nos machines x86
   \item Résultat : émulateur ((très) très) lent
   \item Solution proposée : porter android sur x86
-  \item http://www.android-x86.org/
+  \item \url{http://www.android-x86.org/}
+  \item \url{http://www.androvm.org/}
+  \item 2012 : premiers appareils android sous x86 ``intel inside''
 \end{itemize}
 \includegraphics[width=170pt]{x86.png}
 }
@@ -383,6 +386,22 @@ ADT fait le lien entre eclipse et le SDK android
   \item Analysé par l'OS à l'installation
  \end{itemize}
 }
+\begin{frame}[fragile]
+\frametitle{Les permissions}
+\begin{itemize}
+  \item Obligatoires pour certaines fonctions (internet, géolocalisation,
+  hardware \ldots)
+  \item Les applications peuvent définir leurs propres permissions
+  \item L'utilisateur est prévenu à l'installation / mise à jour
+ \end{itemize}
+ \begin{lstlisting}[language=XML]
+<uses-permission android:name="android.permission.INTERNET"/>
+<uses-permission android:name="android.permission.READ_SMS"/>
+<uses-permission android:name="android.permission.CAMERA"/>
+\end{lstlisting}
+\end{frame} 
+
+
 \frame{
 \frametitle{Le système de ressources}
 \includegraphics[width=150pt]{ressources.png}
@@ -452,7 +471,7 @@ ADT fait le lien entre eclipse et le SDK android
 \includegraphics[width=340pt]{logeclipse.png}\\
 \includegraphics[width=340pt]{logterminal.png}
 }
-\subsection{IHM}
+\subsection{Principes de base}
 \frame{
 \frametitle{Activity, le composant de base}
   \includegraphics[width=50pt]{activity.png}
@@ -463,6 +482,7 @@ ADT fait le lien entre eclipse et le SDK android
   \item Créer une classe java héritant de Activity 
  \end{itemize}
 }
+
 \frame{
 \frametitle{Cycle de vie d'une activity} 
   \includegraphics[width=150pt]{activity_lifecycle.png}
@@ -472,11 +492,11 @@ ADT fait le lien entre eclipse et le SDK android
 \begin{lstlisting}
 public Class MyActivity extends Activity {
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
 }
 \end{lstlisting}
  \begin{itemize}
@@ -557,16 +577,16 @@ Etape 2 : récupérer les réferences vers les views
 \begin{lstlisting}
 public Class MyActivity extends Activity {
 
-	ViewGroup layout = null;
-	Button bouton = null;
+    ViewGroup layout = null;
+    Button bouton = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		layout = (ViewGroup) findViewById(R.id.monlayout);
-		bouton = (Button) findViewById(R.id.monbouton);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        layout = (ViewGroup) findViewById(R.id.monlayout);
+        bouton = (Button) findViewById(R.id.monbouton);
+    }
 }
 \end{lstlisting}
 \end{frame}
@@ -575,24 +595,24 @@ public Class MyActivity extends Activity {
 \begin{lstlisting}
 public Class MyActivity extends Activity {
 
-	ViewGroup layout = null;
-	Button bouton = null;
+    ViewGroup layout = null;
+    Button bouton = null;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		layout = (ViewGroup) findViewById(R.id.monlayout);
-		bouton = (Button) findViewById(R.id.monbouton);
-	}
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        layout = (ViewGroup) findViewById(R.id.monlayout);
+        bouton = (Button) findViewById(R.id.monbouton);
+    }
 	
-	public void changerTexte(String texte) {
-		bouton.setText(texte);
-	}
+    public void changerTexte(String texte) {
+        bouton.setText(texte);
+    }
 	
-	public void cacherTout() {
-		layout.setVisibility(View.INVISIBLE);
-	}
+    public void cacherTout() {
+        layout.setVisibility(View.INVISIBLE);
+    }
 }
 \end{lstlisting}
 \end{frame}
@@ -611,15 +631,15 @@ public Class MyActivity extends Activity {
 Etape 1 : Les interfaces XListener
 \begin{lstlisting}
 public Interface OnClickListener {
-	void onClick(View v);
+    void onClick(View v);
 }
 \end{lstlisting}
 Etape 2 : Implémenter l'interface
 \begin{lstlisting}
 public MaClasse implements OnClickListener {
-	public void onClick(View v) {
-		//Un click a ete fait sur la vue v
-	}
+    public void onClick(View v) {
+        //Un click a ete fait sur la vue v
+    }
 }
 \end{lstlisting}
 \end{frame}
@@ -629,7 +649,7 @@ Etape 3 : S'enregistrer comme listener
 \begin{lstlisting}
 public Class MyActivity extends Activity implements OnClickListener {
 
-	Button bouton = null;
+    Button bouton = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -719,10 +739,41 @@ public MyActivity extends Activity {
 \end{frame}
 
 \begin{frame}[fragile]
+\frametitle{Les autres composants d'une application : les services}
+\begin{itemize}
+ \item Tâche en arrière plan (attention, pas automatiquement dans un thread séparé)
+ \item Cycle de vie différent de celui d'une activity
+ \item Pas d'interface graphique (sauf si une activity interroge le service)
+ \item Exemples : lecteur MP3, client torrent, système de mise à jour, taskkiller \ldots
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les autres composants d'une application : les broadcast receivers}
+\begin{itemize}
+ \item Composant recevant les annonces système et les annonces des autres applications
+ \item Permet de réagir à certains évenements
+ \item Possibilité de lancer des activités ou des services depuis le broadcast receiver
+ \item Exemples : indicateur de batterie, antivirus, lancement au démarrage \ldots
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les autres composants d'une application : les content-providers}
+\begin{itemize}
+  \item Composant servant à distribuer les données
+  \item Peu importe comment les données sont stockées (sqlite, préferences, fichier \ldots)
+  \item Respecte une interface d'utilisation des données
+  \item Peut permettre la récupération, la modification et/ou la suppression de données
+  \item Principalement déstiné à une utilisation entre applications
+  \item Gestion de la sécurité et des droits (permissions)
+  \item Exemple : accès au données système (SMS, contacts \ldots) 
+ \end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
 \frametitle{Les intents}
 \begin{itemize}
  \item On déclare son intention, android réagit en conséquence
- \item Intents implicites ``Je veux ouvrir la page web https://twitter.com/Ensai35''
+ \item Intents implicites ``Je veux ouvrir la page web \url{https://twitter.com/Ensai35}''
  \item ``Je veux envoyer un mail à jlegouic@ensai.fr avec le titre URGENT : FOOT''
  \item Intents explicites ``Je veux lancer l'activity MyActivity''
  \end{itemize}
@@ -761,6 +812,44 @@ public MyActivity extends Activity {
 }
 \end{lstlisting}
 \end{frame}
-\subsection{Données}
+
+\begin{frame}[fragile]
+\frametitle{Filtrer les intents, le principe}
+\begin{itemize}
+    \item startActivity(), startService() et sendBroadcast() déclenchent des
+    intents
+	\item android filtre les composants succeptibles de recevoir l'intent en
+	fonction à partir des intent-filters de chaque composant
+\end{itemize}
+
+\begin{lstlisting}
+<activity android:name="com.ensai.technomobile.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Filtrer les intents, exemple}
+\includegraphics[width=45pt]{intentchooser.jpg}
+\begin{lstlisting}
+<activity
+            android:name="com.ensai.technomobile.TwitterActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <data
+                    android:host="twitter.com"
+                    android:scheme="http" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <action android:name="android.intent.action.VIEW" />
+            </intent-filter>
+        </activity>
+\end{lstlisting}
+\end{frame}
+
 
 \end{document}
