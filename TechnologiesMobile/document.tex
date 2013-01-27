@@ -494,7 +494,7 @@ public void sauvegarderScore(int score) {
 }
 \end{lstlisting}
 \end{frame}
-\subsection{Principes de base}
+\subsection{IHM}
 \frame{
 \frametitle{Activity, le composant de base}
   \includegraphics[width=50pt]{activity.png}
@@ -874,6 +874,14 @@ public MyActivity extends Activity {
 \end{lstlisting}
 \end{frame}
 
-
+\subsection{Les données}
+\begin{frame}
+Il existe plusieurs façons de stocker les données sur un appareil android
+\begin{itemize}
+    \item \textbf{SharedPreferences}: stockage primitif sous forme de mapping clé / valeur
+    \item \textbf{Fichiers}: contenus sur la mémoire interne ou externe (micro SD)
+    \item \textbf{Bases de données}: SQLite
+\end{itemize}
+\end{frame}
 
 \end{document}
