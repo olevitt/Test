@@ -565,12 +565,13 @@ public Class MyActivity extends Activity {
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_world" />
-
+        
 </LinearLayout>
 \end{lstlisting}
  \begin{itemize}
  \item Ils sont définis en XML dans le dossier res/layout
  \item Ils définissent l'organisation des vues
+ \item @string fait réference à une ressource de strings.xml
  \item Eviter au maximum de modifier / créer les layouts au runtime
  \end{itemize}
 \end{frame}
@@ -616,6 +617,10 @@ Etape 1 : donner un identifiant à la vue
 
 </LinearLayout>
 \end{lstlisting}
+\begin{itemize}
+    \item @+id crée un identifiant
+    \item L'identifiant doît être unique dans la hiérarchie (sinon conflit)
+ \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Manipuler les éléments de l'UI en java}
@@ -635,6 +640,10 @@ public Class MyActivity extends Activity {
     }
 }
 \end{lstlisting}
+\begin{itemize}
+    \item findViewById renvoie un objet de type View : nécessité de caster
+    \item si aucune vue n'a l'identifiant demandé, findViewById renvoie null
+ \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Manipuler les éléments de l'UI en java}
@@ -818,14 +827,27 @@ public MyActivity extends Activity {
 \begin{frame}[fragile]
 \frametitle{Les intents}
 \begin{itemize}
+ \item Messages asynchrones échangés entre applications ou entre composants
  \item On déclare son intention, android réagit en conséquence
- \item Intents implicites ``Je veux ouvrir la page web \url{https://twitter.com/Ensai35}''
- \item ``Je veux envoyer un mail à jlegouic@ensai.fr avec le titre URGENT : FOOT''
- \item Intents explicites ``Je veux lancer l'activity MyActivity''
+ \end{itemize}
+Un intent est constitué de plusieurs informations principales :
+\begin{itemize}
+ \item action : l'action à effectuer 
+ \item data : les données concernées, sous la forme d'une URI
+ \item Ex : ACTION\_VIEW content://contacts/people/1
+ \item ACTION\_DIAL tel:123
+ \end{itemize}
+Et d'informations secondaires : 
+\begin{itemize}
+ \item category : pour préciser l'action
+ \item type : pour forcer le type de données 
+ \item extras : des données libres supplémentaires
+ \item component : dans le cas des intents explicites
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Lancer un intent implicite}
+``Je veux envoyer un mail à annee2@ensai.fr avec le titre URGENT : FOOT''
 \begin{lstlisting}
 public MyActivity extends Activity {
     
@@ -847,14 +869,27 @@ public MyActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Lancer un intent explicite}
+``Je veux lancer l'activity ProfilActivity en transmettant l'id 42''
 \begin{lstlisting}
 public MyActivity extends Activity {
     
-    public void lancerMyActivity2() {
-        Intent intent = new Intent(this, MyActivity2.class); 
-        //this fait reference a un context
+    public void visualiserProfil() {
+        Intent intent = new Intent(this, ProfilActivity.class); 
+        //this est la en tant que context
+        intent.putExtra("id",42);
         startActivity(intent);
     }	
+}
+\end{lstlisting}
+
+\begin{lstlisting}
+public ProfilActivity extends Activity {
+    
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Intent intent = getIntent();
+        int id = intent.getIntExtra("id",-1);
+    }
 }
 \end{lstlisting}
 \end{frame}
