@@ -82,6 +82,7 @@
   \item{Quiz}
   \item{Tape-taupes}
   \item{Serveur SMS}
+  \item{Achievements}
 \end{itemize}
 }
 \subsection{Contexte et objectifs}
@@ -880,10 +881,11 @@ public MyActivity extends Activity {
 Il existe plusieurs façons de stocker les données sur un appareil android
 \begin{itemize}
     \item \textbf{SharedPreferences}: stockage de données primitives
-    \item \textbf{Fichiers}: contenus sur la mémoire interne ou externe (micro SD)
+    \item \textbf{Fichiers}: contenus sur la mémoire interne ou externe
     \item \textbf{Bases de données}: SQLite
     \item \textbf{Stockage distant}: webservice
 \end{itemize}
+Documentation android officielle sur le stockage de données : \url{http://developer.android.com/guide/topics/data/data-storage.html}
 \end{frame}
 
 \begin{frame}
@@ -931,6 +933,179 @@ public void sauvegarderScore() {
     editor.putInt("meilleurScore");
     editor.commit();
 }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les fichiers}
+\begin{itemize}
+    \item API classiques de java
+    \item Ne jamais utiliser de chemin absolu, utiliser les fonctions android pour déterminer les dossiers
+    \item Garder en tête les contraintes de place libre
+    \item Choisir entre stockage interne et externe
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Stockage interne}
+\begin{lstlisting}
+FileOutputStream fos = context.openFileOutput("monFichier.ext", Context.MODE_PRIVATE);
+fos.write("texte".getBytes());
+fos.close();
+\end{lstlisting}
+\begin{itemize}
+    \item Comme pour les préférences, ne pas utiliser les modes WORLD\_READABLE et WORLD\_WRITEABLE
+    \item MODE\_APPEND est utilisable pour écrire à la fin du fichier
+    \item Les fichiers crées sur le stockage interne sont liés à l'application (en particulier, ils sont supprimés lors de la désinstallation de l'application)
+\end{itemize}
+\begin{itemize}
+    \item getCacheDir() : répertoire pour le cache
+    \item getFilesDir() : dossier où sont stockés les fichiers de l'application
+    \item deleteFile(String nom)
+    \item fileList() : String[] des fichiers crées par l'application
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Stockage externe}
+\begin{itemize}
+    \item Far-west : l'utilisateur et toutes les applications peuvent lire / écrire tout le contenu
+    \item La présence d'un stockage externe n'est pas garanti
+    \item Même si il est présent, le stockage externe peut ne pas être disponible
+\end{itemize}
+\begin{lstlisting}
+String state = Environment.getExternalStorageState();
+if (Environment.MEDIA_MOUNTED.equals(state)) {
+    //Lecture et ecriture possibles
+} 
+else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
+    //Ecriture impossible, lecture possible
+} 
+else {
+    //Lecture et ecriture impossibles
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Stockage externe, utilisation}
+Pour le contenu utilisé uniquement par l'application :
+\begin{lstlisting}
+File file = new File(getExternalFilesDir(null), "DemoFile.jpg");
+\end{lstlisting}
+Ces fichiers seront supprimés lors de la désinstallation de l'application\\\\
+Pour le contenu déstiné à être partagé (donc persistant même après une désinstallation) : 
+\begin{lstlisting}
+File file = new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "DemoFile.jpg");
+\end{lstlisting}
+L'argument utilisé dans les 2 cas correspond au type de données et est une variable static de Environment\\
+Exemples : Environment.DIRECTORY\_PICTURES, DIRECTORY\_MUSIC, DIRECTORY\_DOWNLOADS, DIRECTORY\_DCIM \ldots
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{SQLite, le moteur de base de données embarqué}
+\begin{itemize}
+    \item SQLite est un moteur de base de données spécialement conçu pour le mobie et l'embarqué
+    \item On retrouve à peu près l'ensemble des fonctions de base d'un moteur de BDD
+    \item Android propose en plus une API facilitant les tâches courantes : SQLiteOpenHelper
+    \item Pour les requêtes, android offre une API proche de JDBC
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Mise en place d'une base de données SQLite}
+Etape 1 : étendre SQLiteOpenHelper 
+\begin{lstlisting}
+public class MyOpenHelper extends SQLiteOpenHelper {
+
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "mabase";
+
+    public MyOpenHelper(Context context) {
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    }
+}
+\end{lstlisting}
+Etape 2 : implémenter onCreate
+\begin{lstlisting}
+    @Override
+    public void onCreate(SQLiteDatabase db) {
+        db.execSQL("CREATE TABLE exemple (nom TEXT PRIMARY KEY, score INTEGER));
+    }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Mise en place d'une base de données SQLite}
+Etape 3 : Organiser les mises à jour de la base
+\begin{lstlisting}
+public class MyOpenHelper extends SQLiteOpenHelper {
+    @Override
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        //Mise a jour de la base si besoin
+    }
+}
+\end{lstlisting}
+\begin{itemize}
+    \item L'entier DATABASE\_VERSION permet de savoir si une mise à jour de la base est nécessaire
+    \item Android appelle directement onUpgrade si le numéro de version est supérieur au numéro de version actuel de la base
+    \item onUpgrade doît alors faire les mises à jour qui s'impose en fonction des entiers oldVersion / newVersion 
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Utilisation de SQLite}
+Récupérer une instance de SQLiteDatabase
+\begin{lstlisting}
+SQLiteOpenHelper helper = new SQLiteOpenHelper(context);
+SQLiteDatabase writableDB = helper.getWritableDatabase();
+SQLiteDatabase readableDB = helper.getReadableDatabase();
+\end{lstlisting}
+\begin{itemize}
+    \item Android propose un certain nombre de fonctions utilitaires pour le requêtage, l'insertion, la mise à jour et la suppresion de données
+    \item Penser à fermer la base avec .close() pour libérer des ressources
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Utilisation de SQLite, les requêtes}
+\begin{itemize}
+    \item 2 méthodes au choix en fonction du besoin
+    \item Ces méthodes sont déclinées en de multiples méthodes (surcharge)
+    \item rawQuery(String sql, String[] selectionArgs) pour du sql dur ({\raise.17ex\hbox{$\scriptstyle\sim$}} PreparedStatement)
+    \item query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) pour que android génère le sql
+\end{itemize}
+\begin{lstlisting}
+SQLiteDatabase writableDB = helper.getWritableDatabase();
+Cursor cursor1 = writableDB.rawQuery("SELECT nom,score FROM table WHERE id = ?",new String[] {"42"});
+Cursor cursor2 = writableDB.query("table",new String[] {"nom","score"}, "id = ?",new String[] {"42"}, null, null, null );
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Utilisation de SQLite, les cursors}
+\begin{itemize}
+    \item Wrappers autour d'un ResultSet
+    \item Utilisation très proche des resultSets
+    \item Penser à le fermer (close()) pour libérer des ressources
+\end{itemize}
+\begin{lstlisting}
+int nbRows = cursor.getCount();
+while (cursor.moveToNext()) {
+    String nom = cursor.getString(0);
+    int score = cursor.getInt(1);
+}
+cursor.close();
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Utilisation de SQLite : update, insert et delete}
+long insert (String table, String nullColumnHack, ContentValues values)
+\begin{lstlisting}
+ContentValues values = new ContentValues();
+values.put("nom", "bob");
+values.put("score", 42);
+long rowID = bdd.insert(table, null, values);
+\end{lstlisting}
+int update(String table, ContentValues values, String whereClause, String[] whereArgs)
+\begin{lstlisting}
+ContentValues values = new ContentValues();
+values.put("score", 42);
+int nbRowsAffected = bdd.update(table, values, "nom = ?",new String[] {"42"});
+\end{lstlisting}
+int delete (String table, String whereClause, String[] whereArgs)
+\begin{lstlisting}
+int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"bobette});
 \end{lstlisting}
 \end{frame}
 \end{document}
