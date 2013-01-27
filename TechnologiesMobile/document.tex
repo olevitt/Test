@@ -28,7 +28,9 @@
 
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
-\date{\today} 
+
+
+\date{Source et pdf de ce cours :\\\url{https://bitbucket.org/olevitt/technologies-mobiles}} 
 \AtBeginSubsection[]
 {
   \begin{frame}
@@ -405,15 +407,35 @@ ADT fait le lien entre eclipse et le SDK android
 
 \frame{
 \frametitle{Le système de ressources}
-\includegraphics[width=150pt]{ressources.png}
+\includegraphics[width=140pt]{ressources.png}
 \begin{itemize}
   \item Un identifiant est généré pour chaque ressource (drawable, layout, menu,
   values, style \ldots)
-  \item Nom de l'identifiant = nom de la ressource sans l'extension
+  \item Toutes les fonctions qui utilisent des ressources sont surchargées pour aussi accepter l'identifiant de la ressource correspondante
   \item Utiliser des ressources différentes en fonction de la configuration
   (values et values-fr, drawable et drawable-hdpi)
- \end{itemize}
+   \end{itemize}
 }
+\begin{frame}[fragile]
+\frametitle{Exemple de ressources : les strings}
+\begin{itemize}
+  \item Eviter au maximum les chaînes de caractères en dur
+  \item Mettre toutes les chaînes dans res/values/strings.xml
+  \item Très facile de traduire ensuite : res/values-en, res/values-fr \ldots
+  (values et values-fr, drawable et drawable-hdpi)
+\end{itemize}
+\begin{lstlisting}
+<resources>
+    <string name="app_name">Technomobile</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string-array name="statuts">
+        <item>Fonctionnaire</item>
+        <item>Ingenieur</item>
+    </string-array>
+</resources>
+\end{lstlisting}
+\end{frame}
 \frame{
 \frametitle{Déployer l'application}
 \begin{itemize}
@@ -966,9 +988,10 @@ fos.close();
 \begin{frame}[fragile]
 \frametitle{Stockage externe}
 \begin{itemize}
-    \item Far-west : l'utilisateur et toutes les applications peuvent lire / écrire tout le contenu
+    \item La jungle : l'utilisateur et toutes les applications peuvent lire / écrire tout le contenu
     \item La présence d'un stockage externe n'est pas garanti
     \item Même si il est présent, le stockage externe peut ne pas être disponible
+    \item 2 permissions : WRITE\_EXTERNAL\_STORAGE et READ\_EXTERNAL\_STORAGE
 \end{itemize}
 \begin{lstlisting}
 String state = Environment.getExternalStorageState();
@@ -1075,7 +1098,7 @@ Cursor cursor2 = writableDB.query("table",new String[] {"nom","score"}, "id = ?
 \begin{frame}[fragile]
 \frametitle{Utilisation de SQLite, les cursors}
 \begin{itemize}
-    \item Wrappers autour d'un ResultSet
+    \item Wrapper autour d'un ResultSet
     \item Utilisation très proche des resultSets
     \item Penser à le fermer (close()) pour libérer des ressources
 \end{itemize}
