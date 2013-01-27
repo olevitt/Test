@@ -471,6 +471,29 @@ ADT fait le lien entre eclipse et le SDK android
 \includegraphics[width=340pt]{logeclipse.png}\\
 \includegraphics[width=340pt]{logterminal.png}
 }
+\begin{frame}[fragile]
+\frametitle{Logcat, logging de l'application}
+\begin{itemize}
+  \item Oublier System.out.println() !
+  \item 5 niveaux de gravité : ERROR, WARN, INFO, DEBUG, VERBOSE
+  \item Possibilité dans adb logcat de filtrer par gravité et/ou TAG
+  \item Pratique recommandée : un TAG par application
+ \end{itemize}
+ \begin{lstlisting}
+public void sauvegarderScore(int score) {
+        Log.i(TAG,"Sauvegarde du score "+score);
+        if (score <= 0) {
+            Log.w(TAG,"Le score est negatif");
+        }
+        try {
+            //traitement
+        }
+        catch (Exception e) {
+        	Log.e(TAG,"Erreur de score",e);
+        }
+}
+\end{lstlisting}
+\end{frame}
 \subsection{Principes de base}
 \frame{
 \frametitle{Activity, le composant de base}
@@ -850,6 +873,7 @@ public MyActivity extends Activity {
         </activity>
 \end{lstlisting}
 \end{frame}
+
 
 
 \end{document}
