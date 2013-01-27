@@ -875,13 +875,62 @@ public MyActivity extends Activity {
 \end{frame}
 
 \subsection{Les données}
+\frametitle{Gestion des données}
 \begin{frame}
 Il existe plusieurs façons de stocker les données sur un appareil android
 \begin{itemize}
-    \item \textbf{SharedPreferences}: stockage primitif sous forme de mapping clé / valeur
+    \item \textbf{SharedPreferences}: stockage de données primitives
     \item \textbf{Fichiers}: contenus sur la mémoire interne ou externe (micro SD)
     \item \textbf{Bases de données}: SQLite
+    \item \textbf{Stockage distant}: webservice
 \end{itemize}
 \end{frame}
 
+\begin{frame}
+\frametitle{SharedPreferences}
+\begin{itemize}
+    \item Equivalent des Preferences de java
+    \item Stockage de données primitives (int, boolean, String \ldots)
+    \item Mapping clé / valeur
+    \item Très facile de créer un écran de paramètres (PreferenceActivity)
+    \item Système de listeners pour être prévenu lors d'un changement
+    \item Léger à implémenter
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{SharedPreferences, accéder aux préférences}
+Accéder simple aux préferences :\\
+\begin{lstlisting}
+public void sauvegarderScore() {
+    SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
+}
+\end{lstlisting}
+Accéder en précisant le nom et le mode :\\
+\begin{lstlisting}
+public void sauvegarderScore() {
+    SharedPreferences preferences = context.getSharedPreferences("toto",Context.MODE_PRIVATE);
+}
+\end{lstlisting}
+L'utilisation d'autres modes que MODE\_PRIVATE est découragé depuis l'API 17 (4.2) pour des raisons de sécurité.\\
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{SharedPreferences, utilisation des préférences}
+Lire les préferences :\\
+\begin{lstlisting}
+public void afficherMeilleurScore() {
+    SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
+    int record = preferences.getInt("meilleurScore");
+    Toast.makeText(context, "Record : "+record,Toast.LENGTH_LONG).show();
+}
+\end{lstlisting}
+Modifier les préferences\\
+\begin{lstlisting}
+public void sauvegarderScore() {
+    SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
+    Editor editor = preferences.edit();
+    editor.putInt("meilleurScore");
+    editor.commit();
+}
+\end{lstlisting}
+\end{frame}
 \end{document}
