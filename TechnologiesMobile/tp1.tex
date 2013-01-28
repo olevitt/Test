@@ -1,22 +1,28 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}% encodage du fichier source
-\usepackage[T1]{fontenc}% gestion des accents (pour les pdf)
 \usepackage[francais]{babel}% rajouter éventuellement english, greek, etc.
 \usepackage{listings}
+\usepackage{hyperref}
+\hypersetup{urlcolor=,linkcolor=} % Does not apply color to href's
 
-\title{ANDROID - TD1}
-\date{Source et pdf de ce TD
-:\\\url{https://bitbucket.org/olevitt/technologies-mobiles}}
+\title{ANDROID - TP1}
+\date{Source et pdf de ce TP
+:\\ \href{https://bitbucket.org/olevitt/technologies-mobiles}{https://bitbucket.org/olevitt/technologies-mobiles}}
 \maketitle
 
 
 
 \begin{document}
-\section{Découvrir le SDK}
+Ce TP a deux objectifs :
+\begin{itemize}
+\item Se familiariser avec le SDK android et le plugin ADT pour eclipse
+\item Construire une petite application de simulateur de crédit
+\end{itemize}
+\section{Mise en place}
 \subsection{Verifier l'installation}
 \begin{itemize}
 \item Lancer Eclipse
-\item Vérifier dans Windows => Preferences la présence du menu android
+\item Vérifier dans \textbf{Window/Preferences} la présence du menu android
 \item Vérifier que le chemin du SDK est bien rempli
 \end{itemize}
 \begin{enumerate}
@@ -27,21 +33,87 @@
 \item Créer un nouveau projet android via \textbf{File/New/Other/Android/Android
 Project}
 \item Executer l'application (Ctrl + F11)
-\item Eclipse ne trouve pas d'appareil cible (normal)
-\item L'android virtual device manager s'ouvre alors et permet de créer un
-émulateur.
-\item L'AVD manager est aussi disponible via Window => Android virtual
-device manager.
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{1}
+\item Pourquoi l'application ne se lance t'elle pas ?
+\end{enumerate}
+\begin{itemize}
+\item L'android virtual device manager s'ouvre et permet de créer un
+émulateur
+\item L'AVD manager est aussi disponible via \textbf{Window / Android virtual
+device manager}
 \end{itemize}
 \subsection{Créer un appareil virtuel}
 \begin{itemize}
-\item Créer un nouveau projet android via \textbf{File/New/Other/Android/Android
-Project}
-\item Executer l'application (Ctrl + F11)
-\item Eclipse ne trouve pas d'appareil cible (normal)
-\item L'android virtual device manager s'ouvre alors et permet de créer un
-émulateur.
-\item L'AVD manager est aussi disponible via Window => Android virtual
-device manager.
+\item Créer un nouvel appareil avec le plus grand niveau d'API possible
+\item Choisir x86 plutôt qu'ARM si possible
+\item Démarrer l'appareil
+\item Manipuler un peu l'émulateur
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{2}
+\item Quelles sont les applications pré-installées sur l'émulateur ?
+\item Comment voir la log de l'émulateur ?
+\end{enumerate}
+\newpage
+\section{Construire notre simulateur de crédit}
+\subsection{Un peu d'UI}
+Modifier le layout main pour y ajouter quelques composants :
+\begin{itemize}
+\item Un champ de texte (EditText) : montant
+\item Un champ de texte (EditText) : durée
+\item Ajouter un bouton (Button) : calculer
+\item Obliger l'utilisateur à ne rentrer que des chiffres dans les champs en utilisant la propriété \href{http://developer.android.com/reference/android/widget/TextView.html#attr_android:inputType}{InputType}
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{4}
+\item Que faut t'il prévoir pour pouvoir utiliser ces views en java ?
+\end{enumerate}
+\subsection{Rendre l'interface vivante}
+\begin{itemize}
+\item Ecouter les clicks sur le bouton et déclencher un toast lors d'un click sur le bouton
+\item Rappel : 2 techniques ont été vues en cours pour faire ça
+\item Dans le toast, afficher le contenu du champ de texte (editText.getText())
+\end{itemize}
+\subsection{Implémenter la logique métier}
+\begin{itemize}
+\item Lors d'un click sur le bouton, récupérer les valeurs de montant et durée
+\item Aide : \href{http://developer.android.com/reference/java/lang/Integer.html#parseInt(java.lang.String)}{Integer.parseInt(String)} permet de convertir une chaîne en entier
+\item Implémenter la logique métier pour calculer les mensualités (taux fixe à 4\% ou variable en fonction de la durée)
+\item Afficher ce résultat d'abord dans un toast puis dans une view (TextView)
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{5}
+\item Comment cacher la view contenant les mensualités tant qu'elles n'ont pas été calculées ?
+\end{enumerate}
+\newpage
+\section{Aller plus loin}
+\subsection{Partager le résultat}
+\begin{itemize}
+\item Ajouter un bouton : partager
+\item Mettre une icône de partage à ce bouton (setBackgroundResource)
+\item Lors d'un click sur le bouton, lancer un intent implicite pour partager le résultat
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{6}
+\item Comment filtrer les applications proposées pour le partage ?
+\item Que se passe t'il si aucune 
+\end{enumerate}
+\subsection{Créer un historique des calculs}
+\begin{enumerate}
+ \setcounter{enumi}{6}
+\item Quelle solution de stockage de l'historique des calculs vous parait la mieux adaptée ? (Rappel : on a le choix entre préferences, BDD SQLite et fichier plat) 
+\end{enumerate}
+\begin{itemize}
+\item Mettre en place la solution choisie
+\item A chaque calcul, rajouter un élément à l'historique
+\end{itemize}
+\subsection{Afficher l'historique}
+\begin{itemize}
+\item L'historique sera affiché dans un écran séparé
+\item Créer une nouvelle Activity qui contiendra l'historique (penser à la déclarer dans le Manifest)
+\item 
 \end{itemize}
 \end{document}
+
