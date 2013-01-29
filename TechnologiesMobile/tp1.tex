@@ -4,15 +4,33 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \hypersetup{urlcolor=,linkcolor=} % Does not apply color to href's
+\lstset{
+	tabsize=4,
+	language=Java,
+        basicstyle=\scriptsize,
+        columns=fixed,
+        extendedchars=true,
+        breaklines=true,
+		frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+        numbers=left, 
+        numberstyle=\tiny,
+        xleftmargin=\parindent
+}
+
 
 \title{ANDROID - TP1}
 \date{Source et pdf de ce TP
 :\\ \href{https://bitbucket.org/olevitt/technologies-mobiles}{https://bitbucket.org/olevitt/technologies-mobiles}}
-\maketitle
-
-
 
 \begin{document}
+\maketitle
 Ce TP a deux objectifs :
 \begin{itemize}
 \item Se familiariser avec le SDK android et le plugin ADT pour eclipse
@@ -32,7 +50,7 @@ Ce TP a deux objectifs :
 \begin{itemize}
 \item Créer un nouveau projet android via \textbf{File/New/Other/Android/Android
 Project}
-\item Executer l'application (Ctrl + F11)
+\item Executer l'application (ctrl + F11)
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{1}
@@ -46,10 +64,11 @@ device manager}
 \end{itemize}
 \subsection{Créer un appareil virtuel}
 \begin{itemize}
-\item Créer un nouvel appareil avec le plus grand niveau d'API possible
+\item Créer un nouvel appareil avec le plus haut niveau d'API possible
 \item Choisir x86 plutôt qu'ARM si possible
 \item Démarrer l'appareil
 \item Manipuler un peu l'émulateur
+\item Lancer l'application sur l'émulateur (ctrl + F11)
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{2}
@@ -73,19 +92,29 @@ Modifier le layout main pour y ajouter quelques composants :
 \subsection{Rendre l'interface vivante}
 \begin{itemize}
 \item Ecouter les clicks sur le bouton et déclencher un toast lors d'un click sur le bouton
-\item Rappel : 2 techniques ont été vues en cours pour faire ça
-\item Dans le toast, afficher le contenu du champ de texte (editText.getText())
+\item Rappel : 2 techniques ont été vues en cours pour écouter les actions
+\item Dans le toast, afficher le contenu du champ de texte (utiliser la méthode getText() de EditText)
 \end{itemize}
 \subsection{Implémenter la logique métier}
 \begin{itemize}
 \item Lors d'un click sur le bouton, récupérer les valeurs de montant et durée
 \item Aide : \href{http://developer.android.com/reference/java/lang/Integer.html#parseInt(java.lang.String)}{Integer.parseInt(String)} permet de convertir une chaîne en entier
-\item Implémenter la logique métier pour calculer les mensualités (taux fixe à 4\% ou variable en fonction de la durée)
-\item Afficher ce résultat d'abord dans un toast puis dans une view (TextView)
+\item Implémenter la logique métier en utilisant le code ci-dessous
+\item Afficher ce résultat dans un toast
+\item Afficher ce résultat dans une popup (AlertDialog)
+\item Afficher ce résultat dans une view (TextView)
 \end{itemize}
+ \begin{lstlisting}[language=XML]
+ private double calculMensualites(
+     double montant, double taux,double nbmensualites) {
+    	return (k * (t/12)) / (1-Math.pow((1+t/12), -n));
+ }
+\end{lstlisting}
+
 \begin{enumerate}
  \setcounter{enumi}{5}
 \item Comment cacher la view contenant les mensualités tant qu'elles n'ont pas été calculées ?
+\item Que proposez vous si l'utilisateur n'a pas rempli les 2 champs ?
 \end{enumerate}
 \newpage
 \section{Aller plus loin}
@@ -96,13 +125,19 @@ Modifier le layout main pour y ajouter quelques composants :
 \item Lors d'un click sur le bouton, lancer un intent implicite pour partager le résultat
 \end{itemize}
 \begin{enumerate}
- \setcounter{enumi}{6}
+ \setcounter{enumi}{7}
 \item Comment filtrer les activities proposées pour le partage ?
 \item Que se passe t'il si aucune activity n'est capable de répondre à l'intent ?
 \end{enumerate}
+\subsection{Un peu de style}
+\begin{itemize}
+\item Changer le nom de l'application
+\item Modifier l'icône pour le lanceur d'applications
+\item Modifier le layout pour organiser les différents éléments de façon ``user-friendly''
+\end{itemize}
 \subsection{Créer un historique des calculs}
 \begin{enumerate}
- \setcounter{enumi}{8}
+ \setcounter{enumi}{9}
 \item Quelle solution de stockage de l'historique des calculs vous parait la mieux adaptée ? (Rappel : on a le choix entre préferences, BDD SQLite et fichier plat) 
 \end{enumerate}
 \begin{itemize}
@@ -113,11 +148,13 @@ Modifier le layout main pour y ajouter quelques composants :
 \begin{itemize}
 \item L'historique sera affiché dans un écran séparé
 \item Créer une nouvelle Activity qui contiendra l'historique (penser à la déclarer dans le Manifest)
-\item Quel ViewGroup vous paraît le plus adapté pour afficher l'historique (nombre indéfini d'éléments)
+\end{itemize}
 \begin{enumerate}
- \setcounter{enumi}{9}
+ \setcounter{enumi}{10}
+\item Quel ViewGroup vous paraît le plus adapté pour afficher l'historique (nombre indéfini d'éléments) ?
 \item Comment lancer cette activité ?
 \end{enumerate}
-\end{itemize}
+
 \end{document}
+
 
