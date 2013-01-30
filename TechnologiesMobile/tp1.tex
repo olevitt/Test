@@ -64,8 +64,7 @@ device manager}
 \end{itemize}
 \subsection{Créer un appareil virtuel}
 \begin{itemize}
-\item Créer un nouvel appareil avec le plus haut niveau d'API possible
-\item Choisir x86 plutôt qu'ARM si possible
+\item Créer un nouvel appareil en API 17 (4.2)
 \item Démarrer l'appareil
 \item Manipuler un peu l'émulateur
 \item Lancer l'application sur l'émulateur (ctrl + F11)
@@ -101,7 +100,6 @@ Modifier le layout main pour y ajouter quelques composants :
 \item Aide : \href{http://developer.android.com/reference/java/lang/Integer.html#parseInt(java.lang.String)}{Integer.parseInt(String)} permet de convertir une chaîne en entier
 \item Implémenter la logique métier en utilisant le code ci-dessous
 \item Afficher ce résultat dans un toast
-\item Afficher ce résultat dans une popup (AlertDialog)
 \item Afficher ce résultat dans une view (TextView)
 \end{itemize}
  \begin{lstlisting}[language=XML]
@@ -118,6 +116,21 @@ Modifier le layout main pour y ajouter quelques composants :
 \end{enumerate}
 \newpage
 \section{Aller plus loin}
+\subsection{Un peu de style}
+\begin{itemize}
+\item Changer le nom de l'application
+\item Modifier l'icône pour le lanceur d'applications
+\item Modifier le layout pour organiser les différents éléments de façon ``user-friendly''
+\end{itemize}
+\subsection{Traduire l'application}
+\begin{itemize}
+\item S'assurer que toutes les strings ont été définis en XML
+\item Créer un dossier values-fr et y copier le fichier strings.xml
+\item Traduire le contenu de strings.xml
+\item Tester sur émulateur en changeant la langue dans le menu
+\end{itemize}
+\\\*
+\textbf{Les parties ci-dessous contiennent des élements non (encore) vus en cours.}
 \subsection{Partager le résultat}
 \begin{itemize}
 \item Ajouter un bouton : partager
@@ -129,12 +142,6 @@ Modifier le layout main pour y ajouter quelques composants :
 \item Comment filtrer les activities proposées pour le partage ?
 \item Que se passe t'il si aucune activity n'est capable de répondre à l'intent ?
 \end{enumerate}
-\subsection{Un peu de style}
-\begin{itemize}
-\item Changer le nom de l'application
-\item Modifier l'icône pour le lanceur d'applications
-\item Modifier le layout pour organiser les différents éléments de façon ``user-friendly''
-\end{itemize}
 \subsection{Créer un historique des calculs}
 \begin{enumerate}
  \setcounter{enumi}{9}
