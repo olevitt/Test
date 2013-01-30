@@ -76,12 +76,20 @@ device manager}
 \end{enumerate}
 \newpage
 \section{Construire notre simulateur de crédit}
+\subsection{Logcat}
+\begin{itemize}
+\item Logger chaque appel à onCreate() en niveau info (Log.i(TAG,message))
+\item Verifier dans logcat que les message apparaissent bien
+\end{itemize}
 \subsection{Un peu d'UI}
 Modifier le layout main pour y ajouter quelques composants :
 \begin{itemize}
 \item Un champ de texte (EditText) : montant
 \item Un champ de texte (EditText) : durée
+\item Mettre les deux champs de texte sur la même ligne
 \item Ajouter un bouton (Button) : calculer
+\item Mettre le bouton en dessous des 2 champs de texte
+\item Modifier les attributs du Button pour le faire prendre tout l'écran en largeur
 \item Obliger l'utilisateur à ne rentrer que des chiffres dans les champs en utilisant la propriété \href{http://developer.android.com/reference/android/widget/TextView.html#attr_android:inputType}{InputType}
 \end{itemize}
 \begin{enumerate}
