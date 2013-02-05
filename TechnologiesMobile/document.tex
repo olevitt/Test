@@ -1015,7 +1015,7 @@ fos.close();
 \end{itemize}
 \begin{itemize}
     \item getCacheDir() : répertoire pour le cache
-    \item getFilesDir() : dossier où sont stockés les fichiers de l'application
+    \item getFilesDir() : dossier des fichiers de l'application
     \item deleteFile(String nom)
     \item fileList() : String[] des fichiers crées par l'application
 \end{itemize}
@@ -1036,9 +1036,7 @@ if (Environment.MEDIA_MOUNTED.equals(state)) {
 else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
     //Ecriture impossible, lecture possible
 } 
-else {
-    //Lecture et ecriture impossibles
-}
+else { //Lecture et ecriture impossibles }
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
@@ -1166,4 +1164,282 @@ int delete (String table, String whereClause, String[] whereArgs)
 int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"bobette});
 \end{lstlisting}
 \end{frame}
+\subsection{Bonus}
+\begin{frame}[fragile]
+\frametitle{Exemples de ViewGroups : RelativeLayout}
+Plus évolué que LinearLayout, permet de placer les composants les uns par rapport aux autres
+\begin{lstlisting}
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <EditText
+    	android:id="@+id/text1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/text1" />
+</RelativeLayout> 
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Exemples de ViewGroups : ScrollView}
+Englobe une view et affiche une scroll bar si la view est trop grande
+\begin{lstlisting}
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <TextView
+        android:id="@+id/TextView01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/longlonglongtexte" >
+    </TextView>
+</ScrollView> 
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Exemples de ViewGroups : ListView}
+\begin{itemize}
+  \item Pattern ultra classique des applications mobile
+  \item Affichage d'un nombre variable d'éléments avec, si besoin, une scroll bar
+  \item Récupération des events (press, longpress \ldots) sur les éléments de la liste
+  \item Chaque élement est affiché dans une view différente à l'intérieur de la listview
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{ListView : les adapters}
+\begin{itemize}
+  \item Les adapters font le lien entre les données et l'affichage (view) 
+  \item Un adapter hérite de BaseAdapter
+  \item 2 implémentations classiques : 
+  \item ArrayAdapter pour les données sous forme d'array / list
+  \item (Simple)CursorAdapter pour les données sous forme de Cursor
+\end{itemize}
+Extrait de la classe abstraite BaseAdapter :
+\begin{lstlisting}
+public abstract View getView(int position, View convertView, ViewGroup parent);
+public abstract long getItemId(int position);
+public abstract Object getItem(int position);
+public abstract int getCount();
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{ListView : exemple d'utilisation d'ArrayAdapter}
+\begin{lstlisting}
+ListView listView = (ListView) findViewById(R.id.mylist);
+String[] values = new String[] { "ligne1","ligne2","ligne3"};
+
+// 1) Context
+// 2) Layout a utiliser pour chaque view
+// 3) ID de la textview a l'interieur de la view
+// 4) Liste / tableau des données
+ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+  android.R.layout.simple_list_item_1, android.R.id.text1, values);
+
+listView.setAdapter(adapter); 
+//Manipulation des donnees
+adapter.add("ligne 4");
+adapter.clear();
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{ListView : écouter les évenements}
+Les évenements comme les clicks sont gérés par la listview (et non pas par l'adapter)
+\begin{lstlisting}
+listView.setOnItemClickListener(new OnItemClickListener() {
+  public void onItemClick(AdapterView<?> parent, View view,
+    int position, long id) {
+    //position, id et view concernes 
+    //parent == listview
+  }
+});
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Créer sa propre view}
+\begin{itemize}
+  \item Dans certains cas, les views de base d'android ne suffisent pas
+  \item Exemple : création d'un jeu, création d'un color picker \ldots
+  \item On peut alors chercher si d'autres développeurs n'ont pas déjà crée des views semblables
+  \item ex : \url{http://androidviews.net}
+  \item ou créer ses propres views en héritant de View ou SurfaceView
+  \item View : view classique, rafraichissement au besoin
+  \item SurfaceView : view ``temps réel'' (pour un jeu par exemple)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Créer sa propre view}
+Etape 1 : hériter de View
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Le réseau}
+\begin{itemize}
+  \item La qualité de la connexion est TRES variable
+  \item L'utilisation du réseau est TRES consommateur de batterie 
+  \item Pour le HTTP, le SDK android propose 2 API :
+  \item HTTPUrlConnection de java.net : conseillé sur les nouvelles applications
+  \item HTTPClient de org.apache : conseillé sur les API $<=$2.2
+  \item De nombreuses bibliothèques sont disponibles (robospice, android-async-http \ldots)
+  \item Pour les autres protocoles : utiliser la classe Socket de java.net
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Le réseau, zoom sur HTTP}
+/!$\backslash$ Ne pas oublier de déclarer la permission INTERNET dans le manifest /!$\backslash$
+\begin{itemize}
+  \item HTTP : protocole web (exemple : navigateurs)
+  \item Fonctionnement simple : requête du client $=>$ réponse du serveur
+  \item GET pour visualisation, POST pour modification des données
+\end{itemize}
+\begin{lstlisting}
+URL url = new URL("http://www.ensai.com/");
+HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+try {
+     BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
+     readStream(in); 
+    } finally {
+     urlConnection.disconnect();
+    }
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les webservices}
+\begin{itemize}
+  \item Une pratique courante est de créer des webservices pour échanger les informations entre client (mobile) et serveur
+  \item Un webservice ne renvoi pas de HTML (données + présentation) mais des données brutes formatées (en XML ou JSON)
+  \item L'application mobile se charge de la mise en forme et de l'affichage des données
+  \item 1 webservice pour toutes les applications, peu importe l'OS
+  \item Webservices publics (météo, transports \ldots)
+  \item Créer son propre webservice en JAVA (jersey), en PHP \ldots
+\end{itemize}    
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les webservices, format des données}
+JSON :
+\begin{lstlisting}
+{ 
+    "cours": [
+    {"titre": "Technologies mobile","salle": "010"},
+    {"titre": "Stat 3","salle": "011"}
+    ]
+}
+\end{lstlisting}
+XML :
+\begin{lstlisting}
+<EmploiDuTemps>
+<Cours titre="Technologies mobile" salle="010" />
+<Cours titre="Stat 3" salle="011" />
+</EmploiDuTemps>
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les webservices, parser les données}
+JSON :
+\begin{lstlisting}
+JSONObject json = new JSONObject("{exemple:\"42\"}");
+json.getInt("exemple"); //42
+\end{lstlisting}
+XML :
+\begin{lstlisting}
+XmlPullParser parser = XmlPullParserFactory.newInstance();
+parser.setInput(new StringReader("<exemple>42</exemple>"));
+int event = parser.getEventType();
+while (event != XmlPullParser.END_DOCUMENT) {
+    parser.next();
+}
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Le multithreading}
+\begin{itemize}
+  \item Problématique : Les tâches à éxecuter peuvent parfois être (très) longues
+  \item exemples : longs calculs
+  \item flux réseau (ping de 10-20 secondes sur réseau mobile ?)
+  \item insertions massives en base de données
+  \item ``solution'' : l'asynchrone
+  \item Nouveau problème : comment mettre en place l'asynchrone ?
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Le multithreading, constater le problème}
+\begin{lstlisting}
+public long calculLong() {
+    //simule un calcul long en ne faisant rien pendant 30 secondes
+    Thread.sleep(30*1000);
+}
+\end{lstlisting}
+\includegraphics[width=150pt]{anr.png}
+\begin{itemize}
+  \item L'interface graphique ne répond plus
+  \item Si le blocage dure plus de x secondes, android affiche ce popup
+  \item Il s'agit d'une ANR (application non responding)
+  \item Equivalent du ``ne répond pas'' sous windows
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile] 
+\frametitle{Le multithreading, notion de thread}
+\begin{itemize}
+  \item Thread = fil
+  \item Fil d'exécution du code
+  \item Un thread n'exécute qu'une instruction à la fois
+  \item Si du code est long, il bloque le thread
+  \item Java s'occupe de répartir les threads sur les coeurs du CPU
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile] 
+\frametitle{Le multithreading, le thread UI}
+\begin{itemize}
+  \item Toutes les instructions de l'IHM s'exécutent dans le même thread
+  \item \textbf{Le thread UI (main thread) doît être préservé de tout calcul long}
+  \item \textbf{Inversement, tout le code touchant à l'UI doit être exécuté dans le thread UI}
+  \item Pour les API $>$ 9, possibilité d'activer StrictMode via la classe StrictMode
+  \item Sur android 4.0+, possibilité d'activer StrictMode dans les options développeur
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Le multithreading, créer des threads}
+Etape 1 : créer un runnable avec le code à éxecuter
+\begin{lstlisting}
+Runnable code = new Runnable() {
+    public void run() {
+        //code ici
+    }
+};
+\end{lstlisting}
+Etape 2 : lancer un thread exécutant ce runnable
+\begin{lstlisting}
+new Thread(code).start();
+\end{lstlisting}
+/!$\backslash$ Ne pas confondre start et run /!$\backslash$
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Le multithreading, astuces sous android}
+Astuce 1 : Les AsyncTasks
+\begin{itemize}
+  \item Gère le cycle de vie d'une tâche et exécute chaque méthode dans le bon thread
+  \item onPreExecute : thread UI
+  \item doInBackground : thread dédié
+  \item onPostExecute : thread UI
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Le multithreading, astuces sous android}
+Astuce 2 : Executer du code dans le thread UI depuis un autre thread
+\begin{itemize}
+  \item Pour communiquer entre threads on utilise la classe Handler et on envoi des ``messages''
+  \item Méthode pratique : runOnUIThread(Runnable) de Activity
+  \item Méthode pratique : post(Runnable) de View
+\end{itemize}
+\end{frame}
 \end{document}
+
+
+
