@@ -1276,6 +1276,41 @@ listView.setOnItemClickListener(new OnItemClickListener() {
 \begin{frame}[fragile]
 \frametitle{Créer sa propre view}
 Etape 1 : hériter de View
+\begin{lstlisting}
+public class CustomView extends View {
+
+    public CustomView(Context context) {
+        super(context);
+    }
+
+    public CustomView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+
+    public CustomView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+}
+ \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Créer sa propre view}
+Etape 2 : implémenter onDraw
+\begin{lstlisting}
+public class CustomView extends View {
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        canvas.drawColor(Color.BLUE);
+        int largeur = canvas.getWidth();
+        int hauteur = canvas.getHeight();
+        //canvas.drawString
+        //canvas.drawCircle
+        //canvas.drawBitmap
+    }
+}
+\end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Le réseau}
@@ -1323,19 +1358,41 @@ try {
 \frametitle{Les webservices, format des données}
 JSON :
 \begin{lstlisting}
-{ 
-    "cours": [
-    {"titre": "Technologies mobile","salle": "010"},
-    {"titre": "Stat 3","salle": "011"}
-    ]
+{"events": [
+ {
+  "debut": 1360053900000,
+  "nom": "Introduction a la surete de fonctionnement  - Perrine BROY",
+  "salle": "110*",
+  "uid": "1129-3463-52825-52848",
+  "fin": 1360080900000
+ },
+ {
+  "debut": 1360242000000,
+  "nom": "Filtrage lineaire et non lineaire M263 - Francois LE GLAND",
+  "salle": "209*",
+  "uid": "263-370-53424-53435",
+  "fin": 1360253700000
+ }]
 }
 \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les webservices, format des données}
 XML :
 \begin{lstlisting}
-<EmploiDuTemps>
-<Cours titre="Technologies mobile" salle="010" />
-<Cours titre="Stat 3" salle="011" />
-</EmploiDuTemps>
+<events>
+<event debut="1360053900000" 
+nom="Introduction a la surete de fonctionnement  - Perrine BROY"
+salle="110*" 
+uid="1129-3463-52825-52848" 
+fin="1360080900000"/>
+
+<event debut="1360242000000" 
+nom="Filtrage lineaire et non lineaire M263 - Francois LE GLAND"
+salle="209*" 
+uid="263-370-53424-53435" 
+fin="1360253700000"/>
+</events>
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
