@@ -91,7 +91,7 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
 \item Est-il judicieux de lancer un intent vers l'activity principale ? 
 \end{enumerate}
 \begin{itemize}
-  \item En réalité, android faît une pile des activités lancées (stack). \href{http://developer.android.com/guide/components/tasks-and-back-stack.html}{Documentation officielle sur les stacks} 
+  \item En réalité, android construit une pile des activités lancées (stack). \href{http://developer.android.com/guide/components/tasks-and-back-stack.html}{Documentation officielle sur les stacks} 
   \item En faire l'éxpérience en lançant un intent vers l'activity principale depuis cette activity et en appuyant ensuite sur la touche retour de l'appareil. 
   \item Utiliser la méthode \href{http://developer.android.com/reference/android/app/Activity.html#finish()}{finish()} de Activity pour fermer l'activity et ainsi revenir à l'écran principal lors d'un click sur le bouton ajouter 
  \end{itemize}
@@ -116,7 +116,7 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
 \end{enumerate}
  \begin{itemize}
   \item Pour des raisons de simplicité, on va opter dans la suite pour un stockage en fichier plat (libre à vous de le remplacer par une base SQLite)
-  \item Créer une méthode qui écrit une liste d'éléments Item dans un fichier.
+  \item Créer une méthode qui écrit une liste d'éléments Item dans un fichier (utiliser un format de stockage primitif par exemple nom#description et un item par ligne. C'est un mauvais choix en pratique car peu robuste et peu extensible mais ça suffira largement ici).
   \item Créer une méthode qui instancie une liste d'éléments Item à partir d'un fichier.
   \item Dans la méthode onCreate(), remplir la ListView à partir des données contenues dans le fichier.
  \end{itemize}
