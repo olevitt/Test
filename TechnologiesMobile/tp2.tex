@@ -3,6 +3,7 @@
 \usepackage[francais]{babel}% rajouter éventuellement english, greek, etc.
 \usepackage{listings}
 \usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}
 \hypersetup{urlcolor=,linkcolor=} % Does not apply color to href's
 \lstset{
 	tabsize=4,
@@ -112,12 +113,39 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
   \begin{enumerate}
  \setcounter{enumi}{9}
 \item Quelle solution de stockage des données vous parait le plus adaptée ? (Rappel : on a le choix entre Preferences, fichier plat, base de données SQLite et stockage distant)
-\item Pour des raisons de simplicité, on va opter dans la suite pour un stockage en fichier plat (libre à vous de le remplacer par une base SQLite)
 \end{enumerate}
  \begin{itemize}
+  \item Pour des raisons de simplicité, on va opter dans la suite pour un stockage en fichier plat (libre à vous de le remplacer par une base SQLite)
   \item Créer une méthode qui écrit une liste d'éléments Item dans un fichier.
   \item Créer une méthode qui instancie une liste d'éléments Item à partir d'un fichier.
-  \item Remplir la ListView à partir des données contenues dans le fichier.
+  \item Dans la méthode onCreate(), remplir la ListView à partir des données contenues dans le fichier.
+ \end{itemize}
+ \subsection{Remplir les données}
+ \begin{itemize}
+  \item Lors d'un click sur le bouton ``ajouter'' de l'activity d'ajout, créer une instance d'Item et la rajouter au fichier. (pour simplifier, réecrire la totalité du fichier à chaque fois)
+ \end{itemize}
+  \begin{enumerate}
+ \setcounter{enumi}{10}
+\item Pourquoi la ListView n'est elle pas mise à jour lors du retour sur l'activity principale ?
+\end{enumerate}
+ \begin{itemize}
+  \item Utiliser le cycle de vie des activities pour recharger les données de la ListView lors du retour sur l'activity principale. (implémenter la bonne méthode onXXXXX)
+ \end{itemize}
+ \section{Voir le détail d'un item}
+ \begin{itemize}
+  \item Créer une activity de visualisation d'item avec les champs utiles (nom, description \ldots)
+  \item Récupérer les clicks sur les éléments de la ListView (Attention à bien utiliser onItemClickListener et non onClickListener).
+  \item Lancer l'activity de visualisation lors d'un click sur un item de la liste
+  \item Transmettre à l'activity soit l'identifiant de l'item soit les données de l'item
+  \item Récupérer les données dans l'activity de visualisation et afficher les données de l'item
+ \end{itemize}
+ \section{Améliorations possibles}
+	Wow, déjà tout fait ? Voici quelques pistes d'améliorations
+  \begin{itemize}
+  \item Le stockage en fichier plat n'est pas très judicieux. Mettre en place une base de données SQLite à la place.
+  \item Les données associées aux items sont pour l'instant minimales, pourquoi ne pas ajouter un identifiant, une date d'ajout, un statut (en cours, fait \ldots), une priorité, une catégorie \ldots ?
+  \item L'affichage des éléments dans la liste est basique mais on peut difficilement faire mieux avec ArrayAdapter. Créer un adapter maison en héritant de BaseAdapter
+  \item Partager les items par mail, sms, twitter \ldots en ajoutant un intent implicite dans l'activity de visualisation ou de modification.
  \end{itemize}
 \end{document}
 
