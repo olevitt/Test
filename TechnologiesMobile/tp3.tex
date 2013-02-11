@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}% encodage du fichier source
+\usepackage[francais]{babel}% rajouter éventuellement english, greek, etc.
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage[margin=2.5cm]{geometry}
+\hypersetup{urlcolor=,linkcolor=} % Does not apply color to href's
+\lstset{
+	tabsize=4,
+	language=Java,
+        basicstyle=\scriptsize,
+        columns=fixed,
+        extendedchars=true,
+        breaklines=true,
+		frame=single,
+        showtabs=false,
+        showspaces=false,
+        showstringspaces=false,
+        identifierstyle=\ttfamily,
+        keywordstyle=\color[rgb]{0,0,1},
+        commentstyle=\color[rgb]{0.133,0.545,0.133},
+        stringstyle=\color[rgb]{0.627,0.126,0.941},
+        numbers=left, 
+        numberstyle=\tiny,
+        xleftmargin=\parindent
+}
+
+
+\title{ANDROID - TP3}
+\date{Source et pdf du cours et de ce TP
+:\\ \href{https://bitbucket.org/olevitt/technologies-mobiles}{https://bitbucket.org/olevitt/technologies-mobiles/src}}
+
+\begin{document}
+\maketitle
+L'objectif de ce TP est de réaliser une application utilisant les données de la star pour informer l'utilisateur des horaires de bus.\\
+Ce TP fera appel aux notions suivantes :
+\begin{itemize}
+  \item Requêtes HTTP (webservice)
+  \item Multithreading
+  \item Parsing JSON / XML
+  \item Stockage de données SQLite
+\end{itemize}
+Il est fortement conseillé d'avoir le cours à portée de main et de ne pas hésiter à lire la documentation officielle 
+\href{http://d.android.com}{http://d.android.com} ainsi que la multitude de tutoriaux disponibles.\\
+\section{Présentation de l'API star}
+La star a fait de gros efforts d'ouverture des données (open data) ce qui permet à tous les développeurs d'utiliser les données dans leurs applications (qu'elles soient libres ou fermées, gratuites ou payantes, avec ou sans pub \ldots)\\
+Les données disponibles sont nombreuses, entre autres les horaires des bus, la géolocalisation des arrêts, les infos trafic et même le nombre de vélos disponibles dans chaque station de vélostar.\\
+La liste des données disponibles est consultable à cette adresse : \href{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}}
+\end{document}
+
+
