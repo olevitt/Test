@@ -116,7 +116,7 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
 \end{enumerate}
  \begin{itemize}
   \item Pour des raisons de simplicité, on va opter dans la suite pour un stockage en fichier plat (libre à vous de le remplacer par une base SQLite)
-  \item Créer une méthode qui écrit une liste d'éléments Item dans un fichier (utiliser un format de stockage primitif par exemple nom#description et un item par ligne. C'est un mauvais choix en pratique car peu robuste et peu extensible mais ça suffira largement ici).
+  \item Créer une méthode qui écrit une liste d'éléments Item dans un fichier (utiliser un format de stockage primitif par exemple nom\#description et un item par ligne. (Ce format est un très mauvais choix en pratique car peu robuste et peu extensible mais ça suffira largement ici).
   \item Créer une méthode qui instancie une liste d'éléments Item à partir d'un fichier.
   \item Dans la méthode onCreate(), remplir la ListView à partir des données contenues dans le fichier.
  \end{itemize}
@@ -139,7 +139,7 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
   \item Transmettre à l'activity soit l'identifiant de l'item soit les données de l'item
   \item Récupérer les données dans l'activity de visualisation et afficher les données de l'item
  \end{itemize}
- \section{Améliorations possibles}
+ \section{Pour aller plus loin}
 	Wow, déjà tout fait ? Voici quelques pistes d'améliorations
   \begin{itemize}
   \item Le stockage en fichier plat n'est pas très judicieux. Mettre en place une base de données SQLite à la place.
