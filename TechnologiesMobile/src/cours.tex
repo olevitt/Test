@@ -43,10 +43,10 @@
 \frame{
 \titlepage
 \begin{center}
-\includegraphics[width=60pt]{google-android.jpg}
-\includegraphics[width=60pt]{ios.png}
-\includegraphics[width=60pt]{wp8.jpg}
-\includegraphics[width=60pt]{bb10.jpg}
+\includegraphics[width=60pt]{img/google-android.jpg}
+\includegraphics[width=60pt]{img/ios.png}
+\includegraphics[width=60pt]{img/wp8.jpg}
+\includegraphics[width=60pt]{img/bb10.jpg}
 \end{center}
 } 
 
@@ -65,6 +65,7 @@
   \item {19 mars : Soutenance du projet}
 \end{itemize}
 }
+
 
 \frame{
 \frametitle{Evaluation}
@@ -180,7 +181,7 @@ Comment gérer toutes les tailles d'écran ?
 \subsection{Présentation des différents OS mobile}
 \frame{
 \frametitle{iOS}
-\includegraphics[width=60pt]{ios.png}
+\includegraphics[width=60pt]{img/ios.png}
 \begin{itemize}
   \item Soutenu par Apple
   \item Présenté le 9 janvier 2007
@@ -193,7 +194,7 @@ Comment gérer toutes les tailles d'écran ?
 \frame{
 \frametitle{Android}
 
-\includegraphics[width=60pt]{google-android.jpg}
+\includegraphics[width=60pt]{img/google-android.jpg}
 \begin{itemize}
   \item Soutenu par Google
   \item 1.0 en septembre 2008, 1.5 en avril 2009
@@ -206,8 +207,7 @@ Comment gérer toutes les tailles d'écran ?
 }
 \frame{
 \frametitle{Windows phone 8}
-
-\includegraphics[width=60pt]{wp8.jpg}
+\includegraphics[width=60pt]{img/wp8.jpg}
 \begin{itemize}
   \item Soutenu par Microsoft
   \item Présentation au public le 29 octobre 2012
@@ -220,7 +220,7 @@ Comment gérer toutes les tailles d'écran ?
 \frame{
 \frametitle{Blackberry 10}
 
-\includegraphics[width=60pt]{bb10.jpg}
+\includegraphics[width=60pt]{img/bb10.jpg}
 \begin{itemize}
   \item Soutenu par RIM (Research in motion)
   \item Présentation au public le 30 janvier 2012 (!)
@@ -308,7 +308,7 @@ dernière quinzaine de 2012}
 \frame{
 \frametitle{Présentation du SDK android}
 Téléchargement gratuit : www.d.android.com/sdk
-\includegraphics[width=300pt]{sdk.png}
+\includegraphics[width=300pt]{img/sdk.png}
 }
 \frame{
 \frametitle{Présentation du SDK android}
@@ -331,9 +331,9 @@ Téléchargement gratuit : www.d.android.com/sdk
 Installation comme un plugin eclipse classique\\ 
 \url{https://dl-ssl.google.com/android/eclipse/}\\
 ADT fait le lien entre eclipse et le SDK android
-\includegraphics[width=100pt]{adt.png}
-\includegraphics[width=200pt]{views.png}\\\\
-\includegraphics[width=100pt]{project.png}
+\includegraphics[width=100pt]{img/adt.png}
+\includegraphics[width=200pt]{img/views.png}\\\\
+\includegraphics[width=100pt]{img/project.png}
 }
 \frame{
 \frametitle{L'émulateur}
@@ -342,8 +342,8 @@ ADT fait le lien entre eclipse et le SDK android
   \item ((très) très) lent
   \item Utiliser un appareil android à la place quand c'est possible
 \end{itemize}
-\includegraphics[width=300pt]{avd.png}
-\includegraphics[width=42pt]{emu.png}
+\includegraphics[width=300pt]{img/avd.png}
+\includegraphics[width=42pt]{img/emu.png}
 }
 \frame{
 \frametitle{Alternative à l'émulateur}
@@ -355,12 +355,12 @@ ADT fait le lien entre eclipse et le SDK android
   \item \url{http://www.androvm.org/}
   \item 2012 : premiers appareils android sous x86 ``intel inside''
 \end{itemize}
-\includegraphics[width=170pt]{x86.png}
+\includegraphics[width=170pt]{img/x86.png}
 }
 \subsection{Architecture}
 \frame{
 \frametitle{Organisation d'un projet android}
-\includegraphics[width=150pt]{structure.png}
+\includegraphics[width=150pt]{img/structure.png}
 }
 \frame{
 \frametitle{Détail de l'organisation}
@@ -381,7 +381,7 @@ ADT fait le lien entre eclipse et le SDK android
 }
 \frame{
 \frametitle{AndroidManifest.xml : le coeur de l'application}
-\includegraphics[width=150pt]{manifest.png}
+\includegraphics[width=150pt]{img/manifest.png}
 \begin{itemize}
   \item Déclaration des composants
   \item Déclaration des permissions
@@ -407,7 +407,7 @@ ADT fait le lien entre eclipse et le SDK android
 
 \frame{
 \frametitle{Le système de ressources}
-\includegraphics[width=140pt]{ressources.png}
+\includegraphics[width=140pt]{img/ressources.png}
 \begin{itemize}
   \item Un identifiant est généré pour chaque ressource (drawable, layout, menu,
   values, style \ldots)
@@ -447,8 +447,8 @@ ADT fait le lien entre eclipse et le SDK android
 }
 \frame{
 \frametitle{Processus de déploiement en dev}
-\includegraphics[width=50pt]{runas.png}
-\includegraphics[width=300pt]{console.png}
+\includegraphics[width=50pt]{img/runas.png}
+\includegraphics[width=300pt]{img/console.png}
 \begin{itemize}
   \item Comme pour une application JAVA classique, ctrl + F11
   \item Eclipse demande au SDK de builder l'APK
@@ -467,7 +467,7 @@ ADT fait le lien entre eclipse et le SDK android
 }
 \frame{
 \frametitle{Déboguer l'application}
-\includegraphics[width=120pt]{fc.png}
+\includegraphics[width=120pt]{img/fc.png}
 \begin{itemize}
   \item Si une exception n'est pas rattrapée, android tue l'application
   \item On parle de ``force close'' (FC)
@@ -477,11 +477,11 @@ ADT fait le lien entre eclipse et le SDK android
 }
 \frame{
 \frametitle{Stacktrace of GTFO}
-\includegraphics[width=120pt]{jacoj.jpg}
+\includegraphics[width=120pt]{img/jacoj.jpg}
 }
 \frame{
 \frametitle{Logcat, le sauveur}
-\includegraphics[width=120pt]{logcat.jpg}
+\includegraphics[width=120pt]{img/logcat.jpg}
 \begin{itemize}
   \item Le SDK fournit un outil très pratique : logcat
   \item On appelle logcat par adb : adb logcat ou on utilise la vue LogCat du
@@ -491,8 +491,8 @@ ADT fait le lien entre eclipse et le SDK android
 }
 \frame{
 \frametitle{Logcat, exemple}
-\includegraphics[width=340pt]{logeclipse.png}\\
-\includegraphics[width=340pt]{logterminal.png}
+\includegraphics[width=340pt]{img/logeclipse.png}\\
+\includegraphics[width=340pt]{img/logterminal.png}
 }
 \begin{frame}[fragile]
 \frametitle{Logcat, logging de l'application}
@@ -520,7 +520,7 @@ public void sauvegarderScore(int score) {
 \subsection{IHM}
 \frame{
 \frametitle{Activity, le composant de base}
-  \includegraphics[width=50pt]{activity.png}
+  \includegraphics[width=50pt]{img/activity.png}
 \begin{itemize}
   \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
   \item Une application peut avoir 0-n activities
@@ -531,7 +531,7 @@ public void sauvegarderScore(int score) {
 
 \frame{
 \frametitle{Cycle de vie d'une activity} 
-  \includegraphics[width=150pt]{activity_lifecycle.png}
+  \includegraphics[width=150pt]{img/activity_lifecycle.png}
 }
 \begin{frame}[fragile]
 \frametitle{Créer une activity : étendre Activity} 
@@ -590,7 +590,7 @@ public Class MyActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Les ViewGroups}
-  \includegraphics[width=150pt]{viewgroup.png}
+  \includegraphics[width=150pt]{img/viewgroup.png}
   \begin{itemize}
  \item LinearLayout
  \item RelativeLayout
@@ -781,7 +781,7 @@ public void clickSurLeBouton(View v) //dans MyActivity
 
 \begin{frame}[fragile]
 \frametitle{Affichage d'un court message : le toast}
-\includegraphics[width=60pt]{coucou.png}
+\includegraphics[width=60pt]{img/coucou.png}
 \begin{lstlisting}
 public MyActivity extends Activity {
     
@@ -915,7 +915,7 @@ public ProfilActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Filtrer les intents, exemple}
-\includegraphics[width=45pt]{intentchooser.jpg}
+\includegraphics[width=45pt]{img/intentchooser.jpg}
 \begin{lstlisting}
 <activity
             android:name="com.ensai.technomobile.TwitterActivity"
@@ -1431,7 +1431,7 @@ public long calculLong() {
     Thread.sleep(30*1000);
 }
 \end{lstlisting}
-\includegraphics[width=150pt]{anr.png}
+\includegraphics[width=150pt]{img/anr.png}
 \begin{itemize}
   \item L'interface graphique ne répond plus
   \item Si le blocage dure plus de x secondes, android affiche ce popup
