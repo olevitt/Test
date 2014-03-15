@@ -30,7 +30,8 @@
 \author{Olivier Levitt} 
 
 
-\date{Source et pdf de ce cours :\\\url{https://bitbucket.org/olevitt/technologies-mobiles}} 
+\date{Source et pdf de ce cours et des TP
+:\\\url{https://bitbucket.org/olevitt/technologies-mobiles}}
 \AtBeginSubsection[]
 {
   \begin{frame}
@@ -61,7 +62,7 @@
   \item{3 avril : 3h de cours, 1h30 de TP}
   \item{10 avril : 4h30 de TP}
   \item{Validation des sujets de projet avant le 17 avril}
-  \item{17 avril : 4h30 de TP}
+  \item{17 avril : 4h30 de TP dédiées au projet}
   \item{25 avril : 3h de TP dédiées au projet}
   \item{13 mail : Soutenance du projet}
 \end{itemize}
@@ -73,19 +74,21 @@
 \begin{itemize}
   \item{Projet : création d'une application}
   \item{Groupe de 2}
+  \item{Choix de la technologie ``libre''}
   \item{Sujet ``libre''}
-  \item{6h de TP dédiées au projet + \textbf{travail personnel}}
+  \item{7h30 de TP dédiées au projet + \textbf{travail personnel}}
   \item{Soutenance / Présentation de l'application}
 \end{itemize}
 }
 \frame{
 \frametitle{Evaluation, exemples de sujets}
 \begin{itemize}
-  \item{PamplemousseViewer v2}
+  \item{PamplemousseViewer v3}
   \item{Gestion d'une bibliothèque}
   \item{Quiz}
   \item{Tape-taupes}
-  \item{Serveur SMS}
+  \item{Répondeur SMS}
+  \item{Statistiques d'un jeu en ligne}
   \item{Achievements}
 \end{itemize}
 }
@@ -95,7 +98,7 @@
 \begin{itemize}
   \item Smartphones, tablettes et assimilés (TV, montre, autoradio, consoles de
   jeu \ldots)
-  \item Développement d'application, pas de dev de la plateforme
+  \item Développement d'application, pas de dev système
   \item 1ère partie : le développement mobile en général
   \item 2ème partie : application sous android
 \end{itemize}
@@ -109,13 +112,14 @@
   \item Téléphonie (SMS, MMS, appels)
   \item Internet (GPRS, EDGE, 3G, 4G, WIFI)
   \item Réseaux locaux (Bluetooth, réseaux adhoc, NFC)
-  \item Capteurs (Luminosité, proximité)
+  \item Capteurs (Luminosité, proximité, podomètre)
   \item Localisation (GPS, triangulation, SSID wifi)
   \item Notifications (Vibreur, haut-parleurs, LED)
-  \item Photo / vidéo
+  \item Photo / vidéo / visio
   \item Stockage de données (Mémoire flash, SD externe, SQLite)
-  \item Interactions (Ecran tactile, gestures, boutons physique)
-  \item Et encore d'autres \ldots
+  \item Interactions (Ecran tactile, gestures, boutons physique, reconnaissance
+  vocale, lecteur d'empreintes)
+  \item Et bien d'autres \ldots
 \end{itemize}
 Et des API pour utiliser tout ça !
 }
@@ -127,7 +131,7 @@ Et des API pour utiliser tout ça !
   \item Stockage de données
   \item Gestion de la batterie
   \item Stabilité et débit de la connexion internet
-  \item Cycle de vie de l'application
+  \item Cycle de vie de l'application (appels entrants, veille \ldots)
   \item Taille d'écran 
   \item Inputs atypiques (clavier virtuel, gestures, peu de boutons \ldots)
 \end{itemize}
@@ -150,9 +154,10 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Montres connectées : de 1 à 2 pouces
   \item Smartphones lowcost : 3 pouces (Galaxy pocket, galaxy Y)
-  \item Smartphones high-end : 4 à 5 pouces (IPhone 5, HTC 8X, nexus 4)
+  \item Smartphones high-end : 4 à 5 pouces (iPhone 5, HTC 8X, nexus 5)
   \item Phablets : 5 à 6 pouces (Galaxy note, HTC butterfly)
-  \item Tablettes : 7 pouces (Nexus 7, IPad mini), 8 pouces (Archos 80g9), 10 pouces (Nexus 10, IPad)
+  \item Tablettes : 7 pouces (Nexus 7, iPad mini), 8 pouces (Archos 80g9), 10
+  pouces (Nexus 10, iPad)
 \end{itemize}
 }
 
@@ -179,6 +184,17 @@ Comment gérer toutes les tailles d'écran ?
   \item Règles des ``store'' (validation, monétisation \ldots)
 \end{itemize}
 }
+\frame{
+\frametitle{Un monde qui évolue très vite}
+\begin{itemize}
+  \item Evolution technologique permanente (nouveaux appareils, nouvelles
+  versions des OS)
+  \item Evolution du marché (parts de marché des OS)
+  \item Nouveaux OS (firefox OS, blackberry 10 \ldots)
+  \item Concurrence sur les stores
+  \item Développement des réseaux et nouveaux usages (4G)
+\end{itemize}
+}
 \subsection{Présentation des différents OS mobile}
 \frame{
 \frametitle{iOS}
@@ -198,11 +214,11 @@ Comment gérer toutes les tailles d'écran ?
 \includegraphics[width=60pt]{img/google-android.jpg}
 \begin{itemize}
   \item Soutenu par Google
-  \item 1.0 en septembre 2008, 1.5 en avril 2009
+  \item Version 1.0 en septembre 2008, commercial 1.5 en avril 2009
   \item Plus de 2400 appareils officiellement supportés, plus de 50 constructeurs
   \item 480 millions d'appareils activés (Septembre 2012)
   \item Programmation en JAVA, sur windows / OS X / linux
-  \item Open-source
+  \item Noyau open-source
   \item Google playstore : pas de validation + 25\$
 \end{itemize}
 }
@@ -223,9 +239,9 @@ Comment gérer toutes les tailles d'écran ?
 
 \includegraphics[width=60pt]{img/bb10.jpg}
 \begin{itemize}
-  \item Soutenu par RIM (Research in motion)
-  \item Présentation au public le 30 janvier 2012 (!)
-  \item Appareils produits par RIM
+  \item Soutenu par Blackberry (anciennement RIM)
+  \item Présentation au public le 30 janvier 2012
+  \item Appareils produits par Blackberry
   \item C / C++, HTML5, Adobe AIR, Portage android
   \item Blackberry appworld : validation + gratuit
 \end{itemize}
@@ -234,7 +250,7 @@ Comment gérer toutes les tailles d'écran ?
 \frametitle{Ubuntu for phones}
 \begin{itemize}
   \item Soutenu par Canonical
-  \item Teaser le 2 janvier 2012, testable sur galaxy nexus fin février
+  \item Teaser le 2 janvier 2012
   \item Premiers ubuntu phones promis pour début 2014
   \item Facilement utilisable sur les téléphones android ?
   \item HTML5, C/C++ + QML
@@ -246,8 +262,7 @@ Comment gérer toutes les tailles d'écran ?
 \frametitle{Firefox OS}
 \begin{itemize}
   \item Soutenu par Mozilla
-  \item Premiers téléphones présentés le 22 janvier (geeksphone), disponibles en
-  février ?
+  \item Premiers téléphones présentés le 22 janvier (geeksphone)
   \item Simulateur sous forme d'addon firefox
   \item HTML5
   \item Open-source
@@ -267,7 +282,7 @@ Comment gérer toutes les tailles d'écran ?
   \item www.stackoverflow (Q/A EN)
   \item \#android et \#android-dev sur freenode (chat irc EN)
   \item www.breizhjug.org et www.paug.fr (communautés FR)
-  \item www.google.fr (réservoir à tutoriels)
+  \item www.google.fr
 \end{itemize}
 }
 \frame{
@@ -289,7 +304,7 @@ Conseillé :\\
 \begin{table}
 \begin{tabular}{|l|c|c|c|r|}
   \hline
-  Version & Nom & API level & Distribution & Cumulé \\
+  Version & Nom & API level & Distribution & Rétrocumul \\
   \hline
   1.5 & Cupcake & 3 & 0\% & 0\% \\
   1.6 & Donut & 4 & 0.2\% & 0.2\% \\
@@ -317,14 +332,15 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item add-ons : Google APIs
   \item docs : Copie de la documentation disponible sur d.android.com
   \item extras : Lib de compatibilité, lib pour les achats in-app \ldots
+  \item platforms : 1 dossier par niveau d'API téléchargé
   \item platform-tools : Binaires de communication avec les appareils android
   (adb, fastboot \ldots)
-  \item platforms : 1 dossier par niveau d'API téléchargé
   \item samples : Exemples de projets
   \item sources : Sources de chaque niveau d'API
   \item system-images : Images pour l'émulateur
   \item temp
-  \item tools : Outils pour le dev (ddms, apkbuilder, lint \ldots)
+  \item tools : Outils pour le dev (ddms, apkbuilder, lint
+  \ldots)
 \end{itemize}
 }
 \frame{
@@ -352,9 +368,9 @@ ADT fait le lien entre eclipse et le SDK android
   \item Problème : émuler de l'ARM sur nos machines x86
   \item Résultat : émulateur ((très) très) lent
   \item Solution proposée : porter android sur x86
+  \item \url{http://www.genymotion.com}
   \item \url{http://www.android-x86.org/}
-  \item \url{http://www.androvm.org/}
-  \item 2012 : premiers appareils android sous x86 ``intel inside''
+  \item Quelques appareils android sous x86 ``intel inside''
 \end{itemize}
 \includegraphics[width=170pt]{img/x86.png}
 }
@@ -381,7 +397,7 @@ ADT fait le lien entre eclipse et le SDK android
  \end{itemize}
 }
 \frame{
-\frametitle{AndroidManifest.xml : le coeur de l'application}
+\frametitle{AndroidManifest.xml : la carte d'identité de l'application}
 \includegraphics[width=150pt]{img/manifest.png}
 \begin{itemize}
   \item Déclaration des composants
@@ -412,7 +428,8 @@ ADT fait le lien entre eclipse et le SDK android
 \begin{itemize}
   \item Un identifiant est généré pour chaque ressource (drawable, layout, menu,
   values, style \ldots)
-  \item Toutes les fonctions qui utilisent des ressources sont surchargées pour aussi accepter l'identifiant de la ressource correspondante
+  \item Les fonctions qui utilisent des ressources sont surchargées pour aussi
+  accepter l'identifiant de la ressource correspondante
   \item Utiliser des ressources différentes en fonction de la configuration
   (values et values-fr, drawable et drawable-hdpi)
    \end{itemize}
@@ -443,7 +460,7 @@ ADT fait le lien entre eclipse et le SDK android
   \item Une application android = un APK (+/- équivalent d'un jar)
   \item Une application android doît être signée 
   \item Attention à ne pas perdre la clé !
-  \item Création et signature de l'APK simple sous eclipse (export)
+  \item Création et signature de l'APK simplifié sous eclipse (export)
  \end{itemize}
 }
 \frame{
@@ -486,7 +503,7 @@ ADT fait le lien entre eclipse et le SDK android
 \begin{itemize}
   \item Le SDK fournit un outil très pratique : logcat
   \item On appelle logcat par adb : adb logcat ou on utilise la vue LogCat du
-  plugin ADT
+  plugin eclipse
   \item Logcat affiche l'ensemble des logs, système et application
  \end{itemize}
 }
@@ -499,7 +516,7 @@ ADT fait le lien entre eclipse et le SDK android
 \frametitle{Logcat, logging de l'application}
 \begin{itemize}
   \item Oublier System.out.println() !
-  \item 5 niveaux de gravité : ERROR, WARN, INFO, DEBUG, VERBOSE
+  \item 5 niveaux de gravité : Error, Warn, Info, Debug, Verbose
   \item Possibilité dans adb logcat de filtrer par gravité et/ou TAG
   \item Pratique recommandée : un TAG par application
  \end{itemize}
@@ -582,11 +599,12 @@ public Class MyActivity extends Activity {
   \begin{itemize}
     \item TextView = Un texte
     \item EditText = Un champ de texte remplissable
-    \item ImageView = Une image
+    \item ImageView
     \item Button
     \item CheckBox
     \item Plein d'autres views de base dans android
-    \item Possibilité de créer ses propres views en étendant View ou SurfaceView
+    \item Possibilité de créer ses propres views en héritant (directement ou
+    indirectement) de View
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -613,8 +631,8 @@ Etape 1 : donner un identifiant à la vue
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/monbouton"
-        android:text="@string/hello_world" />
+        android:text="@string/hello_world"
+        android:id="@+id/monbouton" />
 
 </LinearLayout>
 \end{lstlisting}
@@ -642,7 +660,7 @@ public Class MyActivity extends Activity {
 }
 \end{lstlisting}
 \begin{itemize}
-    \item findViewById renvoie un objet de type View : nécessité de caster
+    \item findViewById renvoie un objet de type View : on cast
     \item si aucune vue n'a l'identifiant demandé, findViewById renvoie null
  \end{itemize}
 \end{frame}
@@ -650,7 +668,6 @@ public Class MyActivity extends Activity {
 \frametitle{Manipuler les éléments de l'UI en java}
 \begin{lstlisting}
 public Class MyActivity extends Activity {
-
     ViewGroup layout = null;
     Button bouton = null;
 
@@ -799,7 +816,8 @@ public MyActivity extends Activity {
 \begin{itemize}
  \item Tâche en arrière plan (attention, pas automatiquement dans un thread séparé)
  \item Cycle de vie différent de celui d'une activity
- \item Pas d'interface graphique (sauf si une activity interroge le service)
+ \item Pas d'interface graphique (sauf si une activity communique avec le
+ service)
  \item Exemples : lecteur MP3, client torrent, système de mise à jour, taskkiller \ldots
  \end{itemize}
 \end{frame}
@@ -809,7 +827,8 @@ public MyActivity extends Activity {
  \item Composant recevant les annonces système et les annonces des autres applications
  \item Permet de réagir à certains évenements
  \item Possibilité de lancer des activités ou des services depuis le broadcast receiver
- \item Exemples : indicateur de batterie, antivirus, lancement au démarrage \ldots
+ \item Exemples : indicateur de batterie, antivirus, lancement au démarrage,
+ intercepter un appel ou un SMS reçu \ldots
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -821,7 +840,7 @@ public MyActivity extends Activity {
   \item Peut permettre la récupération, la modification et/ou la suppression de données
   \item Principalement déstiné à une utilisation entre applications
   \item Gestion de la sécurité et des droits (permissions)
-  \item Exemple : accès au données système (SMS, contacts \ldots) 
+  \item Exemple : accès aux données système (SMS, contacts \ldots) 
  \end{itemize}
 \end{frame}
 
@@ -873,7 +892,6 @@ public MyActivity extends Activity {
 ``Je veux lancer l'activity ProfilActivity en transmettant l'id 42''
 \begin{lstlisting}
 public MyActivity extends Activity {
-    
     public void visualiserProfil() {
         Intent intent = new Intent(this, ProfilActivity.class); 
         //this est la en tant que context
@@ -885,7 +903,6 @@ public MyActivity extends Activity {
 
 \begin{lstlisting}
 public ProfilActivity extends Activity {
-    
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
@@ -988,7 +1005,7 @@ Modifier les préferences\\
 public void sauvegarderScore() {
     SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
     Editor editor = preferences.edit();
-    editor.putInt("meilleurScore");
+    editor.putInt("meilleurScore",42);
     editor.commit();
 }
 \end{lstlisting}
@@ -996,9 +1013,9 @@ public void sauvegarderScore() {
 \begin{frame}[fragile]
 \frametitle{Les fichiers}
 \begin{itemize}
-    \item API classiques de java
+    \item API classiques de java (File, InputStream, OutputStream \ldots)
     \item Ne jamais utiliser de chemin absolu, utiliser les fonctions android pour déterminer les dossiers
-    \item Garder en tête les contraintes de place libre
+    \item Garder en tête les contraintes du mobile : espace libre, SD accessible
     \item Choisir entre stockage interne et externe
 \end{itemize}
 \end{frame}
@@ -1011,7 +1028,6 @@ fos.close();
 \end{lstlisting}
 \begin{itemize}
     \item Comme pour les préférences, ne pas utiliser les modes WORLD\_READABLE et WORLD\_WRITEABLE
-    \item MODE\_APPEND est utilisable pour écrire à la fin du fichier
     \item Les fichiers crées sur le stockage interne sont liés à l'application (en particulier, ils sont supprimés lors de la désinstallation de l'application)
 \end{itemize}
 \begin{itemize}
@@ -1026,7 +1042,8 @@ fos.close();
 \begin{itemize}
     \item La jungle : l'utilisateur et toutes les applications peuvent lire / écrire tout le contenu
     \item La présence d'un stockage externe n'est pas garanti
-    \item Même si il est présent, le stockage externe peut ne pas être disponible
+    \item Même si il est présent, le stockage externe peut ne pas être
+    disponible (appareil connécté au PC)
     \item 2 permissions : WRITE\_EXTERNAL\_STORAGE et READ\_EXTERNAL\_STORAGE
 \end{itemize}
 \begin{lstlisting}
@@ -1035,7 +1052,7 @@ if (Environment.MEDIA_MOUNTED.equals(state)) {
     //Lecture et ecriture possibles
 } 
 else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-    //Ecriture impossible, lecture possible
+    //Lecture possible, écriture impossible
 } 
 else { //Lecture et ecriture impossibles }
 \end{lstlisting}
@@ -1055,9 +1072,10 @@ L'argument utilisé dans les 2 cas correspond au type de données et est une var
 Exemples : Environment.DIRECTORY\_PICTURES, DIRECTORY\_MUSIC, DIRECTORY\_DOWNLOADS, DIRECTORY\_DCIM \ldots
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{SQLite, le moteur de base de données embarqué}
+\frametitle{SQLite, le moteur de base de données portable}
 \begin{itemize}
-    \item SQLite est un moteur de base de données spécialement conçu pour le mobie et l'embarqué
+    \item SQLite est un moteur de base de données spécialement conçu pour le
+    mobile et l'embarqué
     \item On retrouve à peu près l'ensemble des fonctions de base d'un moteur de BDD
     \item Android propose en plus une API facilitant les tâches courantes : SQLiteOpenHelper
     \item Pour les requêtes, android offre une API proche de JDBC
@@ -1238,8 +1256,8 @@ String[] values = new String[] { "ligne1","ligne2","ligne3"};
 
 // 1) Context
 // 2) Layout a utiliser pour chaque view
-// 3) ID de la textview a l'interieur de la view
-// 4) Liste / tableau des données
+// 3) ID de la textview a l'interieur dans le layout
+// 4) Liste / tableau des donnees
 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
   android.R.layout.simple_list_item_1, android.R.id.text1, values);
 
@@ -1268,7 +1286,7 @@ listView.setOnItemClickListener(new OnItemClickListener() {
   \item Dans certains cas, les views de base d'android ne suffisent pas
   \item Exemple : création d'un jeu, création d'un color picker \ldots
   \item On peut alors chercher si d'autres développeurs n'ont pas déjà crée des views semblables
-  \item ex : \url{http://androidviews.net}
+  \item ex : \url{http://androidviews.net}, \url{http://google.fr}
   \item ou créer ses propres views en héritant de View ou SurfaceView
   \item View : view classique, rafraichissement au besoin
   \item SurfaceView : view ``temps réel'' (pour un jeu par exemple)
@@ -1410,6 +1428,7 @@ parser.setInput(new StringReader("<exemple>42</exemple>"));
 int event = parser.getEventType();
 while (event != XmlPullParser.END_DOCUMENT) {
     parser.next();
+    event = parser.getEventType();
 }
 \end{lstlisting}
 \end{frame}
