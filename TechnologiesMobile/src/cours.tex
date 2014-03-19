@@ -1152,8 +1152,8 @@ SQLiteDatabase readableDB = helper.getReadableDatabase();
 \end{itemize}
 \begin{lstlisting}
 SQLiteDatabase writableDB = helper.getWritableDatabase();
-Cursor cursor1 = writableDB.rawQuery("SELECT nom,score FROM table WHERE id = ?",new String[] {"42"});
-Cursor cursor2 = writableDB.query("table",new String[] {"nom","score"}, "id = ?",new String[] {"42"}, null, null, null );
+Cursor cursor1 = writableDB.rawQuery("SELECT nom,score FROM table WHERE id =?",new String[] {"1"}); 
+Cursor cursor2 = writableDB.query("table",new String[] {"nom","score"}, "id =?",new String[] {"1"}, null, null, null );
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
@@ -1375,7 +1375,8 @@ try {
 \frametitle{Les webservices}
 \begin{itemize}
   \item Une pratique courante est de créer des webservices pour échanger les informations entre client (mobile) et serveur
-  \item Un webservice ne renvoi pas de HTML (données + présentation) mais des données brutes formatées (en XML ou JSON)
+  \item Un webservice ne renvoit pas de HTML (données + présentation) mais des
+  données brutes formatées (en XML, JSON \ldots)
   \item L'application mobile se charge de la mise en forme et de l'affichage des données
   \item 1 webservice pour toutes les applications, peu importe l'OS
   \item Webservices publics (météo, transports \ldots)
@@ -1444,18 +1445,19 @@ while (event != XmlPullParser.END_DOCUMENT) {
 \begin{frame}[fragile] 
 \frametitle{Le multithreading}
 \begin{itemize}
-  \item Problématique : Les tâches à éxecuter peuvent parfois être (très) longues
-  \item exemples : longs calculs
-  \item flux réseau (ping de 10-20 secondes sur réseau mobile ?)
-  \item insertions massives en base de données
-  \item ``solution'' : l'asynchrone
+  \item Problématique : Les tâches à executer peuvent parfois être (très)
+  longues
+  \item Exemples : longs calculs
+  \item Flux réseau (ping de 10-20 secondes sur réseau mobile ?)
+  \item Insertions massives en base de données
+  \item ``Solution'' : l'asynchrone
   \item Nouveau problème : comment mettre en place l'asynchrone ?
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile] 
 \frametitle{Le multithreading, constater le problème}
 \begin{lstlisting}
-public long calculLong() {
+public void calculLong() {
     //simule un calcul long en ne faisant rien pendant 30 secondes
     Thread.sleep(30*1000);
 }
