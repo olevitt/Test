@@ -164,7 +164,7 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Versions de l'OS
   \item Résolutions d'écran
-  \item Elements hardware présents
+  \item Eléments hardware présents
   \item Puissance
   \item Modifications constructeur / ``rom custom''
   \item \ldots
@@ -480,7 +480,7 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item Eclipse demande au SDK de builder l'APK
   \item Eclipse signe l'APK avec la clé debug 
   \item Eclipse demande à adb (SDK) d'installer l'application
-  \item Soit sur un appareil android connécté soit sur un émulateur
+  \item Soit sur un appareil android connecté soit sur un émulateur
  \end{itemize}
 }
 \frame{
@@ -698,17 +698,17 @@ public Class MyActivity extends Activity {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Ecouter les évenements}
+\frametitle{Ecouter les événements}
 \begin{itemize}
  \item Système de listeners (cf swing)
  \item Il se passe quelque chose sur la vue (touch, focus \ldots) : le listener
  est prévenu
- \item Pour simplifier, sur android on a en général qu'un listener par évenement
+ \item Pour simplifier, sur android on a en général qu'un listener par événement
  et par view (setXListener au lieu de addXListener sous swing)
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Ecouter les évenements, guide du bon listener}
+\frametitle{Ecouter les événements, guide du bon listener}
 Etape 1 : Les interfaces XListener
 \begin{lstlisting}
 public Interface OnClickListener {
@@ -725,7 +725,7 @@ public MaClasse implements OnClickListener {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Ecouter les évenements, guide du bon listener}
+\frametitle{Ecouter les événements, guide du bon listener}
 Etape 3 : S'enregistrer comme listener
 \begin{lstlisting}
 public Class MyActivity extends Activity implements OnClickListener {
@@ -747,7 +747,7 @@ public Class MyActivity extends Activity implements OnClickListener {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Ecouter les évenements, quelques feintes}
+\frametitle{Ecouter les événements, quelques feintes}
 Feinte 1 : Utiliser des listeners anonymes
 \begin{lstlisting}
 public Class MyActivity extends Activity implements OnClickListener {
@@ -769,7 +769,7 @@ public Class MyActivity extends Activity implements OnClickListener {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Ecouter les évenements, quelques feintes}
+\frametitle{Ecouter les événements, quelques feintes}
 Feinte 2 : Définir le listener directement dans le layout
 \begin{lstlisting}
 <LinearLayout 
@@ -833,7 +833,7 @@ public MyActivity extends Activity {
 \frametitle{Les autres composants d'une application : les broadcast receivers}
 \begin{itemize}
  \item Composant recevant les annonces système et les annonces des autres applications
- \item Permet de réagir à certains évenements
+ \item Permet de réagir à certains événements
  \item Possibilité de lancer des activités ou des services depuis le broadcast receiver
  \item Exemples : indicateur de batterie, antivirus, lancement au démarrage,
  intercepter un appel ou un SMS reçu \ldots
@@ -846,7 +846,7 @@ public MyActivity extends Activity {
   \item Peu importe comment les données sont stockées (sqlite, préferences, fichier \ldots)
   \item Respecte une interface d'utilisation des données
   \item Peut permettre la récupération, la modification et/ou la suppression de données
-  \item Principalement déstiné à une utilisation entre applications
+  \item Principalement destiné à une utilisation entre applications
   \item Gestion de la sécurité et des droits (permissions)
   \item Exemple : accès aux données système (SMS, contacts \ldots) 
  \end{itemize}
@@ -1060,7 +1060,7 @@ if (Environment.MEDIA_MOUNTED.equals(state)) {
     //Lecture et ecriture possibles
 } 
 else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-    //Lecture possible, écriture impossible
+    //Lecture possible, ecriture impossible
 } 
 else { //Lecture et ecriture impossibles }
 \end{lstlisting}
@@ -1125,7 +1125,8 @@ public class MyOpenHelper extends SQLiteOpenHelper {
 \begin{itemize}
     \item L'entier DATABASE\_VERSION permet de savoir si une mise à jour de la base est nécessaire
     \item Android appelle directement onUpgrade si le numéro de version est supérieur au numéro de version actuel de la base
-    \item onUpgrade doît alors faire les mises à jour qui s'impose en fonction des entiers oldVersion / newVersion 
+    \item onUpgrade doit alors faire les mises à jour qui s'imposent en fonction
+    des entiers oldVersion / newVersion
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -1176,19 +1177,19 @@ cursor.close();
 long insert (String table, String nullColumnHack, ContentValues values)
 \begin{lstlisting}
 ContentValues values = new ContentValues();
-values.put("nom", "bob");
+values.put("nom", "Bob");
 values.put("score", 42);
 long rowID = bdd.insert(table, null, values);
 \end{lstlisting}
 int update(String table, ContentValues values, String whereClause, String[] whereArgs)
 \begin{lstlisting}
 ContentValues values = new ContentValues();
-values.put("score", 42);
-int nbRowsAffected = bdd.update(table, values, "nom = ?",new String[] {"42"});
+values.put("score", 43);
+int nbRowsAffected = bdd.update(table, values, "nom = ?",new String[] {"Bob"});
 \end{lstlisting}
 int delete (String table, String whereClause, String[] whereArgs)
 \begin{lstlisting}
-int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"bobette});
+int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"Bob"});
 \end{lstlisting}
 \end{frame}
 \subsection{Bonus}
@@ -1276,8 +1277,8 @@ adapter.clear();
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{ListView : écouter les évenements}
-Les évenements comme les clicks sont gérés par la listview (et non pas par l'adapter)
+\frametitle{ListView : écouter les événements}
+Les événements comme les clicks sont gérés par la listview (et non pas par l'adapter)
 \begin{lstlisting}
 listView.setOnItemClickListener(new OnItemClickListener() {
   public void onItemClick(AdapterView<?> parent, View view,
