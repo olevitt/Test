@@ -29,9 +29,8 @@
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 
-
 \date{Source et pdf de ce cours et des TP
-:\\\url{https://bitbucket.org/olevitt/technologies-mobiles}}
+:\\\url{https://bitbucket.org/olevitt/technologies-mobiles/src}}
 \AtBeginSubsection[]
 {
   \begin{frame}
@@ -64,7 +63,7 @@
   \item{Validation des sujets de projet avant le 17 avril}
   \item{17 avril : 4h30 de TP dédiées au projet}
   \item{25 avril : 3h de TP dédiées au projet}
-  \item{13 mail : Soutenance du projet}
+  \item{13 mai : Soutenance du projet}
 \end{itemize}
 }
 
@@ -74,7 +73,6 @@
 \begin{itemize}
   \item{Projet : création d'une application}
   \item{Groupe de 2}
-  \item{Choix de la technologie ``libre''}
   \item{Sujet ``libre''}
   \item{7h30 de TP dédiées au projet + \textbf{travail personnel}}
   \item{Soutenance / Présentation de l'application}
@@ -89,7 +87,6 @@
   \item{Tape-taupes}
   \item{Répondeur SMS}
   \item{Statistiques d'un jeu en ligne}
-  \item{Achievements}
 \end{itemize}
 }
 \subsection{Contexte et objectifs}
@@ -111,8 +108,8 @@
 \begin{itemize}
   \item Téléphonie (SMS, MMS, appels)
   \item Internet (GPRS, EDGE, 3G, 4G, WIFI)
-  \item Réseaux locaux (Bluetooth, réseaux adhoc, NFC)
-  \item Capteurs (Luminosité, proximité, podomètre)
+  \item Réseaux locaux (Bluetooth, réseaux adhoc)
+  \item Capteurs (Luminosité, proximité, podomètre, NFC)
   \item Localisation (GPS, triangulation, SSID wifi)
   \item Notifications (Vibreur, haut-parleurs, LED)
   \item Photo / vidéo / visio
@@ -130,7 +127,7 @@ Et des API pour utiliser tout ça !
   \item Mémoire RAM
   \item Stockage de données
   \item Gestion de la batterie
-  \item Stabilité et débit de la connexion internet
+  \item Présence, stabilité et débit de la connexion internet
   \item Cycle de vie de l'application (appels entrants, veille \ldots)
   \item Taille d'écran 
   \item Inputs atypiques (clavier virtuel, gestures, peu de boutons \ldots)
@@ -139,7 +136,7 @@ Contraintes à garder en tête en permanence.
 }
 \frame{
 \frametitle{La fragmentation}
-Une application publiée sur le google playstore cible plus de 2400 appareils
+Une application publiée sur le google playstore cible plus de 5300 appareils
 différents !\\
 \begin{itemize}
    \item ``Write once, run everywhere'' ?
@@ -174,17 +171,6 @@ Comment gérer toutes les tailles d'écran ?
 \end{itemize}
 }
 \frame{
-\frametitle{Des Ecosystèmes forts}
-\begin{itemize}
-  \item Obligation d'utiliser le SDK fourni
-  \item Suivre les guidelines
-  \item Restrictions liées à la plateforme
-  \item Utilisation des services de la plateforme
-  \item Processus de déploiement des applications
-  \item Règles des ``store'' (validation, monétisation \ldots)
-\end{itemize}
-}
-\frame{
 \frametitle{Un monde qui évolue très vite}
 \begin{itemize}
   \item Evolution technologique permanente (nouveaux appareils, nouvelles
@@ -195,6 +181,17 @@ Comment gérer toutes les tailles d'écran ?
   \item Développement des réseaux et nouveaux usages (4G)
 \end{itemize}
 }
+\frame{
+\frametitle{Des Ecosystèmes forts}
+\begin{itemize}
+  \item Obligation d'utiliser le SDK fourni
+  \item Suivre les guidelines
+  \item Restrictions liées à la plateforme
+  \item Utilisation des services de la plateforme
+  \item Processus de déploiement des applications
+  \item Règles des ``store'' (validation, monétisation \ldots)
+\end{itemize}
+}
 \subsection{Présentation des différents OS mobile}
 \frame{
 \frametitle{iOS}
@@ -203,7 +200,6 @@ Comment gérer toutes les tailles d'écran ?
   \item Soutenu par Apple
   \item Présenté le 9 janvier 2007
   \item Dédié aux produits apple (iPhone, iPad, iPod)
-  \item 400 millions d'appareils (Septembre 2012)
   \item Programmation en objective-C, sur mac OS X uniquement
   \item Appstore : validation + 100\$ / an
 \end{itemize}
@@ -215,10 +211,10 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Soutenu par Google
   \item Version 1.0 en septembre 2008, commercial 1.5 en avril 2009
-  \item Plus de 2400 appareils officiellement supportés, plus de 50 constructeurs
-  \item 480 millions d'appareils activés (Septembre 2012)
+  \item Plus de 5300 appareils officiellement supportés, plus de 50
+  constructeurs
   \item Programmation en JAVA, sur windows / OS X / linux
-  \item Noyau open-source
+  \item Noyau open-source (Apache 2.0)
   \item Google playstore : pas de validation + 25\$
 \end{itemize}
 }
@@ -231,12 +227,11 @@ Comment gérer toutes les tailles d'écran ?
   \item Successeur de windows phone 7 (logique)
   \item Plusieurs constructeurs dont Nokia, HTC et Samsung
   \item Programmation en C\# sur windows 
-  \item Windows marketplace : validation + 100\$ / an
+  \item Windows Store : validation + 19\$ / an
 \end{itemize}
 }
 \frame{
 \frametitle{Blackberry 10}
-
 \includegraphics[width=60pt]{img/bb10.jpg}
 \begin{itemize}
   \item Soutenu par Blackberry (anciennement RIM)
@@ -247,24 +242,23 @@ Comment gérer toutes les tailles d'écran ?
 \end{itemize}
 }
 \frame{
-\frametitle{Ubuntu for phones}
+\frametitle{Firefox OS}
+\begin{itemize}
+  \item Soutenu par Mozilla
+  \item Premiers téléphones présentés le 22 janvier 2012 (geeksphone)
+  \item HTML5
+  \item Open-source
+  \item Firefox marketplace : validation + gratuit
+\end{itemize}
+}
+\frame{
+\frametitle{Ubuntu on phones}
 \begin{itemize}
   \item Soutenu par Canonical
   \item Teaser le 2 janvier 2012
   \item Premiers ubuntu phones promis pour début 2014
   \item Facilement utilisable sur les téléphones android ?
   \item HTML5, C/C++ + QML
-  \item Open-source
-  \item Peu d'infos sur le store
-\end{itemize}
-}
-\frame{
-\frametitle{Firefox OS}
-\begin{itemize}
-  \item Soutenu par Mozilla
-  \item Premiers téléphones présentés le 22 janvier (geeksphone)
-  \item Simulateur sous forme d'addon firefox
-  \item HTML5
   \item Open-source
   \item Peu d'infos sur le store
 \end{itemize}
@@ -301,24 +295,27 @@ Conseillé :\\
 }
 \frame{
 \frametitle{Les niveaux d'API}
+\small\addtolength{\tabcolsep}{-5pt}
 \begin{table}
 \begin{tabular}{|l|c|c|c|r|}
   \hline
   Version & Nom & API level & Distribution & Rétrocumul \\
   \hline
-  1.5 & Cupcake & 3 & 0\% & 0\% \\
-  1.6 & Donut & 4 & 0.2\% & 0.2\% \\
-  2.1 & Eclair & 7 & 2.4\% & 2.6\% \\
-  2.2 & Froyo & 8 & 9\% & 11.6\% \\
-  2.3 & Gingerbread & 9/10 & 47.6\% & 59.2\% \\
-  3.X & Honeycomb & 12/13 & 1.5\% & 60.7\% \\
-  4.0.X & Ice cream sandwich & 15 & 29.1\% & 89.8\% \\
-  4.1 & Jelly bean & 16 & 9\% & 98.8\% \\
-  4.2 & Jelly bean & 17 & 1.2\% & 100\% \\
+  1.5 & Cupcake & 3 & 0\% & 100\% \\
+  1.6 & Donut & 4 & 0\% & 100\% \\
+  2.1 & Eclair & 7 & 0\% & 100\% \\
+  2.2 & Froyo & 8 & 1.2\% & 100\% \\
+  2.3 & Gingerbread & 9/10 & 19\% & 98.8\% \\
+  3.X & Honeycomb & 12/13 & 0.1\% & 79.8\% \\
+  4.0 & Ice cream sandwich & 15 & 15.2\% & 79.7\% \\
+  4.1 & Jelly bean & 16 & 35.3\% & 64.5\% \\
+  4.2 & Jelly bean & 17 & 17.1\% & 29.2\% \\
+  4.3 & Jelly bean & 18 & 9.6\% & 12.1\% \\
+  4.4 & Kitkat & 19 & 2.5\% & 2.5\% \\
   \hline
 \end{tabular}
 \caption{\label{s}Répartition des versions pour les accès au google play sur la
-dernière quinzaine de 2012}
+dernière semaine de février 2014}
 \end{table}
 }
 \frame{
@@ -345,12 +342,23 @@ Téléchargement gratuit : www.d.android.com/sdk
 }
 \frame{
 \frametitle{Plugin android pour eclipse : ADT}
-Installation comme un plugin eclipse classique\\ 
-\url{https://dl-ssl.google.com/android/eclipse/}\\
-ADT fait le lien entre eclipse et le SDK android
+\begin{itemize}
+  \item Installation comme un plugin eclipse classique
+  \item \url{https://dl-ssl.google.com/android/eclipse/}
+  \item ADT fait le lien entre eclipse et le SDK android
+\end{itemize}
 \includegraphics[width=100pt]{img/adt.png}
 \includegraphics[width=200pt]{img/views.png}\\\\
 \includegraphics[width=100pt]{img/project.png}
+}
+\frame{
+\frametitle{Android studio}
+\begin{itemize}
+  \item Basé sur IntelliJ IDEA (et non sur eclipse)
+  \item IDE retravaillé pour android
+  \item Version ``early access preview'' (beta)
+\end{itemize}
+\includegraphics[width=200pt]{img/android-studio.jpg}
 }
 \frame{
 \frametitle{L'émulateur}
@@ -359,8 +367,8 @@ ADT fait le lien entre eclipse et le SDK android
   \item ((très) très) lent
   \item Utiliser un appareil android à la place quand c'est possible
 \end{itemize}
-\includegraphics[width=300pt]{img/avd.png}
-\includegraphics[width=42pt]{img/emu.png}
+\includegraphics[width=200pt]{img/avd.png}
+\includegraphics[width=80pt]{img/emu.png}
 }
 \frame{
 \frametitle{Alternative à l'émulateur}
@@ -372,7 +380,7 @@ ADT fait le lien entre eclipse et le SDK android
   \item \url{http://www.android-x86.org/}
   \item Quelques appareils android sous x86 ``intel inside''
 \end{itemize}
-\includegraphics[width=170pt]{img/x86.png}
+\includegraphics[width=150pt]{img/x86.png}
 }
 \subsection{Architecture}
 \frame{
@@ -403,7 +411,7 @@ ADT fait le lien entre eclipse et le SDK android
   \item Déclaration des composants
   \item Déclaration des permissions
   \item Déclaration d'autres métadonnées de l'application
-  \item Analysé par l'OS à l'installation
+  \item Analysé par android à l'installation
  \end{itemize}
 }
 \begin{frame}[fragile]
