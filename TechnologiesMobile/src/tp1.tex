@@ -74,12 +74,11 @@ device manager}
 \item Quelles sont les applications pré-installées sur l'émulateur ?
 \item Comment voir la log de l'émulateur ?
 \end{enumerate}
-\newpage
 \section{Construire notre simulateur de crédit}
 \subsection{Logcat}
 \begin{itemize}
 \item Logger chaque appel à onCreate() en niveau info (Log.i(TAG,message))
-\item Verifier dans logcat que les message apparaissent bien
+\item Verifier dans logcat que les messages apparaissent bien
 \end{itemize}
 \subsection{Un peu d'UI}
 Modifier le layout main pour y ajouter quelques composants :
@@ -113,7 +112,7 @@ Modifier le layout main pour y ajouter quelques composants :
  \begin{lstlisting}[language=XML]
  private double calculMensualites(
      double montant, double taux,double nbmensualites) {
-    	return (k * (t/12)) / (1-Math.pow((1+t/12), -n));
+    	return (montant * (taux/12)) / (1-Math.pow((1+taux/12), -nbmensualites));
  }
 \end{lstlisting}
 
