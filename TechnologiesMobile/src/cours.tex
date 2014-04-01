@@ -1285,6 +1285,7 @@ Englobe une view et affiche une scroll bar si la view est trop grande
   \item Récupération des events (press, longpress \ldots) sur les éléments de la liste
   \item Chaque élement est affiché dans une view différente à l'intérieur de la listview
 \end{itemize}
+\includegraphics[width=80pt]{img/listview.jpg}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{ListView : les adapters}
@@ -1307,7 +1308,7 @@ public abstract int getCount();
 \frametitle{ListView : exemple d'utilisation d'ArrayAdapter}
 \begin{lstlisting}
 ListView listView = (ListView) findViewById(R.id.mylist);
-String[] values = new String[] { "ligne1","ligne2","ligne3"};
+String[] values = { "ligne1","ligne2","ligne3"};
 
 // 1) Context
 // 2) Layout a utiliser pour chaque view
@@ -1356,14 +1357,15 @@ public class CustomView extends View {
     public CustomView(Context context) {
         super(context);
     }
+    
+    public CustomView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
 
     public CustomView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
-
-    public CustomView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+   
 }
  \end{lstlisting}
 \end{frame}
