@@ -818,7 +818,53 @@ public MyActivity extends Activity {
 }
 \end{lstlisting}
 \end{frame}
-
+\begin{frame}[fragile] 
+\frametitle{Previously on Android}
+\begin{itemize}
+  \item Une appli = un ensemble de composants
+  \item Pas de point d'entrée unique
+  \item Tous les composants doivent être définis dans le manifest
+  \item Activity, composant +/- = un écran
+  \item Créer une activity = hériter de Activity
+  \item Méthodes du cycle de vie (onCreate, onPause, onResume \ldots)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Previously on Android, les layouts}
+\begin{itemize}
+  \item Les composants graphiques sont définis dans des layouts XML
+  \item Layout = hierarchie de ViewGroup et de View
+  \item Exemple de ViewGroup : LinearLayout
+  \item Exemples de View : Button, TextView, EditText
+  \item Tous les élements doivent définir layout\_width et layout\_height
+  \item Wrap\_content : seulement la place nécessaire
+  \item Match\_parent : toute la place du père
+  \item Plaquer (inflate) un layout à une activity :
+  setContentView(R.layout.xxx)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Previously on Android, manipuler les élements UI}
+\begin{itemize}
+  \item Pour manipuler les éléments UI en java : leur donner un ID
+  \item @+id/identifiant : crée un int IDENTIFIANT dans R.id
+  \item R : fichier autogénéré des ressources
+  \item Dans l'activity : utiliser findViewById(R.id.identifiant)
+  \item Caster la valeur trouvée
+  \item Ensuite, usage classique bouton.setText(\ldots)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Previously on Android, écouter les évenements}
+\begin{itemize}
+  \item Implémenter OnxxxListener (ex : OnClickListener)
+  \item S'enregistrer comme listener auprès de la View
+  (ex : bouton.setOnClickListener(\ldots))
+  \item Chaque évenement correspond à un appel de la méthode implémentée
+  \item Feinte 1 : déclarer le listener dans le layout XML (View onClick)
+  \item Feinte 2 : enregistrer des listeners anonymes (crées ad-hoc)
+\end{itemize}
+\end{frame}
 \begin{frame}[fragile]
 \frametitle{Les autres composants d'une application : les services}
 \begin{itemize}
