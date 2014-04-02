@@ -1240,6 +1240,49 @@ int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"Bob"});
 \end{frame}
 \subsection{Bonus}
 \begin{frame}[fragile]
+\frametitle{La propriété Layout\_weight de LinearLayout}
+\begin{itemize}
+  \item Possibilité d'assigner des ``importances'' aux views d'un LinearLayout
+  \item Attribut layout\_weight définis dans les fils
+  \item Les views occupent l'espace restant au prorata de leur importance
+  \item Si layout\_weight est pas défini, il vaut 0
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La propriété Layout\_weight de LinearLayout, exemple}
+\begin{lstlisting}
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:layout_weight="1" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2"
+        android:layout_weight="2" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3" />
+</LinearLayout> 
+\end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{La propriété Layout\_weight de LinearLayout, résultat}
+\includegraphics[width=330pt]{img/weight.png}
+\begin{itemize}
+  \item Toutes les vues prennent la place dont elles ont besoin
+  \item On calcule la place restante
+  \item On répartit au prorata des poids
+  \item Exemple notable : si une seule vue a un poids, elle prend toute la place
+  restante
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
 \frametitle{Exemples de ViewGroups : RelativeLayout}
 Plus évolué que LinearLayout, permet de placer les composants les uns par rapport aux autres
 \begin{lstlisting}
@@ -1312,7 +1355,8 @@ String[] values = { "ligne1","ligne2","ligne3"};
 
 // 1) Context
 // 2) Layout a utiliser pour chaque view
-// 3) ID de la textview a l'interieur dans le layout
+// 3) ID de la textview a l'interieur du layout 
+//(optionnel, par defaut : android.R.id.text1) 
 // 4) Liste / tableau des donnees
 ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
   android.R.layout.simple_list_item_1, android.R.id.text1, values);
