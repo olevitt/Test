@@ -1433,6 +1433,39 @@ public class CustomView extends View {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
+\frametitle{Previously on Android, S01E02}
+\begin{itemize}
+  \item Une application = un ensemble de composants définis dans le manifest
+  \item Composants = Activity, Service, BroadcastReceiver, ContentProvider
+  \item L'organisation des views pour l'interface graphique se fait en XML dans
+  les fichiers layout
+  \item Manipuler des views = leur donner et un identifiant et faire
+  findViewById
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Previously on Android, S01E02}
+\begin{itemize}
+  \item Intents = messages inter-composants / inter-applications
+  \item Intent implicite = une action à faire (ex : envoyer un mail, afficher
+  les contacts), android cherche les composants capables de répondre
+  \item Android filtre en fonction des intent-filters définis dans le manifest
+  \item Intent explicite = on invoque un composant particulier
+  \item Les intents peuvent avoir des données ``Extra''
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Previously on Android, S01E02}
+\begin{itemize}
+  \item ListView : View affichant les données sous forme de liste scrollable
+  \item Les adapters sont chargés de faire le lien entre les données et la
+  ListView
+  \item Créer un adapter = hériter de BaseAdapter
+  \item BaseAdapter = 4 méthodes (getCount, getItem, getItemId, getView)
+  \item Pour getView, définir un layout pour les items et l'inflater 
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile]
 \frametitle{Le réseau}
 \begin{itemize}
   \item La qualité de la connexion est TRES variable
@@ -1446,7 +1479,8 @@ public class CustomView extends View {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Le réseau, zoom sur HTTP}
-/!$\backslash$ Ne pas oublier de déclarer la permission INTERNET dans le manifest /!$\backslash$
+/!$\backslash$ Ne pas oublier de déclarer l'utilisation de la permission
+INTERNET dans le manifest /!$\backslash$
 \begin{itemize}
   \item HTTP : protocole web (exemple : navigateurs)
   \item Fonctionnement simple : requête du client $=>$ réponse du serveur
@@ -1618,6 +1652,12 @@ Astuce 2 : Executer du code dans le thread UI depuis un autre thread
   \item Méthode pratique : runOnUIThread(Runnable) de Activity
   \item Méthode pratique : post(Runnable) de View
 \end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Validation des groupes / idées de projet}
+Pensez à envoyer les idées de projet et les compositions de groupe avant la
+semaine prochaine (17 avril)\\
+Email : gon1@free.fr
 \end{frame}
 \end{document}
 

@@ -19,7 +19,6 @@
         identifierstyle=\ttfamily,
         keywordstyle=\color[rgb]{0,0,1},
         commentstyle=\color[rgb]{0.133,0.545,0.133},
-        stringstyle=\color[rgb]{0.627,0.126,0.941},
         numbers=left, 
         numberstyle=\tiny,
         xleftmargin=\parindent
@@ -59,7 +58,7 @@ On peut donc récupérer automatiquement l'emploi du temps d'un étudiant en 3
 étapes :
 \begin{itemize}
   \item S'authentifier sur pamplemousse (l'authentification se fait via le
-  service d'authentification unique - SSO - de l'école)
+  service d'authentification unique -SSO- de l'école)
   \item Télécharger le fichier .ics
   \item Analyser le fichier .ics pour extraire les informations sur les cours
 \end{itemize}
@@ -105,14 +104,14 @@ qui renvoie toujours l'emploi du temps d'un étudiant de 1A.
 Lors de l'utilisation du webservice, le mot de passe de l'étudiant
 circule en clair. Il vous est donc conseillé, afin d'éviter tout problème, soit
 de changer votre mot de passe avant d'utiliser le webservice soit de n'utiliser
-que le webservice de test.
+que l'url de test.
 \section{Hello World !}
 \begin{itemize} 
-  \item Créer un nouveau projet avec une activity simple
+  \item Créer un nouveau projet avec une activity basique (ex : blankactivity)
   \item Ajouter la permission INTERNET au manifest
   \item Dans un premier temps nous n'allons pas nous occuper de l'UI et
   simplement afficher l'emploi du temps dans la log
-  \item Dans onCreate, ajouter la ligne suivante 
+  \item Dans le onCreate de votre Activity, ajouter la ligne suivante 
 \begin{lstlisting}[language=XML]
 StrictMode.setThreadPolicy(new ThreadPolicy.Builder().permitAll().build());
 \end{lstlisting}
@@ -126,8 +125,9 @@ suivant :
  \begin{lstlisting}[language=XML]
  public String readStream(InputStream inputStream) throws IOException {
      BufferedReader reader = new BufferedReader(new
-     InputStreamReader(inputStream)); String ligne = null;
-     String contenu;
+     InputStreamReader(inputStream)); 
+     String ligne = null;
+     String contenu = "";
      while ((ligne = reader.readLine()) != null) {
          contenu += ligne;
      }
@@ -138,6 +138,7 @@ suivant :
   \item Afficher dans la log le contenu de la réponse.
 \end{itemize}
 \section{Parsing des données}
+\subsection{Lire le JSON}
 \begin{itemize} 
   \item Créer un objet
   \href{http://developer.android.com/reference/org/json/JSONObject.html}{JSONObject}
@@ -147,6 +148,7 @@ suivant :
   récupérer le tableau des cours  
   \item Afficher, dans un Toast, le nombre de cours  
 \end{itemize}
+\subsection{Instancier les objets correspondants}
 \begin{itemize} 
   \item Créer une classe JAVA ``Cours" représentant un cours de l'emploi du
   temps
@@ -155,31 +157,32 @@ suivant :
   JAVA ``Cours''
 \end{itemize}
 \section{Stockage des données}
-L'objectif est de stocker les données chargées pour éviter de devoir toutes les
-télécharger à chaque fois (gain de temps, accès hors connexion, économie de
+L'objectif est de stocker les données chargées pour éviter de devoir les
+retélécharger à chaque fois (gain de temps, accès hors connexion, économie de
 batterie \ldots)
 \begin{enumerate}
- \setcounter{enumi}{3}
+ \setcounter{enumi}{0}
 \item Quelle solution de stockage vous parait la plus adaptée ?
 \end{enumerate}
 \begin{itemize} 
-  \item Implémenter le nécessaire pour créer une base de donnée SQLite (Rappel : créer un SQLiteOpenHelper, implémenter onCreate et éventuellement onUpgrade)
+  \item Implémenter le nécessaire pour créer une base de données SQLite
+  (utiliser SQLiteOpenHelper)
   \item Dans onCreate, éxecuter une requête de création de table pour créer
-  une table Cours avec tout ou une partie des attributs de la classe Cours 
-  \item Exécuter une insertion avec des données de test
+  une table Cours avec tous les attributs de la classe Cours 
+  \item Exécuter une insertion avec des données fictives
   \item Exécuter une ``query'' pour récupérer les données stockées et instancier
-  des objets ``Cours'' et les afficher dans la log
+  les objets ``Cours'' correspondant aux données, les afficher dans la log
   \item Insérer les données récupérées via le webservice
 \end{itemize}
 \begin{enumerate}
- \setcounter{enumi}{4}
+ \setcounter{enumi}{1}
 \item Imaginons qu'un jour pamplemousse change et fournisse des
 données en plus.\\
 Comment modifier la base de données SQLite si elle a déjà été crée sur l'appareil ?
 \end{enumerate}
 \section{Il est temps de faire les choses proprement}
 \begin{enumerate}
- \setcounter{enumi}{5}
+ \setcounter{enumi}{2}
 \item Quel point, vu dans les bonus, a été complétement ignoré depuis le début de ce TP ?
 \end{enumerate}
 \begin{itemize}
@@ -190,31 +193,63 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
   \item Relancer l'application, pleurer
   \item
   \href{http://developer.android.com/reference/android/os/StrictMode.html}{StrictMode}
-  est un outil d'aide au développement permettant de détecter les méthodes
+  est un outil d'aide au développement permettant de détecter les opérations
   longues succeptibles de bloquer un Thread.
   \item Le code ci-dessus indique à StrictMode de faire crasher l'application
-  dès qu'un appel réseau est fait dans le Thread actif (ici, le Thread main /
-  UI). Depuis le niveau d'API 11, c'est le comportement par défaut.
-  \item Déplacer la requête HTTP dans un Thread séparé (utiliser new
-  Thread(Runnable)), sourire.
+  dès qu'un appel réseau est fait dans le Thread actif (ici, le Thread principal
+  : main / UI). Depuis le niveau d'API 11, c'est le comportement par défaut.\\La
+  ligne ajoutée en début de TP disait à StrictMode de tout laisser passer.
+  \item Déplacer le bloc de code correspondant à la requête HTTP dans un Thread
+  séparé (utiliser new Thread(Runnable)), sourire.
 \end{itemize}
 \section{Afficher les données}
+\subsection{Afficher la liste des cours}
 \begin{enumerate}
- \setcounter{enumi}{6}
+ \setcounter{enumi}{3}
 \item Quel view / viewgroup vous parait le plus adapté pour afficher les cours ?
 \end{enumerate}
 \begin{itemize} 
   \item Ajouter cet élément au layout en lui faisant prendre toute la place en
   largeur / hauteur
-\end{itemize}
-\begin{enumerate}
- \setcounter{enumi}{7}
-\item Quel adapter vous parait le plus adapté sachant que les données proviendront d'une base SQLite (et donc d'un Cursor) ?
-\end{enumerate}
-\begin{itemize} 
-  \item Implémenter votre choix
-  \item Toutes les données ne rentreront pas dans l'affichage, choisir celles
-  qui vous paraissent pertinentes
+  \item Il nous faut maintenant un adapter : créer une nouvelle classe
+  ``CoursAdapter'' qui extends BaseAdapter
+  \item Hériter de BaseAdapter implique d'écrire 4 méthodes
+  \item Avant d'implémenter ces méthodes, construire un constructeur prenant un
+  Context et une List de Cours et stocker ces valeurs dans des attributs de
+  classe
+ \end{itemize}
+ \begin{description}
+   \item getCount : renvoyer le nombre d'éléments de la liste
+   \item getItem : renvoyer le n-ième élément de la liste
+   \item getItemId : renvoyer position (il suffit que l'id de chaque item soit
+   unique)
+   \item getView : ci-dessous un squelette d'une méthode getView. Il faut au
+   préalable créer un layout ``layoutcours'' représentant un élement de la
+   liste.
+ \end{description}
+  \begin{lstlisting}[language=XML]
+   public View getView(int position, View convertView, ViewGroup parent) {
+			View view;
+			
+			if (convertView == null) {
+				view = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layoutcours, parent, false);
+			} else {
+				view = convertView;
+			}
+			Cours cours = (Cours) getItem(position);
+	
+			TextView nomCours = (TextView) view.findViewById(R.id.nomcours);
+			nomCours.setText(cours.getNom());
+			
+			return view;
+		}
+\end{lstlisting} 
+
+ \begin{itemize} 
+  \item Instancier un CoursAdapter et l'affecter à la ListView via
+  listView.setAdapter
+  \item Il est possible d'affiner le layout de chaque item en rajoutant des
+  champs et d'autres informations. Rajouter la date de début du cours.
 \end{itemize}
 \subsection{Afficher le détail d'un cours}
 \begin{itemize} 
@@ -224,13 +259,13 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
   \item Lors d'un click sur un élément, ouvrir l'activity de visualisation
 \end{itemize}
 \begin{enumerate}
- \setcounter{enumi}{8}
+ \setcounter{enumi}{5}
  \item Il y a t'il des paramètres à passer à l'activity de visualisation ?
  \end{enumerate}
  \begin{itemize} 
   \item Rajouter dans l'intent les données nécessaires à l'activity de
   visualisation
-  \item Dans le onCreate de l'activity de visaulisation, récupérer les données
+  \item Dans le onCreate de l'activity de visualisation, récupérer les données
   de l'intent
   \item A partir des données de l'intent, récupérer en base les données
   correspondant à ce cours
