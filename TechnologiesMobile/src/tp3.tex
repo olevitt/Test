@@ -32,59 +32,106 @@
 
 \begin{document}
 \maketitle
-L'objectif de ce TP est de réaliser une application utilisant les données de la star (vélostar) pour informer l'utilisateur des disponibilités de vélos en station.\\
+L'objectif de ce TP est de réaliser une application de visualisation de
+l'emploi du temps personnel pamplemousse.\\
 Ce TP fera appel aux notions suivantes :
 \begin{itemize}
-  \item Requêtes HTTP (webservice)
-  \item Parsing JSON / XML
+  \item Réseau / requêtes HTTP (webservice)
+  \item Parsing JSON
   \item Stockage de données SQLite
   \item Multithreading
   \item ListView
 \end{itemize}
 Il est fortement conseillé d'avoir le cours à portée de main et de ne pas hésiter à lire la documentation officielle 
 \href{http://d.android.com}{http://d.android.com} ainsi que la multitude de tutoriaux disponibles.\\
-\section{Présentation de l'API star}
-La star a fait de gros efforts d'ouverture des données (open data) ce qui permet à tous les développeurs d'utiliser les données dans leurs applications (qu'elles soient libres ou fermées, gratuites ou payantes, avec ou sans pub \ldots).\\
-Les données disponibles sont nombreuses, avec entre autres les horaires des bus, la géolocalisation des arrêts, les infos trafic, le nombre de vélos disponibles dans chaque station de vélostar \ldots\\
-Les données se présentent sous deux formes : des téléchargements pour les données statiques (.txt facilement parsable) et un webservice pour les données temps réel.\\
-La liste des données disponibles est consultable à cette adresse : \href{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}\\
-Dans ce TP, nous n'allons travailler qu'avec le webservice, n'hésitez pas à jeter un oeil aux données téléchargeables (ainsi qu'aux données publiques du site \href{http://www.data.gouv.fr/}{data.gouv.fr}) pour \ldots un projet par exemple ?
-\section{Utilisation de l'API star}
-L'API star est un webservice classique : l'accès aux données se fait via des requêtes HTTP. La réponse est donnée au choix en XML ou en JSON (dans ce TP on n'utilisera que la partie JSON, plus simple)\\
-Toutes les requêtes se présentent sous la même forme :\\ http://data.keolis-rennes.com/json/?version=2.0\&key=1RJLZ38TUFZSWTW\&cmd=getbikestations\&station=all
-\begin{itemize} 
-  \item http://data.keolis-rennes.com : adresse de base de l'API
-  \item /json : demande un retour en JSON (à remplacer par xml si besoin)
-  \item /?version=2.0 : défini la version de l'API à utiliser (1.0/2.0/2.1, cf doc)
-  \item \&key=1RJLZ38TUFZSWTW : chaque application est identifiée à partir de cette clé (permet d'avoir des statistiques et d'appliquer des quotas). Vous pouvez obtenir une clé gratuitement en vous inscrivant sur le site.
-  \item \&cmd=getbikestations : commande à éxecuter (cf doc)
-  \item \&station=all : un ou plusieurs paramètres pour préciser la demande (optionnel, cf doc)
+\section{Récupération des données pamplemousse}
+Sur pamplemousse, les étudiants consultent habituellement leur emploi du temps
+sous la forme d'un tableau affiché en HTML sur le site. \\
+Le HTML mélange les données et leur présentation ce qui rend très fastidieuse
+son analyse dynamique (=parsing). \\
+Pamplemousse propose heuresement aussi un fichier calendrier .ics contenant
+uniquement les données dans un format simple et standard. Il est possible d'obtenir ce
+calendrier sur
+\href{http://pamplemousse.ensai.fr/ensai/icalendar.php}{cette page} une fois
+connécté.\\
+Ce fichier se révèle assez facile à analyser dynamiquement.\\
+On peut donc récupérer automatiquement l'emploi du temps d'un étudiant en 3
+étapes :
+\begin{itemize}
+  \item S'authentifier sur pamplemousse (l'authentification se fait via le
+  service d'authentification unique - SSO - de l'école)
+  \item Télécharger le fichier .ics
+  \item Analyser le fichier .ics pour extraire les informations sur les cours
 \end{itemize}
-\newpage
-Pour récupérer les données il faut donc :
+Dans ce TP on va, pour simplifier, utiliser un webservice non officiel qui se
+chargera de la récupération et de la mise en forme des données.\\
+Pour les curieux, le code utilisé par le webservice pour faire ces 3 étapes est
+disponible
+\href{https://bitbucket.org/olevitt/libpamplemousse/src}{à cette adresse}.
+\section{Utilisation du webservice}
+Le webservice va renvoyer la liste des prochains cours d'un étudiant
+ainsi que les informations sur ces cours (salle, professeur, horaires \ldots).\\
+\subsection{Principe d'un webservice}
+Un webservice est, comme son nom l'indique, un service accessible sur le web.\\
+Techniquement, il s'agit d'un programme tournant sur un serveur et déstiné à
+diffuser des données brutes (contrairement au HTML, il n'y a pas d'informations
+sur la façon d'afficher ces données) via le protocole HTTP.
+\subsection{Appel au webservice}
+Un appel au webservice se fait via une requête HTTP GET à l'adresse\\
+\href{http://chessdiags.com/pamplemousse?login=XXX\&mdp=YYY}{http://chessdiags.com/pamplemousse?login=XXX\&mdp=YYY}\\
+XXX doît être remplacé par l'identifiant de l'étudiant (ex : id3182)\\
+YYY doît être remplacé par le mot de passe de l'étudiant
+\subsection{Résultat du webservice}
+Le webservice renvoie des données JSON.\\
+Un exemple du résultat d'un appel au webservice pour un étudiant de 1ère année
+est disponible \href{http://chessdiags.com/exemple.json}{à cette adresse}.\\
+Un exemple de résultat en cas d'erreur (login / mot de passe invalide,
+pamplemousse inaccessible \ldots) est disponible
+\href{http://chessdiags.com/pamplemousse?login=XXX\&mdp=YYY}{à cette adresse}.
+\subsection{Visualiser le JSON} 
+Même si le format JSON est relativement clair et simple, il reste assez
+difficile d'obtenir une vision globale des données présentes dans un résultat JSON d'un seul coup d'oeil.\\
+Des outils de visualisation JSON existent et sont très utiles dès lors que l'on
+manipule des fichiers JSON.\\
+Vous pouvez par exemple utiliser
+\href{http://jsonviewer.stack.hu/}{http://jsonviewer.stack.hu/}
+\subsection{Webservice de test}
+Afin de ne pas surcharger le serveur pamplemousse (chaque requête au webservice
+donne lieu à 3 requêtes sur pamplemousse), il vous est demandé d'utiliser
+autant que possible l'url de test
+\href{http://chessdiags.com/exemple.json}{http://chessdiags.com/exemple.json}
+qui renvoie toujours l'emploi du temps d'un étudiant de 1A.
+\subsection{Mise en garde}
+Lors de l'utilisation du webservice, le mot de passe de l'étudiant
+circule en clair. Il vous est donc conseillé, afin d'éviter tout problème, soit
+de changer votre mot de passe avant d'utiliser le webservice soit de n'utiliser
+que le webservice de test.
+\section{Hello World !}
 \begin{itemize} 
-  \item Construire l'URL cible en fonction des données à récupérer
-  \item Exécuter une requête HTTP vers cette URL
-  \item Parser (= analyser) le contenu JSON / XML de la réponse
-\end{itemize}
-\section{Hello API !}
-\begin{itemize} 
-  \item Créer un nouveau projet avec une activity
+  \item Créer un nouveau projet avec une activity simple
   \item Ajouter la permission INTERNET au manifest
-  \item Dans un premier temps nous n'allons pas nous occuper de l'UI et simplement afficher le résultat d'une requête dans la log
-  \item Ouvrir le lien  \href{http://data.keolis-rennes.com/json/?version=2.0\&key=1RJLZ38TUFZSWTW\&cmd=getbikestations\&station=all}{[Lien trop long]} dans un navigateur
-  \item (Des sites de visualisation de JSON / XML comme \href{http://jsonviewer.stack.hu/}{http://jsonviewer.stack.hu/} peuvent être utiles)
-  \item Utiliser \href{http://developer.android.com/reference/java/net/HttpURLConnection.html}{HttpURLConnection} pour faire une requête HTTP vers cette adresse
+  \item Dans un premier temps nous n'allons pas nous occuper de l'UI et
+  simplement afficher l'emploi du temps dans la log
+  \item Dans onCreate, ajouter la ligne suivante 
+\begin{lstlisting}[language=XML]
+StrictMode.setThreadPolicy(new ThreadPolicy.Builder().permitAll().build());
+\end{lstlisting}
+Cette ligne sera expliquée plus tard dans le TP
+  \item Utiliser
+  \href{http://developer.android.com/reference/java/net/HttpURLConnection.html}{HttpURLConnection}
+  pour faire une requête HTTP vers l'adresse du webservice de test
 \end{itemize}
-Pour lire le contenu d'un InputStream (flux entrant), on peut utiliser le code suivant :
+Pour lire le contenu d'un InputStream (flux entrant), on peut utiliser le code
+suivant :
  \begin{lstlisting}[language=XML]
- public String readStream(InputStream inputStream) {
-     BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream);
-     String ligne = null;
+ public String readStream(InputStream inputStream) throws IOException {
+     BufferedReader reader = new BufferedReader(new
+     InputStreamReader(inputStream)); String ligne = null;
      String contenu;
-     while ((ligne = reader.readline()) != null) {
+     while ((ligne = reader.readLine()) != null) {
          contenu += ligne;
      }
+     return contenu;
  }
 \end{lstlisting}
 \begin{itemize} 
@@ -92,85 +139,109 @@ Pour lire le contenu d'un InputStream (flux entrant), on peut utiliser le code s
 \end{itemize}
 \section{Parsing des données}
 \begin{itemize} 
-  \item Créer un objet JSONObject à partir des données récupérées précedemment
-  \item En utilisant plusieurs fois la méthode \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONObject(java.lang.String)}{getJSONObject} et la méthode \href{http://developer.android.com/reference/org/json/JSONObject.html#getInt(java.lang.String)}{getInt}, naviguer dans l'arbre JSON et récupérer la valeur du code retour fourni par le webservice.
-  \item Afficher un Toast en fonction de la valeur de ce code (0 = OK, pour les autres codes voir la doc)
-  \item En utilisant \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONArray(java.lang.String)}{getJSONArray} au bon moment, récupérer l'ensemble des stations de vélostar
+  \item Créer un objet
+  \href{http://developer.android.com/reference/org/json/JSONObject.html}{JSONObject}
+  à partir des données récupérées précedemment
+  \item En utilisant la méthode
+  \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONArray(java.lang.String)}{getJSONArray},
+  récupérer le tableau des cours  
+  \item Afficher, dans un Toast, le nombre de cours  
 \end{itemize}
- \begin{enumerate}
- \setcounter{enumi}{0}
-\item Combien y a t'il de stations vélostar ?
-\item Quel est le nom de la station ayant le numéro 55 ?
-\item Combien a t'elle de vélos disponibles ? A t'elle des places libres pour rendre un vélo ?
-\end{enumerate}
 \begin{itemize} 
-  \item Créer une classe JAVA ``Station" représentant une station vélostar 
+  \item Créer une classe JAVA ``Cours" représentant un cours de l'emploi du
+  temps
   \item Donner à cette classe les mêmes attributs que les données disponibles dans la réponse JSON
-  \item Instancier, à partir du JSONObject, une liste d'objet JAVA ``Station''
+  \item Instancier, à partir du JSONObject, une liste (ou un tableau) d'objet
+  JAVA ``Cours''
 \end{itemize}
 \section{Stockage des données}
-L'objectif est de stocker les données chargées pour éviter de devoir toutes les télécharger à chaque fois (économie de temps, accès hors connexion, économie de batterie \ldots)
+L'objectif est de stocker les données chargées pour éviter de devoir toutes les
+télécharger à chaque fois (gain de temps, accès hors connexion, économie de
+batterie \ldots)
 \begin{enumerate}
  \setcounter{enumi}{3}
 \item Quelle solution de stockage vous parait la plus adaptée ?
 \end{enumerate}
 \begin{itemize} 
   \item Implémenter le nécessaire pour créer une base de donnée SQLite (Rappel : créer un SQLiteOpenHelper, implémenter onCreate et éventuellement onUpgrade)
-  \item Dans onCreate, éxecuter les requêtes de création de tables pour créer une table Station avec tout ou une partie des attributs de la classe Station
+  \item Dans onCreate, éxecuter une requête de création de table pour créer
+  une table Cours avec tout ou une partie des attributs de la classe Cours 
+  \item Exécuter une insertion avec des données de test
+  \item Exécuter une ``query'' pour récupérer les données stockées et instancier
+  des objets ``Cours'' et les afficher dans la log
+  \item Insérer les données récupérées via le webservice
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{4}
-\item Imaginons que l'API star change et fournisse des données en plus. Comment modifier la base de données SQLite si elle a déjà été crée sur l'appareil ?
+\item Imaginons qu'un jour pamplemousse change et fournisse des
+données en plus.\\
+Comment modifier la base de données SQLite si elle a déjà été crée sur l'appareil ?
 \end{enumerate}
-\begin{itemize} 
-  \item Exécuter une insertion avec des données de test
-  \item Exécuter une ``query'' pour récupérer les données stockées et instancier des objets ``Station'' et les afficher dans la log
-  \item Insérer les données récupérées via le webservice
-\end{itemize}
 \section{Il est temps de faire les choses proprement}
 \begin{enumerate}
  \setcounter{enumi}{5}
 \item Quel point, vu dans les bonus, a été complétement ignoré depuis le début de ce TP ?
 \end{enumerate}
+\begin{itemize}
+  \item Remplacer la ligne StrictMode ajoutée au début du TP par celle ci
  \begin{lstlisting}[language=XML]
  StrictMode.setThreadPolicy(new ThreadPolicy.Builder().detectNetwork().penaltyDeathOnNetwork().build());
-\end{lstlisting}
-\begin{itemize} 
-  \item \href{http://developer.android.com/reference/android/os/StrictMode.html}{StrictMode} est un outil d'aide aux développement permettant de détecter les méthodes longues succeptibles de bloquer un Thread.
-  \item Le code ci-dessus crash l'application dès qu'un appel réseau est fait dans le Thread actif (ici, le Thread main / UI)
-  \item Ajouer le code ci-dessus avant la requête HTTP, pleurer.
-  \item Laisser le code ci-dessus et dépacer la requête HTTP dans un Thread séparé (utiliser new Thread(Runnable)), sourire.
-\end{itemize}
-\begin{lstlisting}[language=XML]
- StrictMode.setThreadPolicy(new ThreadPolicy.Builder().detectDiskWrites().penaltyDeath().build());
-\end{lstlisting}
-\begin{itemize} 
-  \item Anticiper les dégâts de l'ajout du code ci-dessus
-  \item L'ajouter, pleurer.
-  \item Déplacer les insertions en base de données dans un Thread séparé, sourire.
+\end{lstlisting} 
+  \item Relancer l'application, pleurer
+  \item
+  \href{http://developer.android.com/reference/android/os/StrictMode.html}{StrictMode}
+  est un outil d'aide au développement permettant de détecter les méthodes
+  longues succeptibles de bloquer un Thread.
+  \item Le code ci-dessus indique à StrictMode de faire crasher l'application
+  dès qu'un appel réseau est fait dans le Thread actif (ici, le Thread main /
+  UI). Depuis le niveau d'API 11, c'est le comportement par défaut.
+  \item Déplacer la requête HTTP dans un Thread séparé (utiliser new
+  Thread(Runnable)), sourire.
 \end{itemize}
 \section{Afficher les données}
 \begin{enumerate}
  \setcounter{enumi}{6}
-\item Quel view / viewgroup vous parait le plus adapté pour afficher les stations ?
+\item Quel view / viewgroup vous parait le plus adapté pour afficher les cours ?
+\end{enumerate}
+\begin{itemize} 
+  \item Ajouter cet élément au layout en lui faisant prendre toute la place en
+  largeur / hauteur
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{7}
 \item Quel adapter vous parait le plus adapté sachant que les données proviendront d'une base SQLite (et donc d'un Cursor) ?
 \end{enumerate}
 \begin{itemize} 
   \item Implémenter votre choix
-  \item Toutes les données ne rentreront pas dans l'affichage, choisir celles qui vous paraissent pertinentes
-  \item Implémenter, comme dans le TP 2, une activity de visualisaition d'un station
-  \item Faire le lien entre l'activity principale et l'activity de visualisation
-  \item Dans l'activity de visualisation, afficher les données disponibles sur cette station
-  \item Ajouter un bouton dans l'activity de visualisation pour mettre à jour les données sur la station
-  \item Utiliser le filtre station de l'API star pour ne récupérer que les données de cette station
+  \item Toutes les données ne rentreront pas dans l'affichage, choisir celles
+  qui vous paraissent pertinentes
+\end{itemize}
+\subsection{Afficher le détail d'un cours}
+\begin{itemize} 
+  \item Créer une activity de visualisation d'un cours en particulier
+  \item En utilisant le bon listener, récupérer les clicks faits sur un élément
+  de la ListView
+  \item Lors d'un click sur un élément, ouvrir l'activity de visualisation
+\end{itemize}
+\begin{enumerate}
+ \setcounter{enumi}{8}
+ \item Il y a t'il des paramètres à passer à l'activity de visualisation ?
+ \end{enumerate}
+ \begin{itemize} 
+  \item Rajouter dans l'intent les données nécessaires à l'activity de
+  visualisation
+  \item Dans le onCreate de l'activity de visaulisation, récupérer les données
+  de l'intent
+  \item A partir des données de l'intent, récupérer en base les données
+  correspondant à ce cours
+  \item Afficher ces données (vous êtes libres du layout)
 \end{itemize}
 \section{Pour aller plus loin}
   Wow, déjà tout fait ? Voici quelques pistes d'améliorations :
 \begin{itemize}
-  \item Ajouter un bouton dans l'activity principale pour mettre à jour toutes les données
-  \item Déplacer les boutons dans une Actionbar
-  \item Utiliser la géolocalisation android et l'API de géolocalisation des stations pour proposer à l'utilisateur les x stations de vélo les plus proches de lui
-  \item Afficher, dans l'activity de visualisation d'une station, une map googlemap (nécessite une clé google API et de tester sur des vrais appareils ou sur des émulateurs munis des google APIs)
+  \item Ajouter un bouton dans l'activity principale pour recharger les données
+  \item Créer un écran de gestion des préférences pour que l'utilisateur puisse
+  renseigner son identifiant / mot de passe
   \item Les bonnes pratiques (guidelines) recommandent d'informer l'utilisateur lors des chargements et en particulier lors de l'accès au réseau. Implémenter un ProgressDialog pour informer l'utilisateur des chargements.
  \end{itemize}
 \end{document}
