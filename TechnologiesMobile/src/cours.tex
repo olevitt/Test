@@ -29,8 +29,7 @@
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 
-\date{Source et pdf de ce cours et des TP
-:\\\url{https://bitbucket.org/olevitt/technologies-mobiles/src}}
+\date{Source et pdf de ce cours et des TP :\\\url{http://goo.gl/rA09Sp}}
 \AtBeginSubsection[]
 {
   \begin{frame}
@@ -57,13 +56,12 @@
 \frame{
 \frametitle{Planning}
 \begin{itemize}
-  \item{27 mars : 3h de cours, 1h30 de TP}
-  \item{3 avril : 3h de cours, 1h30 de TP}
-  \item{10 avril : 4h30 de TP}
+  \item{31 mars : 3h de cours, 3h de TP}
+  \item{7 avril : 3h de cours, 3h de TP}
+  \item{14 avril : 6h de TP}
   \item{Validation des sujets de projet avant le 17 avril}
-  \item{17 avril : 4h30 de TP dédiées au projet}
-  \item{25 avril : 3h de TP dédiées au projet}
-  \item{13 mai : Soutenance du projet}
+  \item{28 avril : 3h de TP dédiées au projet}
+  \item{19 mai : Soutenance du projet}
 \end{itemize}
 }
 
@@ -74,14 +72,13 @@
   \item{Projet : création d'une application}
   \item{Groupe de 2}
   \item{Sujet ``libre''}
-  \item{7h30 de TP dédiées au projet + \textbf{travail personnel}}
+  \item{3h de TP dédiées au projet + \textbf{travail personnel}}
   \item{Soutenance / Présentation de l'application}
 \end{itemize}
 }
 \frame{
 \frametitle{Evaluation, exemples de sujets}
 \begin{itemize}
-  \item{PamplemousseViewer v3}
   \item{Gestion d'une bibliothèque}
   \item{Quiz}
   \item{Tape-taupes}
@@ -136,7 +133,7 @@ Contraintes à garder en tête en permanence.
 }
 \frame{
 \frametitle{La fragmentation}
-Une application publiée sur le google playstore cible plus de 5300 appareils
+Une application publiée sur le google playstore cible plus de 6000 appareils
 différents !\\
 \begin{itemize}
    \item ``Write once, run everywhere'' ?
@@ -152,7 +149,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Montres connectées : de 1 à 2 pouces
   \item Smartphones lowcost : 3 pouces (Galaxy pocket, galaxy Y)
   \item Smartphones high-end : 4 à 5 pouces (iPhone 5, HTC 8X, nexus 5)
-  \item Phablets : 5 à 6 pouces (Galaxy note, HTC butterfly)
+  \item Phablets : 5 à 6 pouces (Galaxy note, Oneplus one, iPhone 6)
   \item Tablettes : 7 pouces (Nexus 7, iPad mini), 8 pouces (Archos 80g9), 10
   pouces (Nexus 10, iPad)
 \end{itemize}
@@ -211,7 +208,7 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Soutenu par Google
   \item Version 1.0 en septembre 2008, commercial 1.5 en avril 2009
-  \item Plus de 5300 appareils officiellement supportés, plus de 50
+  \item Plus de 6000 appareils officiellement supportés, plus de 50
   constructeurs
   \item Programmation en JAVA, sur windows / OS X / linux
   \item Noyau open-source (Apache 2.0)
@@ -219,15 +216,14 @@ Comment gérer toutes les tailles d'écran ?
 \end{itemize}
 }
 \frame{
-\frametitle{Windows phone 8}
+\frametitle{Windows phone}
 \includegraphics[width=60pt]{img/wp8.jpg}
 \begin{itemize}
   \item Soutenu par Microsoft
   \item Présentation au public le 29 octobre 2012
-  \item Successeur de windows phone 7 (logique)
   \item Plusieurs constructeurs dont Nokia, HTC et Samsung
   \item Programmation en C\# sur windows 
-  \item Windows Store : validation + 19\$ / an
+  \item Windows Store : validation + gratuit
 \end{itemize}
 }
 \frame{
@@ -346,6 +342,7 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item Installation comme un plugin eclipse classique
   \item \url{https://dl-ssl.google.com/android/eclipse/}
   \item ADT fait le lien entre eclipse et le SDK android
+  \item Version standalone d'eclipse : ADT bundle
 \end{itemize}
 \includegraphics[width=100pt]{img/adt.png}
 \includegraphics[width=200pt]{img/views.png}\\\\
@@ -354,9 +351,10 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frame{
 \frametitle{Android studio}
 \begin{itemize}
-  \item Basé sur IntelliJ IDEA (et non sur eclipse)
+  \item Basé sur IntelliJ IDEA
   \item IDE retravaillé pour android
-  \item Version ``early access preview'' (beta)
+  \item Plateforme recommandée
+  \item Support natif de gradle
 \end{itemize}
 \includegraphics[width=200pt]{img/android-studio.jpg}
 }
@@ -364,7 +362,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frametitle{L'émulateur}
 \begin{itemize}
   \item Utile pour tester certaines configurations
-  \item ((très) très) lent
+  \item (très) lent
   \item Utiliser un appareil android à la place quand c'est possible
 \end{itemize}
 \includegraphics[width=200pt]{img/avd.png}
@@ -374,7 +372,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frametitle{Alternative à l'émulateur}
 \begin{itemize}
   \item Problème : émuler de l'ARM sur nos machines x86
-  \item Résultat : émulateur ((très) très) lent
+  \item Résultat : émulateur (très) lent
   \item Solution proposée : porter android sur x86
   \item \url{http://www.genymotion.com}
   \item \url{http://www.android-x86.org/}
@@ -531,7 +529,7 @@ Téléchargement gratuit : www.d.android.com/sdk
  \begin{lstlisting}
 public void sauvegarderScore(int score) {
         Log.i(TAG,"Sauvegarde du score "+score);
-        if (score <= 0) {
+        if (score < 0) {
             Log.w(TAG,"Le score est negatif");
         }
         try {
@@ -562,7 +560,7 @@ public void sauvegarderScore(int score) {
 \begin{frame}[fragile]
 \frametitle{Créer une activity : étendre Activity} 
 \begin{lstlisting}
-public Class MyActivity extends Activity {
+public Class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -577,6 +575,36 @@ public Class MyActivity extends Activity {
  \item le bundle savedInstanceState contient les informations en cas de
  relancement de l'activity
  \item savedInstanceState est null s'il s'agit du premier lancement
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Créer une activity : la déclarer dans le manifest} 
+\begin{lstlisting}
+<activity android:name="com.ensai.technomobile.MainActivity"
+          android:label="Accueil" >
+    <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+    </intent-filter>
+</activity>
+\end{lstlisting}
+ \begin{itemize}
+ \item Balise Activity à l'interieur de la balise Application
+ \item On précise la classe JAVA correspondante
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les Views}
+   Une vue = un élement à l'écran
+  \begin{itemize}
+    \item TextView = Un texte
+    \item EditText = Un champ de texte remplissable
+    \item ImageView
+    \item Button
+    \item CheckBox
+    \item Plein d'autres views de base dans android
+    \item Possibilité de créer ses propres views en héritant (directement ou
+    indirectement) de View
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -595,24 +623,10 @@ public Class MyActivity extends Activity {
 </LinearLayout>
 \end{lstlisting}
  \begin{itemize}
+  \item Ils définissent l'organisation des vues
  \item Ils sont définis en XML dans le dossier res/layout
- \item Ils définissent l'organisation des vues
  \item @string fait réference à une ressource de strings.xml
  \item Eviter au maximum de modifier / créer les layouts au runtime
- \end{itemize}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Les Views}
-   Une vue = un élement à l'écran
-  \begin{itemize}
-    \item TextView = Un texte
-    \item EditText = Un champ de texte remplissable
-    \item ImageView
-    \item Button
-    \item CheckBox
-    \item Plein d'autres views de base dans android
-    \item Possibilité de créer ses propres views en héritant (directement ou
-    indirectement) de View
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -712,7 +726,7 @@ public Class MyActivity extends Activity {
 Etape 1 : Les interfaces XListener
 \begin{lstlisting}
 public Interface OnClickListener {
-    void onClick(View v);
+    public void onClick(View v);
 }
 \end{lstlisting}
 Etape 2 : Implémenter l'interface
@@ -1655,9 +1669,9 @@ Astuce 2 : Executer du code dans le thread UI depuis un autre thread
 \end{frame}
 \begin{frame}[fragile] 
 \frametitle{Validation des groupes / idées de projet}
-Pensez à envoyer les idées de projet et les compositions de groupe avant la
-semaine prochaine (17 avril)\\
-Email : gon1@free.fr
+Pensez à envoyer les idées de projet et les compositions de groupe avant le 28
+avril\\
+Email : ungawa14@gmail.com
 \end{frame}
 \end{document}
 
