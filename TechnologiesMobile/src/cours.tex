@@ -265,13 +265,13 @@ Comment gérer toutes les tailles d'écran ?
 \frame{
 \frametitle{Les marque-pages}
 \begin{itemize}
+  \item www.d.android.com (la bible EN)
+  \item www.stackoverflow.com (Q/A EN)
+  \item \#android et \#android-dev sur freenode (chat irc EN)
+  \item www.breizhjug.org et www.paug.fr (communautés FR)
   \item www.frandroid.com (actu FR)
   \item www.androidpolice.com (actu EN)
   \item www.androidcentral.com (actu EN)
-  \item www.d.android.com (la bible EN)
-  \item www.stackoverflow (Q/A EN)
-  \item \#android et \#android-dev sur freenode (chat irc EN)
-  \item www.breizhjug.org et www.paug.fr (communautés FR)
   \item www.google.fr
 \end{itemize}
 }
@@ -279,7 +279,7 @@ Comment gérer toutes les tailles d'écran ?
 \frametitle{Avant de commencer, la checklist}
 Obligatoire :\\
 \begin{itemize}
-  \item Des (bonnes) bases de programmation en JAVA
+  \item Des bases de programmation en JAVA
   \item Un ordinateur (Windows, Linux, Mac OS X)
 \end{itemize}
 Conseillé :\\
@@ -297,21 +297,18 @@ Conseillé :\\
   \hline
   Version & Nom & API level & Distribution & Rétrocumul \\
   \hline
-  1.5 & Cupcake & 3 & 0\% & 100\% \\
-  1.6 & Donut & 4 & 0\% & 100\% \\
-  2.1 & Eclair & 7 & 0\% & 100\% \\
-  2.2 & Froyo & 8 & 1.2\% & 100\% \\
-  2.3 & Gingerbread & 9/10 & 19\% & 98.8\% \\
-  3.X & Honeycomb & 12/13 & 0.1\% & 79.8\% \\
-  4.0 & Ice cream sandwich & 15 & 15.2\% & 79.7\% \\
-  4.1 & Jelly bean & 16 & 35.3\% & 64.5\% \\
-  4.2 & Jelly bean & 17 & 17.1\% & 29.2\% \\
-  4.3 & Jelly bean & 18 & 9.6\% & 12.1\% \\
-  4.4 & Kitkat & 19 & 2.5\% & 2.5\% \\
+  2.2 & Froyo & 8 & 0.4\% & 100\% \\
+  2.3 & Gingerbread & 9/10 & 6.9\% & 99.6\% \\
+  4.0 & Ice cream sandwich & 15 & 5.9\% & 92.7\% \\
+  4.1 & Jelly bean & 16 & 17.3\% & 86.8\% \\
+  4.2 & Jelly bean & 17 & 19.4\% & 69.5\% \\
+  4.3 & Jelly bean & 18 & 5.9\% & 50.1\% \\
+  4.4 & Kitkat & 19 & 40.9\% & 44.2\% \\
+  5.0 & Lollipop & 21 & 3.3\% & 3.3\% \\
   \hline
 \end{tabular}
 \caption{\label{s}Répartition des versions pour les accès au google play sur la
-dernière semaine de février 2014}
+dernière semaine de février 2015}
 \end{table}
 }
 \frame{
@@ -342,7 +339,6 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item Installation comme un plugin eclipse classique
   \item \url{https://dl-ssl.google.com/android/eclipse/}
   \item ADT fait le lien entre eclipse et le SDK android
-  \item Version standalone d'eclipse : ADT bundle
 \end{itemize}
 \includegraphics[width=100pt]{img/adt.png}
 \includegraphics[width=200pt]{img/views.png}\\\\
@@ -353,7 +349,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \begin{itemize}
   \item Basé sur IntelliJ IDEA
   \item IDE retravaillé pour android
-  \item Plateforme recommandée
+  \item IDE officiel depuis décembre 2014
   \item Support natif de gradle
 \end{itemize}
 \includegraphics[width=200pt]{img/android-studio.jpg}
@@ -369,14 +365,13 @@ Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=80pt]{img/emu.png}
 }
 \frame{
-\frametitle{Alternative à l'émulateur}
+\frametitle{Alternatives à l'émulateur}
 \begin{itemize}
   \item Problème : émuler de l'ARM sur nos machines x86
   \item Résultat : émulateur (très) lent
   \item Solution proposée : porter android sur x86
   \item \url{http://www.genymotion.com}
   \item \url{http://www.android-x86.org/}
-  \item Quelques appareils android sous x86 ``intel inside''
 \end{itemize}
 \includegraphics[width=150pt]{img/x86.png}
 }
@@ -393,7 +388,7 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item Android 4.2 : jar correspondant à l'API cible
   \item Android Dependencies : jar rajoutés, correspond à libs
   \item assets : fichiers fournis avec l'app
-  \item bin : résultat de la compilation (dont l'apk)
+  \item bin : résultats des compilations (dont l'apk)
   \item libs : jar rajoutés
   \item res : ressources (layouts, strings, images \ldots)
   \item AndroidManifest.xml : métadonnées sur l'application, composants,
@@ -464,13 +459,13 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frametitle{Déployer l'application}
 \begin{itemize}
   \item Une application android = un APK (+/- équivalent d'un jar)
-  \item Une application android doît être signée 
+  \item Une application android doit être signée 
   \item Attention à ne pas perdre la clé !
   \item Création et signature de l'APK simplifié sous eclipse (export)
  \end{itemize}
 }
 \frame{
-\frametitle{Processus de déploiement en dev}
+\frametitle{Processus de déploiement en développement}
 \includegraphics[width=50pt]{img/runas.png}
 \includegraphics[width=300pt]{img/console.png}
 \begin{itemize}
@@ -500,7 +495,7 @@ Téléchargement gratuit : www.d.android.com/sdk
  \end{itemize}
 }
 \frame{
-\frametitle{Stacktrace of GTFO}
+\frametitle{Stacktrace or GTFO}
 \includegraphics[width=120pt]{img/jacoj.jpg}
 }
 \frame{
@@ -543,11 +538,20 @@ public void sauvegarderScore(int score) {
 \end{frame}
 \subsection{IHM}
 \frame{
+\frametitle{Une exécution moins linéaire qu'en JAVA classique}
+\begin{itemize}
+  \item Une application android est un ensemble de composants
+  \item Pas de méthode main
+  \item Des points d'entrée multiples possibles
+  \item Exemple : appli SMS
+ \end{itemize}
+}
+\frame{
 \frametitle{Activity, le composant de base}
   \includegraphics[width=50pt]{img/activity.png}
 \begin{itemize}
   \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
-  \item Une application peut avoir 0-n activities
+  \item Une application peut avoir $0-n$ activities
   \item A ajouter dans le manifest
   \item Créer une classe java héritant de Activity 
  \end{itemize}
@@ -570,10 +574,10 @@ public Class MainActivity extends Activity {
 }
 \end{lstlisting}
  \begin{itemize}
- \item onCreate est appellé à la création de l'activity (cf cycle de vie)
+ \item onCreate est appelé à la création de l'activity (cf cycle de vie)
  \item appel obligatoire à super.onCreate
- \item le bundle savedInstanceState contient les informations en cas de
- relancement de l'activity
+ \item le bundle savedInstanceState contient les informations en cas de relance
+ de l'activity
  \item savedInstanceState est null s'il s'agit du premier lancement
  \end{itemize}
 \end{frame}
@@ -595,7 +599,7 @@ public Class MainActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Les Views}
-   Une vue = un élement à l'écran
+   Une vue = un élément à l'écran
   \begin{itemize}
     \item TextView = Un texte
     \item EditText = Un champ de texte remplissable
@@ -625,7 +629,7 @@ public Class MainActivity extends Activity {
  \begin{itemize}
   \item Ils définissent l'organisation des vues
  \item Ils sont définis en XML dans le dossier res/layout
- \item @string fait réference à une ressource de strings.xml
+ \item @string fait référence à une ressource de strings.xml
  \item Eviter au maximum de modifier / créer les layouts au runtime
  \end{itemize}
 \end{frame}
@@ -637,7 +641,7 @@ public Class MainActivity extends Activity {
  \item RelativeLayout
  \item ListView
  \item Plein d'autres
- \item Les vôtres :)
+ \item Les vôtres
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -660,12 +664,12 @@ Etape 1 : donner un identifiant à la vue
 \end{lstlisting}
 \begin{itemize}
     \item @+id crée l'identifiant s'il n'existe pas déjà
-    \item L'identifiant doît être unique dans la hiérarchie (sinon conflit)
+    \item L'identifiant doit être unique dans la hiérarchie (sinon conflit)
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Manipuler les éléments de l'UI en java}
-Etape 2 : récupérer les réferences vers les views
+Etape 2 : récupérer les références vers les views
 \begin{lstlisting}
 public Class MyActivity extends Activity {
 
@@ -717,8 +721,8 @@ public Class MyActivity extends Activity {
  \item Système de listeners (cf swing)
  \item Il se passe quelque chose sur la vue (touch, focus \ldots) : le listener
  est prévenu
- \item Pour simplifier, sur android on a en général qu'un listener par événement
- et par view (setXListener au lieu de addXListener sous swing)
+ \item Pour simplifier, sur android on n'a en général qu'un listener par
+ événement et par view (setXListener au lieu de addXListener sous swing)
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -836,9 +840,9 @@ public MyActivity extends Activity {
 \frametitle{Previously on Android}
 \begin{itemize}
   \item Une appli = un ensemble de composants
-  \item Pas de point d'entrée unique
+  \item Plusieurs points d'entrée possibles
   \item Tous les composants doivent être définis dans le manifest
-  \item Activity, composant +/- = un écran
+  \item Activity, composant {\raise.17ex\hbox{$\scriptstyle\sim$}} un écran
   \item Créer une activity = hériter de Activity
   \item Méthodes du cycle de vie (onCreate, onPause, onResume \ldots)
 \end{itemize}
@@ -847,7 +851,7 @@ public MyActivity extends Activity {
 \frametitle{Previously on Android, les layouts}
 \begin{itemize}
   \item Les composants graphiques sont définis dans des layouts XML
-  \item Layout = hierarchie de ViewGroup et de View
+  \item Layout = hiérarchie de ViewGroup et de View
   \item Exemple de ViewGroup : LinearLayout
   \item Exemples de View : Button, TextView, EditText
   \item Tous les élements doivent définir layout\_width et layout\_height
@@ -865,24 +869,25 @@ public MyActivity extends Activity {
   \item R : fichier autogénéré des ressources
   \item Dans l'activity : utiliser findViewById(R.id.identifiant)
   \item Caster la valeur trouvée
-  \item Ensuite, usage classique bouton.setText(\ldots)
+  \item Ensuite, usage classique : bouton.setText(\ldots)
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile] 
 \frametitle{Previously on Android, écouter les évenements}
 \begin{itemize}
-  \item Implémenter OnxxxListener (ex : OnClickListener)
+  \item Implémenter OnXListener (ex : OnClickListener)
   \item S'enregistrer comme listener auprès de la View
   (ex : bouton.setOnClickListener(\ldots))
-  \item Chaque évenement correspond à un appel de la méthode implémentée
-  \item Feinte 1 : déclarer le listener dans le layout XML (View onClick)
-  \item Feinte 2 : enregistrer des listeners anonymes (crées ad-hoc)
+  \item Chaque événement correspond à un appel de la méthode implémentée
+  \item Feinte 1 : enregistrer des listeners anonymes (créés ad-hoc)
+  \item Feinte 2 : déclarer le listener dans le layout XML (View onClick)
+  
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Les autres composants d'une application : les services}
 \begin{itemize}
- \item Tâche en arrière plan (attention, pas automatiquement dans un thread séparé)
+ \item Tâche en arrière plan
  \item Cycle de vie différent de celui d'une activity
  \item Pas d'interface graphique (sauf si une activity communique avec le
  service)
@@ -903,7 +908,7 @@ public MyActivity extends Activity {
 \frametitle{Les autres composants d'une application : les content-providers}
 \begin{itemize}
   \item Composant servant à distribuer les données
-  \item Peu importe comment les données sont stockées (sqlite, préferences, fichier \ldots)
+  \item Peu importe comment les données sont stockées (sqlite, préférences, fichier \ldots)
   \item Respecte une interface d'utilisation des données
   \item Peut permettre la récupération, la modification et/ou la suppression de données
   \item Principalement destiné à une utilisation entre applications
@@ -985,7 +990,7 @@ public ProfilActivity extends Activity {
 \begin{itemize}
     \item startActivity(), startService() et sendBroadcast() déclenchent des
     intents
-	\item android filtre les composants succeptibles de recevoir l'intent en
+	\item android filtre les composants susceptibles de recevoir l'intent en
 	fonction à partir des intent-filters de chaque composant
 \end{itemize}
 
@@ -1044,7 +1049,7 @@ Documentation android officielle sur le stockage de données : \url{http://devel
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{SharedPreferences, accéder aux préférences}
-Accéder simple aux préferences :\\
+Accéder simplement aux préférences :\\
 \begin{lstlisting}
 public void sauvegarderScore() {
     SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
@@ -1060,7 +1065,7 @@ L'utilisation d'autres modes que MODE\_PRIVATE est découragé depuis l'API 17 (
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{SharedPreferences, utilisation des préférences}
-Lire les préferences :\\
+Lire les préférences :\\
 \begin{lstlisting}
 public void afficherMeilleurScore() {
     SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
@@ -1068,7 +1073,7 @@ public void afficherMeilleurScore() {
     Toast.makeText(context, "Record : "+record,Toast.LENGTH_LONG).show();
 }
 \end{lstlisting}
-Modifier les préferences\\
+Modifier les préférences\\
 \begin{lstlisting}
 public void sauvegarderScore() {
     SharedPreferences preferences = PreferenceManager.getDefaultPreferences(context);
@@ -1096,13 +1101,14 @@ fos.close();
 \end{lstlisting}
 \begin{itemize}
     \item Comme pour les préférences, ne pas utiliser les modes WORLD\_READABLE et WORLD\_WRITEABLE
-    \item Les fichiers crées sur le stockage interne sont liés à l'application (en particulier, ils sont supprimés lors de la désinstallation de l'application)
+    \item Les fichiers créés sur le stockage interne sont liés à l'application
+    (en particulier, ils sont supprimés lors de la désinstallation de l'application)
 \end{itemize}
 \begin{itemize}
     \item getCacheDir() : répertoire pour le cache
     \item getFilesDir() : dossier des fichiers de l'application
     \item deleteFile(String nom)
-    \item fileList() : String[] des fichiers crées par l'application
+    \item fileList() : String[] des fichiers créés par l'application
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -1110,8 +1116,8 @@ fos.close();
 \begin{itemize}
     \item La jungle : l'utilisateur et toutes les applications peuvent lire / écrire tout le contenu
     \item La présence d'un stockage externe n'est pas garanti
-    \item Même si il est présent, le stockage externe peut ne pas être
-    disponible (appareil connécté au PC)
+    \item Même s'il est présent, le stockage externe peut ne pas être
+    disponible (appareil connecté au PC)
     \item 2 permissions : WRITE\_EXTERNAL\_STORAGE et READ\_EXTERNAL\_STORAGE
 \end{itemize}
 \begin{lstlisting}
@@ -1132,7 +1138,8 @@ Pour le contenu utilisé uniquement par l'application :
 File file = new File(getExternalFilesDir(null), "DemoFile.jpg");
 \end{lstlisting}
 Ces fichiers seront supprimés lors de la désinstallation de l'application\\\\
-Pour le contenu déstiné à être partagé (donc persistant même après une désinstallation) : 
+Pour le contenu destiné à être partagé (donc persistant même après une
+désinstallation) :
 \begin{lstlisting}
 File file = new File(getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "DemoFile.jpg");
 \end{lstlisting}
@@ -1198,7 +1205,8 @@ SQLiteDatabase writableDB = helper.getWritableDatabase();
 SQLiteDatabase readableDB = helper.getReadableDatabase();
 \end{lstlisting}
 \begin{itemize}
-    \item Android propose un certain nombre de fonctions utilitaires pour le requêtage, l'insertion, la mise à jour et la suppresion de données
+    \item Android propose un certain nombre de fonctions utilitaires pour le
+    requêtage, l'insertion, la mise à jour et la suppression de données
     \item Penser à fermer la base avec .close() pour libérer des ressources
 \end{itemize}
 \end{frame}
@@ -1257,9 +1265,9 @@ int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"Bob"});
 \frametitle{La propriété Layout\_weight de LinearLayout}
 \begin{itemize}
   \item Possibilité d'assigner des ``importances'' aux views d'un LinearLayout
-  \item Attribut layout\_weight définis dans les fils
+  \item Attribut layout\_weight défini dans les fils
   \item Les views occupent l'espace restant au prorata de leur importance
-  \item Si layout\_weight est pas défini, il vaut 0
+  \item Si layout\_weight n'est pas défini, il vaut 0
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -1399,7 +1407,8 @@ listView.setOnItemClickListener(new OnItemClickListener() {
 \begin{itemize}
   \item Dans certains cas, les views de base d'android ne suffisent pas
   \item Exemple : création d'un jeu, création d'un color picker \ldots
-  \item On peut alors chercher si d'autres développeurs n'ont pas déjà crée des views semblables
+  \item On peut alors chercher si d'autres développeurs n'ont pas déjà créé des
+  views semblables
   \item ex : \url{http://androidviews.net}, \url{http://google.fr}
   \item ou créer ses propres views en héritant de View ou SurfaceView
   \item View : view classique, rafraichissement au besoin
@@ -1453,8 +1462,7 @@ public class CustomView extends View {
   \item Composants = Activity, Service, BroadcastReceiver, ContentProvider
   \item L'organisation des views pour l'interface graphique se fait en XML dans
   les fichiers layout
-  \item Manipuler des views = leur donner et un identifiant et faire
-  findViewById
+  \item Manipuler des views = leur donner un identifiant et appeler findViewById
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -1515,7 +1523,7 @@ try {
 \frametitle{Les webservices}
 \begin{itemize}
   \item Une pratique courante est de créer des webservices pour échanger les informations entre client (mobile) et serveur
-  \item Un webservice ne renvoit pas de HTML (données + présentation) mais des
+  \item Un webservice ne renvoie pas de HTML (données + présentation) mais des
   données brutes formatées (en XML, JSON \ldots)
   \item L'application mobile se charge de la mise en forme et de l'affichage des données
   \item 1 webservice pour toutes les applications, peu importe l'OS
@@ -1585,7 +1593,7 @@ while (event != XmlPullParser.END_DOCUMENT) {
 \begin{frame}[fragile] 
 \frametitle{Le multithreading}
 \begin{itemize}
-  \item Problématique : Les tâches à executer peuvent parfois être (très)
+  \item Problématique : Les tâches à exécuter peuvent parfois être (très)
   longues
   \item Exemples : longs calculs
   \item Flux réseau (ping de 10-20 secondes sur réseau mobile ?)
@@ -1626,7 +1634,8 @@ public void calculLong() {
 \frametitle{Le multithreading, le thread UI}
 \begin{itemize}
   \item Toutes les instructions de l'IHM s'exécutent dans le même thread
-  \item \textbf{Le thread UI (main thread) doît être préservé de tout calcul long}
+  \item \textbf{Le thread UI (main thread) doit être préservé de tout calcul
+  long}
   \item \textbf{Inversement, tout le code touchant à l'UI doit être exécuté dans le thread UI}
   \item Pour les API $>$ 9, possibilité d'activer StrictMode via la classe StrictMode
   \item Sur android 4.0+, possibilité d'activer StrictMode dans les options développeur
@@ -1634,7 +1643,7 @@ public void calculLong() {
 \end{frame}
 \begin{frame}[fragile] 
 \frametitle{Le multithreading, créer des threads}
-Etape 1 : créer un runnable avec le code à éxecuter
+Etape 1 : créer un runnable avec le code à exécuter
 \begin{lstlisting}
 Runnable code = new Runnable() {
     public void run() {
@@ -1660,9 +1669,10 @@ Astuce 1 : Les AsyncTasks
 \end{frame}
 \begin{frame}[fragile] 
 \frametitle{Le multithreading, astuces sous android}
-Astuce 2 : Executer du code dans le thread UI depuis un autre thread
+Astuce 2 : Exécuter du code dans le thread UI depuis un autre thread
 \begin{itemize}
-  \item Pour communiquer entre threads on utilise la classe Handler et on envoi des ``messages''
+  \item Pour communiquer entre threads on utilise la classe Handler et on envoie
+  des ``messages''
   \item Méthode pratique : runOnUIThread(Runnable) de Activity
   \item Méthode pratique : post(Runnable) de View
 \end{itemize}
