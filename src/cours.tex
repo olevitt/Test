@@ -196,7 +196,7 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Soutenu par Apple
   \item Présenté le 9 janvier 2007
-  \item Dédié aux produits apple (iPhone, iPad, iPod)
+  \item Réservé aux produits Apple (iPhone, iPad, iPod, iWatch)
   \item Programmation en objective-C, sur mac OS X uniquement
   \item Appstore : validation + 100\$ / an
 \end{itemize}
@@ -212,7 +212,7 @@ Comment gérer toutes les tailles d'écran ?
   constructeurs
   \item Programmation en JAVA, sur windows / OS X / linux
   \item Noyau open-source (Apache 2.0)
-  \item Google playstore : pas de validation + 25\$
+  \item Google playstore : ``pas de validation'' + 25\$
 \end{itemize}
 }
 \frame{
@@ -552,11 +552,57 @@ public void sauvegarderScore(int score) {
 \begin{itemize}
   \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
   \item Une application peut avoir $0-n$ activities
-  \item A ajouter dans le manifest
+  \item A déclarer dans le manifest
   \item Créer une classe java héritant de Activity 
  \end{itemize}
 }
+\begin{frame}[fragile]
+\frametitle{Les Views}
+   Une vue = un élément à l'écran
+  \begin{itemize}
+    \item TextView = Un texte
+    \item EditText = Un champ de texte remplissable
+    \item ImageView
+    \item Button
+    \item CheckBox
+    \item Plein d'autres views de base dans android
+    \item Possibilité de créer ses propres views en héritant (directement ou
+    indirectement) de View
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Les ViewGroups}
+  \includegraphics[width=150pt]{img/viewgroup.png}
+  \begin{itemize}
+ \item LinearLayout
+ \item RelativeLayout
+ \item ListView
+ \item Plein d'autres
+ \item Les vôtres
+ \end{itemize}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{L'organisation d'une activity : les layouts} 
+\begin{lstlisting}
+<LinearLayout 
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/hello_world" />
+        
+</LinearLayout>
+\end{lstlisting}
+ \begin{itemize}
+  \item Ils définissent l'organisation des vues
+ \item Ils sont définis en XML dans le dossier res/layout
+ \item @string fait référence à une ressource de strings.xml
+ \item Eviter au maximum de modifier / créer les layouts au runtime
+ \end{itemize}
+\end{frame}
 \frame{
 \frametitle{Cycle de vie d'une activity} 
   \includegraphics[width=150pt]{img/activity_lifecycle.png}
@@ -595,53 +641,6 @@ public Class MainActivity extends Activity {
  \begin{itemize}
  \item Balise Activity à l'interieur de la balise Application
  \item On précise la classe JAVA correspondante
- \end{itemize}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Les Views}
-   Une vue = un élément à l'écran
-  \begin{itemize}
-    \item TextView = Un texte
-    \item EditText = Un champ de texte remplissable
-    \item ImageView
-    \item Button
-    \item CheckBox
-    \item Plein d'autres views de base dans android
-    \item Possibilité de créer ses propres views en héritant (directement ou
-    indirectement) de View
- \end{itemize}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{L'organisation d'une activity : les layouts} 
-\begin{lstlisting}
-<LinearLayout 
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
-        
-</LinearLayout>
-\end{lstlisting}
- \begin{itemize}
-  \item Ils définissent l'organisation des vues
- \item Ils sont définis en XML dans le dossier res/layout
- \item @string fait référence à une ressource de strings.xml
- \item Eviter au maximum de modifier / créer les layouts au runtime
- \end{itemize}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Les ViewGroups}
-  \includegraphics[width=150pt]{img/viewgroup.png}
-  \begin{itemize}
- \item LinearLayout
- \item RelativeLayout
- \item ListView
- \item Plein d'autres
- \item Les vôtres
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -727,7 +726,7 @@ public Class MyActivity extends Activity {
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Ecouter les événements, guide du bon listener}
-Etape 1 : Les interfaces XListener
+Etape 1 : Les interfaces XListener (elles existent déjà, ne pas les réécrire !)
 \begin{lstlisting}
 public Interface OnClickListener {
     public void onClick(View v);
@@ -817,7 +816,7 @@ public void clickSurLeBouton(View v) //dans MyActivity
  lancer une activité \ldots) nécessitent une instance de Context
  \item Un Context regroupe des informations globales sur l'environnement de
  l'application
- \item Android se charge de créer les contextes
+ \item Android se charge de créer les contextes, n'en instanciez pas !
  \item Activity hérite (indirectement) de Context
  \item Les views ont toutes une réference vers un context
  \end{itemize}
