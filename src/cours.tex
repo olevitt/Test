@@ -365,15 +365,13 @@ Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=80pt]{img/emu.png}
 }
 \frame{
-\frametitle{Alternatives à l'émulateur}
+\frametitle{Utiliser un appareil android}
 \begin{itemize}
-  \item Problème : émuler de l'ARM sur nos machines x86
-  \item Résultat : émulateur (très) lent
-  \item Solution proposée : porter android sur x86
-  \item \url{http://www.genymotion.com}
-  \item \url{http://www.android-x86.org/}
+  \item Activer les ``options pour les développeurs'' sur l'appareil
+  \item Paramètres / A propos du téléphone / Toucher 4 fois ``Numéro de build''
+  \item Activer le débogage USB
 \end{itemize}
-\includegraphics[width=150pt]{img/x86.png}
+\includegraphics[width=230pt]{img/androiddev.jpg}
 }
 \subsection{Architecture}
 \frame{
@@ -1173,8 +1171,8 @@ Etape 2 : implémenter onCreate
 \begin{lstlisting}
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE exemple (nom TEXT PRIMARY KEY, score INTEGER));
-    }
+       db.execSQL("CREATE TABLE exemple (nom TEXT PRIMARY KEY, score INTEGER)");
+       }
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
