@@ -26,13 +26,14 @@
 
 
 \title{ANDROID - TP3}
-\date{Source et pdf du cours et de ce TP
-:\\ \href{https://bitbucket.org/olevitt/technologies-mobiles}{https://bitbucket.org/olevitt/technologies-mobiles/src}}
+\date{Source, pdf et corrigé de ce TP
+:\\\href{http://tiny.cc/techmob}{http://tiny.cc/techmob}}
 
 \begin{document}
 \maketitle
-L'objectif de ce TP est de réaliser une application de visualisation de
-l'emploi du temps personnel pamplemousse.\\
+L'objectif de ce TP est de réaliser une application utilisant les données
+publiques des transports en commun de rennes afin d'afficher le temps
+d'attente des bus.\\
 Ce TP fera appel aux notions suivantes :
 \begin{itemize}
   \item Réseau / requêtes HTTP (webservice)
@@ -41,52 +42,70 @@ Ce TP fera appel aux notions suivantes :
   \item Multithreading
   \item ListView
 \end{itemize}
-Il est fortement conseillé d'avoir le cours à portée de main et de ne pas hésiter à lire la documentation officielle 
+Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter
+à se référer à la documentation officielle
 \href{http://d.android.com}{http://d.android.com} ainsi que la multitude de tutoriaux disponibles.\\
-\section{Récupération des données pamplemousse}
-Sur pamplemousse, les étudiants consultent habituellement leur emploi du temps
-sous la forme d'un tableau affiché en HTML sur le site. \\
-Le HTML mélange les données et leur présentation ce qui rend très fastidieuse
-son analyse dynamique (=parsing). \\
-Pamplemousse propose heuresement aussi un fichier calendrier .ics contenant
-uniquement les données dans un format simple et standard. Il est possible d'obtenir ce
-calendrier sur
-\href{http://pamplemousse.ensai.fr/ensai/icalendar.php}{cette page} une fois
-connécté.\\
-Ce fichier se révèle assez facile à analyser dynamiquement.\\
-On peut donc récupérer automatiquement l'emploi du temps d'un étudiant en 3
-étapes :
-\begin{itemize}
-  \item S'authentifier sur pamplemousse (l'authentification se fait via le
-  service d'authentification unique -SSO- de l'école)
-  \item Télécharger le fichier .ics
-  \item Analyser le fichier .ics pour extraire les informations sur les cours
-\end{itemize}
-Dans ce TP on va, pour simplifier, utiliser un webservice non officiel qui se
-chargera de la récupération et de la mise en forme des données.\\
-Pour les curieux, le code utilisé par le webservice pour faire ces 3 étapes est
-disponible
-\href{https://bitbucket.org/olevitt/libpamplemousse/src}{à cette adresse}.
-\section{Utilisation du webservice}
-Le webservice va renvoyer la liste des prochains cours d'un étudiant
-ainsi que les informations sur ces cours (salle, professeur, horaires \ldots).\\
+\section{Présentation des données star}
+\subsection{Contexte}
+Rennes a fait partie des premières villes à libérer ses données publiques
+concernant les transports en commun. Ainsi, la star met à disposition des
+développeurs une grande partie des données concernant son réseau (stations,
+horaires, prochains passages \ldots).\\
+Les données sont disponibles pour tous, gratuitement.
+\subsection{Contenu des données}
+Les données disponibles sont réparties en deux catégories : les données
+statiques et les données temps réel.
+\subsubsection{Les données statiques}
+Les données statiques contiennent les informations sur le réseau star : les
+stations et leurs emplacements, les lignes et leurs horaires, les équipements
+disponibles en station \ldots\\
+Ces données n'évoluent que quelques fois par an.\\
+La star publie ses données au standard \href{https://developers.google.com/transit/gtfs/reference}{GTFS (General
+Transit Feed Specification)}. Concretement, il s'agit simplement de plusieurs
+fichiers csv.\\
+La documentation sur ces données et la dernière version des données sont
+disponibles ici :
+\href{http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html)}
+
+\subsubsection{Les données temps réel}
+La star met aussi à disposition des données temps réel. On y trouve le nombre de
+vélos et de places disponibles à une station vélo star, les heures de prochain
+passage des bus et métro \ldots\\
+La liste des données disponibles est disponible ici : 
+\href{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}\\
+L'accès à ces données se fait via un webservice.
+
 \subsection{Principe d'un webservice}
 Un webservice est, comme son nom l'indique, un service accessible sur le web.\\
 Techniquement, il s'agit d'un programme tournant sur un serveur et déstiné à
 diffuser des données brutes (contrairement au HTML, il n'y a pas d'informations
-sur la façon d'afficher ces données) via le protocole HTTP.
+sur la façon d'afficher ces données) via le protocole HTTP.\\
+Toutes les requêtes sont testables directement et tapant l'URL dans votre
+navigateur préféré.
 \subsection{Appel au webservice}
-Un appel au webservice se fait via une requête HTTP GET à l'adresse\\
-\href{http://chessdiags.com/pamplemousse?login=XXX\&mdp=YYY}{http://chessdiags.com/pamplemousse?login=XXX\&mdp=YYY}\\
-XXX doît être remplacé par l'identifiant de l'étudiant (ex : id3182)\\
-YYY doît être remplacé par le mot de passe de l'étudiant
+Un webservice est toujours constitué d'une adresse de base suivi d'un paramètre
+indiquant le type d'information demandée et éventuellement de paramètres
+précisant cette information.\\
+Pour le webservice star, l'URL de base est la suivante : 
+\href{http://data.keolis-rennes.com/json/}{http://data.keolis-rennes.com/json/}\\
+Il y a ensuite 3 paramètres obligatoires :
+\begin{itemize}
+  \item cmd : la commande demandée. C'est à dire, l'information que l'on
+  cherche. Par exemple, pour obtenir le prochain départ d'un bus, on a
+  $cmd=getbusnextdepartures$
+  \item version : la version du webservice que l'on utilise. Se référer à la
+  documentation pour savoir quelle version utiliser pour chaque commande. 
+  \item key : la clé. Afin de savoir qui utilise le webservice, la star fournit
+  aux développeurs des clés correspondant à chaque application déclarée. Pour
+  obtenir une clé, il faut s'inscrire sur le site. Pour tout ce TP, vous pouvez
+  utiliser la clé suivante : 1RJLZ38TUFZSWTW
+\end{itemize}
+Ainsi, un appel au webservice peut se faire directement à l'URL suivante :\\
+\href{http://data.keolis-rennes.com/json/?cmd=getmetrostatus&version=2.2&key=1RJLZ38TUFZSWTW}{http://data.keolis-rennes.com/json/?cmd=getmetrostatus&version=2.2&key=1RJLZ38TUFZSWTW}
 \subsection{Résultat du webservice}
-Le webservice renvoie des données JSON.\\
-Un exemple du résultat d'un appel au webservice pour un étudiant de 1ère année
-est disponible \href{http://chessdiags.com/exemple.json}{à cette adresse}.\\
-Un exemple de résultat en cas d'erreur (login / mot de passe invalide,
-pamplemousse inaccessible \ldots) est disponible
-\href{http://chessdiags.com/pamplemousse?login=XXX\&mdp=YYY}{à cette adresse}.
+Le webservice renvoie les données au format JSON ou au format XML (changer
+JSON en XML dans l'URL).\\
+Pour simplifier, dans ce TP, on ne manipulera que les données JSON.
 \subsection{Visualiser le JSON} 
 Même si le format JSON est relativement clair et simple, il reste assez
 difficile d'obtenir une vision globale des données présentes dans un résultat JSON d'un seul coup d'oeil.\\
@@ -94,23 +113,10 @@ Des outils de visualisation JSON existent et sont très utiles dès lors que l'o
 manipule des fichiers JSON.\\
 Vous pouvez par exemple utiliser
 \href{http://jsonviewer.stack.hu/}{http://jsonviewer.stack.hu/}
-\subsection{Webservice de test}
-Afin de ne pas surcharger le serveur pamplemousse (chaque requête au webservice
-donne lieu à 3 requêtes sur pamplemousse), il vous est demandé d'utiliser
-autant que possible l'url de test
-\href{http://chessdiags.com/exemple.json}{http://chessdiags.com/exemple.json}
-qui renvoie toujours l'emploi du temps d'un étudiant de 1A.
-\subsection{Mise en garde}
-Lors de l'utilisation du webservice, le mot de passe de l'étudiant
-circule en clair. Il vous est donc conseillé, afin d'éviter tout problème, soit
-de changer votre mot de passe avant d'utiliser le webservice soit de n'utiliser
-que l'url de test.
 \section{Hello World !}
 \begin{itemize} 
-  \item Créer un nouveau projet avec une activity basique (ex : blankactivity)
+  \item Créer un nouveau projet (EmptyActivity)
   \item Ajouter la permission INTERNET au manifest
-  \item Dans un premier temps nous n'allons pas nous occuper de l'UI et
-  simplement afficher l'emploi du temps dans la log
   \item Dans le onCreate de votre Activity, ajouter la ligne suivante 
 \begin{lstlisting}[language=XML]
 StrictMode.setThreadPolicy(new ThreadPolicy.Builder().permitAll().build());
@@ -118,7 +124,7 @@ StrictMode.setThreadPolicy(new ThreadPolicy.Builder().permitAll().build());
 Cette ligne sera expliquée plus tard dans le TP
   \item Utiliser
   \href{http://developer.android.com/reference/java/net/HttpURLConnection.html}{HttpURLConnection}
-  pour faire une requête HTTP vers l'adresse du webservice de test
+  pour faire une requête HTTP vers le webservice
 \end{itemize}
 Pour lire le contenu d'un InputStream (flux entrant), on peut utiliser le code
 suivant :
