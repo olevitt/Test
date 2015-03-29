@@ -1,4 +1,4 @@
-package com.ensai.technomobile;
+package com.ensai.TP1;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import com.ensai.TP1.R;
 
 public class MainActivity extends Activity implements OnClickListener {
 
