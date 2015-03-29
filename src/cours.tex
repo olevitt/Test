@@ -59,7 +59,7 @@
   \item{31 mars : 3h de cours, 3h de TP}
   \item{7 avril : 3h de cours, 3h de TP}
   \item{14 avril : 6h de TP}
-  \item{Validation des sujets de projet avant le 17 avril}
+  \item{Validation des sujets de projet avant le 27 avril}
   \item{28 avril : 3h de TP dédiées au projet}
   \item{19 mai : Soutenance du projet}
 \end{itemize}
@@ -453,13 +453,22 @@ Téléchargement gratuit : www.d.android.com/sdk
 </resources>
 \end{lstlisting}
 \end{frame}
+
 \frame{
 \frametitle{Déployer l'application}
 \begin{itemize}
-  \item Une application android = un APK (+/- équivalent d'un jar)
+  \item Une application android = un APK (équivalent d'un jar)
   \item Une application android doit être signée 
   \item Attention à ne pas perdre la clé !
   \item Création et signature de l'APK simplifié sous eclipse (export)
+ \end{itemize}
+}
+\frame{
+\frametitle{Distribuer l'application}
+\begin{itemize}
+  \item Distribution directe de l'APK (ex : pour tester, béta fermée)
+  \item Publication sur le playstore, 25\$ à l'inscription
+  \item Application gratuite ou payante (30\% pour google)
  \end{itemize}
 }
 \frame{
@@ -475,25 +484,25 @@ Téléchargement gratuit : www.d.android.com/sdk
  \end{itemize}
 }
 \frame{
-\frametitle{Distribuer l'application}
-\begin{itemize}
-  \item Distribution directe de l'APK (ex : pour tester, béta fermée)
-  \item Publication sur le playstore, 25\$ à l'inscription
-  \item Application gratuite ou payante (30\% pour google)
- \end{itemize}
-}
-\frame{
 \frametitle{Déboguer l'application}
 \includegraphics[width=120pt]{img/fc.png}
 \begin{itemize}
   \item Si une exception n'est pas rattrapée, android tue l'application
   \item On parle de ``force close'' (FC)
-  \item Comment déboguer une application qui tourne sur un appareil (ou
-  émulateur) ?
+  \item Comment déboguer une application qui tourne sur un appareil ou un
+  émulateur ?
  \end{itemize}
 }
 \frame{
-\frametitle{Logcat, le sauveur}
+\frametitle{Le mode débug}
+\includegraphics[width=170pt]{img/ddms.png}
+\begin{itemize}
+  \item Le debugger Java fonctionne aussi sur Android
+  \item La vue eclipse ``DDMS'' apporte de nombreux outils
+ \end{itemize}
+}
+\frame{
+\frametitle{Logcat}
 \includegraphics[width=120pt]{img/logcat.jpg}
 \begin{itemize}
   \item Le SDK fournit un outil très pratique : logcat
@@ -512,7 +521,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=120pt]{img/jacoj.jpg}
 }
 \begin{frame}[fragile]
-\frametitle{Logcat, logging de l'application}
+\frametitle{Logcat, utilisation}
 \begin{itemize}
   \item Oublier System.out.println() !
   \item 5 niveaux de gravité : Error, Warn, Info, Debug, Verbose
