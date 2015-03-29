@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
 \hypersetup{urlcolor=,linkcolor=} % Does not apply color to href's
 \lstset{
 	tabsize=4,
@@ -26,13 +27,16 @@
 }
 
 
-\title{ANDROID - TP2}
-\date{Source et pdf du cours et de ce TP
-:\\ \href{https://bitbucket.org/olevitt/technologies-mobiles}{https://bitbucket.org/olevitt/technologies-mobiles/src}}
+\title{Android - TP2}
+\date{Source, pdf et corrigé de ce TP
+:\\ \href{http://tiny.cc/techmob}{http://tiny.cc/techmob}}
 
 \begin{document}
 \maketitle
 L'objectif de ce TP est de réaliser une todo list (liste de choses à faire).\\
+\includegraphics[width=100pt]{img/tp2screen1.png}
+\includegraphics[width=100pt]{img/tp2screen2.png}
+\includegraphics[width=100pt]{img/tp2screen3.png}\\
 Ce TP fera appel aux notions suivantes :
 \begin{itemize}
   \item ListView
@@ -41,12 +45,13 @@ Ce TP fera appel aux notions suivantes :
   \item Intents
   \item Stockage de données
 \end{itemize}
-Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter à lire la documentation officielle
+Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter
+à se référer à la documentation officielle
 \href{http://d.android.com}{http://d.android.com} ainsi que la multitude de tutoriaux disponibles.\\
 
 \section{L'écran principal : affichage des tâches}
 \begin{itemize}
-  \item Créer un nouveau projet android avec une Activity simple (BlankActivity)
+  \item Créer un nouveau projet android avec une Activity simple (EmptyActivity)
   \item Modifier le layout de cette activity pour y placer une ListView qui
   prendra toute la largeur et toute la hauteur
 \end{itemize}
@@ -59,12 +64,11 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
  \begin{enumerate}
  \setcounter{enumi}{1}
 \item Pourquoi un LinearLayout ``naïf'' ne convient t'il pas ?
-\item Pourquoi un RelativeLayout ne convient t'il pas totallement ?
-\item Quelle propriété des fils de LinearLayout va nous aider dans ce cas ?
+\item Pourquoi un RelativeLayout ne convient t'il pas totalement ?
 \end{enumerate}
 \begin{itemize}
-  \item Ajouter le bouton en lui faisant prendre la place nécessaire en hauteur
-  et toute la largeur.
+  \item En utilisant la propriété layout\_weight de LinearLayout, placer le
+  bouton en bas de l'écran.
   \item Ecouter les clicks sur le bouton et afficher un Toast à chaque click
 \end{itemize}
 \section{Un écran secondaire : ajout d'une tâche}
@@ -79,7 +83,8 @@ Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hé
  \setcounter{enumi}{4}
 \item On veut lancer l'activity d'ajout d'une tâche lors d'un click sur le
 bouton ``ajouter une tache'' de l'activity principale.
-Quel concept android va t'on utiliser ? (indice : il peut être soit implicite soit explicite)
+Quel concept android va-t-on utiliser ? (indice : il peut être soit implicite
+soit explicite)
 \item Dans ce cas, est-il implicite ou explicite ?
 \item Pensez vous qu'il faille passer des données lors de l'appel à l'activity ``ajouter une tâche'' ? Si oui, lesquelles ?
 \end{enumerate}
@@ -103,17 +108,15 @@ Lors d'un click sur le bouton ``ajouter'' de l'activity d'ajout, on souhaite ret
  
  \section{Place aux données !}
  \begin{itemize}
-  \item Créer une classe métier déstinée à contenir les données : Item. Chaque
-  élément de la todo list contiendra au moins un nom et une description.
+  \item Créer une classe métier déstinée à contenir les données : Element.
+  Chaque élément de la todo list contiendra au moins un nom et une description.
  \end{itemize}
  \subsection{Afficher les données dans la ListView}
- 
-    On ne souhaite afficher dans la liste que le nom des items.
+    On ne souhaite afficher dans la liste que le nom des éléments.
       \begin{enumerate}
  \setcounter{enumi}{8}
-\item Au vu de la simplicité des données à afficher pour chaque élément (1
-seul champ de texte), quel type d'adapter vous parait le plus intéressant ?
-(Rappel :
+\item Au vu de la simplicité des données à afficher pour chaque élément (un seul
+champ de texte), quel type d'adapter vous parait le plus intéressant ? (Rappel :
 on a le choix entre ArrayAdapter, CursorAdapter et faire sa propre implémentation à partir de BaseAdapter)
 \end{enumerate}
  \begin{itemize}
@@ -121,8 +124,7 @@ on a le choix entre ArrayAdapter, CursorAdapter et faire sa propre implémentati
   utilisant comme layout pour chaque view le layout ``android.R.layout.simple\_list\_item\_1''
   \item Ouvrir le fichier XML de ce layout à l'aide de CTRL+click et constater
   sa simplicité
-  \item Initialiser cet adapter avec un jeu de données générées
-  à la volée
+  \item Initialiser cet adapter avec une liste de Element générés à la volée
   \item Affecter cet adapter à la ListView
  \end{itemize}
   \subsection{Stocker les données}
@@ -133,16 +135,22 @@ on a le choix entre ArrayAdapter, CursorAdapter et faire sa propre implémentati
 \end{enumerate}
  \begin{itemize}
   \item Pour des raisons de simplicité, on va opter dans la suite pour un stockage en fichier plat (libre à vous de le remplacer par une base SQLite)
-  \item Créer une méthode qui écrit une liste d'éléments Item dans un
+  \item Créer une nouvelle classe ElementDAO qui se chargera des sauvegardes /
+  chargements de données.
+  \item Y créer une méthode qui écrit une liste d'éléments Element dans un
   fichier en utilisant un format de stockage primitif par exemple
-  nom\#description et un item par ligne. Note : Ce format est un très mauvais
-  choix en pratique car peu robuste et peu extensible mais suffira largement ici).
-  \item Créer une méthode qui instancie une liste d'éléments Item à partir d'un fichier.
+  nom\#description et un Element par ligne.
+  \\Note : Ce format est un très mauvais choix en pratique car peu robuste et
+  peu extensible mais suffira largement ici.
+  \item Créer une méthode qui instancie une liste d'Element à partir des valeurs
+  lues dans le fichier.
   \item Dans la méthode onCreate(), remplir la ListView à partir des données contenues dans le fichier.
  \end{itemize}
  \subsection{Remplir les données}
  \begin{itemize}
-  \item Lors d'un click sur le bouton ``ajouter'' de l'activity d'ajout, créer une instance d'Item et la rajouter au fichier. (pour simplifier, réecrire la totalité du fichier à chaque fois)
+  \item Lors d'un click sur le bouton ``ajouter'' de l'activity d'ajout, créer
+  une instance d'Element et la rajouter au fichier. (pour simplifier, réécrire
+  la totalité du fichier à chaque fois)
  \end{itemize}
   \begin{enumerate}
  \setcounter{enumi}{10}
@@ -151,16 +159,17 @@ on a le choix entre ArrayAdapter, CursorAdapter et faire sa propre implémentati
  \begin{itemize}
   \item Utiliser le cycle de vie des activities pour recharger les données de la ListView lors du retour sur l'activity principale. (implémenter la bonne méthode onXXXXX)
  \end{itemize}
- \section{Voir le détail d'un item}
+ \section{Voir le détail d'un élément}
  \begin{itemize}
   \item Créer une activity de visualisation d'item avec les champs utiles (nom, description \ldots)
   \item Récupérer les clicks sur les éléments de la ListView (Attention à bien utiliser onItemClickListener et non onClickListener).
   \item Lancer l'activity de visualisation lors d'un click sur un item de la liste
   \item Transmettre à l'activity le nom de l'item choisi
-  \item Récupérer les données dans l'activity de visualisation et afficher les données de l'item
+  \item Récupérer les données dans l'activity de visualisation et afficher les
+  données de l'élément
  \end{itemize}
  \section{Pour aller plus loin}
-	Wow, déjà tout fait ? Voici quelques pistes d'améliorations
+	Wow, déjà tout fait ? Voici quelques pistes d'améliorations :
   \begin{itemize}
   \item Le stockage en fichier plat n'est pas très judicieux. Mettre en place une base de données SQLite à la place.
   \item Les données associées aux items sont pour l'instant minimales, pourquoi ne pas ajouter un identifiant, une date d'ajout, un statut (en cours, fait \ldots), une priorité, une catégorie \ldots ?

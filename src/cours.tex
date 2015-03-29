@@ -29,7 +29,7 @@
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 
-\date{Source et pdf de ce cours et des TP :\\\url{http://goo.gl/rA09Sp}}
+\date{Source et pdf de ce cours et des TP :\\\url{http://tiny.cc/techmob}}
 \AtBeginSubsection[]
 {
   \begin{frame}
@@ -42,7 +42,7 @@
 \frame{
 \titlepage
 \begin{center}
-\includegraphics[width=60pt]{img/google-android.jpg}
+\includegraphics[width=30pt]{img/android-robot.png}
 \includegraphics[width=60pt]{img/ios.png}
 \includegraphics[width=60pt]{img/wp8.jpg}
 \includegraphics[width=60pt]{img/bb10.jpg}
@@ -173,7 +173,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Evolution technologique permanente (nouveaux appareils, nouvelles
   versions des OS)
   \item Evolution du marché (parts de marché des OS)
-  \item Nouveaux OS (firefox OS, blackberry 10 \ldots)
+  \item Nouveaux OS (Firefox OS, Blackberry 10 \ldots)
   \item Concurrence sur les stores
   \item Développement des réseaux et nouveaux usages (4G)
 \end{itemize}
@@ -194,7 +194,7 @@ Comment gérer toutes les tailles d'écran ?
 \frametitle{iOS}
 \includegraphics[width=60pt]{img/ios.png}
 \begin{itemize}
-  \item Soutenu par Apple
+  \item Soutenu par Apple\textregistered
   \item Présenté le 9 janvier 2007
   \item Réservé aux produits Apple (iPhone, iPad, iPod, iWatch)
   \item Programmation en objective-C, sur mac OS X uniquement
@@ -204,13 +204,13 @@ Comment gérer toutes les tailles d'écran ?
 \frame{
 \frametitle{Android}
 
-\includegraphics[width=60pt]{img/google-android.jpg}
+\includegraphics[width=30pt]{img/android-robot.png}
 \begin{itemize}
   \item Soutenu par Google
   \item Version 1.0 en septembre 2008, commercial 1.5 en avril 2009
   \item Plus de 6000 appareils officiellement supportés, plus de 50
   constructeurs
-  \item Programmation en JAVA, sur windows / OS X / linux
+  \item Programmation en Java, sur windows / OS X / linux
   \item Noyau open-source (Apache 2.0)
   \item Google playstore : ``pas de validation'' + 25\$
 \end{itemize}
@@ -279,7 +279,7 @@ Comment gérer toutes les tailles d'écran ?
 \frametitle{Avant de commencer, la checklist}
 Obligatoire :\\
 \begin{itemize}
-  \item Des bases de programmation en JAVA
+  \item Des bases de programmation en Java
   \item Un ordinateur (Windows, Linux, Mac OS X)
 \end{itemize}
 Conseillé :\\
@@ -381,7 +381,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frame{
 \frametitle{Détail de l'organisation}
 \begin{itemize}
-  \item src : code source java
+  \item src : code source Java
   \item gen : identifiants des ressources (généré par le sdk)
   \item Android 4.2 : jar correspondant à l'API cible
   \item Android Dependencies : jar rajoutés, correspond à libs
@@ -467,7 +467,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=50pt]{img/runas.png}
 \includegraphics[width=300pt]{img/console.png}
 \begin{itemize}
-  \item Comme pour une application JAVA classique, ctrl + F11
+  \item Comme pour une application Java classique, ctrl + F11
   \item Eclipse demande au SDK de builder l'APK
   \item Eclipse signe l'APK avec la clé debug 
   \item Eclipse demande à adb (SDK) d'installer l'application
@@ -493,10 +493,6 @@ Téléchargement gratuit : www.d.android.com/sdk
  \end{itemize}
 }
 \frame{
-\frametitle{Stacktrace or GTFO}
-\includegraphics[width=120pt]{img/jacoj.jpg}
-}
-\frame{
 \frametitle{Logcat, le sauveur}
 \includegraphics[width=120pt]{img/logcat.jpg}
 \begin{itemize}
@@ -510,6 +506,10 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frametitle{Logcat, exemple}
 \includegraphics[width=340pt]{img/logeclipse.png}\\
 \includegraphics[width=340pt]{img/logterminal.png}
+}
+\frame{
+\frametitle{Stacktrace or GTFO}
+\includegraphics[width=120pt]{img/jacoj.jpg}
 }
 \begin{frame}[fragile]
 \frametitle{Logcat, logging de l'application}
@@ -536,7 +536,7 @@ public void sauvegarderScore(int score) {
 \end{frame}
 \subsection{IHM}
 \frame{
-\frametitle{Une exécution moins linéaire qu'en JAVA classique}
+\frametitle{Une exécution moins linéaire qu'en Java classique}
 \begin{itemize}
   \item Une application android est un ensemble de composants
   \item Pas de méthode main
@@ -551,7 +551,7 @@ public void sauvegarderScore(int score) {
   \item 1 activity {\raise.17ex\hbox{$\scriptstyle\sim$}}  un écran
   \item Une application peut avoir $0-n$ activities
   \item A déclarer dans le manifest
-  \item Créer une classe java héritant de Activity 
+  \item Créer une classe Java héritant de Activity 
  \end{itemize}
 }
 \begin{frame}[fragile]
@@ -638,11 +638,11 @@ public Class MainActivity extends Activity {
 \end{lstlisting}
  \begin{itemize}
  \item Balise Activity à l'interieur de la balise Application
- \item On précise la classe JAVA correspondante
+ \item On précise la classe Java correspondante
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Manipuler les éléments de l'UI en java}
+\frametitle{Manipuler les éléments de l'UI en Java}
 Etape 1 : donner un identifiant à la vue
 \begin{lstlisting}
 <LinearLayout 
@@ -665,7 +665,7 @@ Etape 1 : donner un identifiant à la vue
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Manipuler les éléments de l'UI en java}
+\frametitle{Manipuler les éléments de l'UI en Java}
 Etape 2 : récupérer les références vers les views
 \begin{lstlisting}
 public Class MyActivity extends Activity {
@@ -688,7 +688,7 @@ public Class MyActivity extends Activity {
  \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Manipuler les éléments de l'UI en java}
+\frametitle{Manipuler les éléments de l'UI en Java}
 \begin{lstlisting}
 public Class MyActivity extends Activity {
     ViewGroup layout = null;
@@ -861,7 +861,7 @@ public MyActivity extends Activity {
 \begin{frame}[fragile] 
 \frametitle{Previously on Android, manipuler les élements UI}
 \begin{itemize}
-  \item Pour manipuler les éléments UI en java : leur donner un ID
+  \item Pour manipuler les éléments UI en Java : leur donner un ID
   \item @+id/identifiant : crée un int IDENTIFIANT dans R.id
   \item R : fichier autogénéré des ressources
   \item Dans l'activity : utiliser findViewById(R.id.identifiant)
@@ -1036,7 +1036,7 @@ Documentation android officielle sur le stockage de données : \url{http://devel
 \begin{frame}
 \frametitle{SharedPreferences}
 \begin{itemize}
-    \item Equivalent des Preferences de java
+    \item Equivalent des Preferences de Java
     \item Stockage de données primitives (int, boolean, String \ldots)
     \item Mapping clé / valeur
     \item Très facile de créer un écran de paramètres (PreferenceActivity)
@@ -1083,7 +1083,7 @@ public void sauvegarderScore() {
 \begin{frame}[fragile]
 \frametitle{Les fichiers}
 \begin{itemize}
-    \item API classiques de java (File, InputStream, OutputStream \ldots)
+    \item API classiques de Java (File, InputStream, OutputStream \ldots)
     \item Ne jamais utiliser de chemin absolu, utiliser les fonctions android pour déterminer les dossiers
     \item Garder en tête les contraintes du mobile : espace libre, SD accessible
     \item Choisir entre stockage interne et externe
@@ -1490,10 +1490,10 @@ public class CustomView extends View {
   \item La qualité de la connexion est TRES variable
   \item L'utilisation du réseau est TRES consommateur de batterie 
   \item Pour le HTTP, le SDK android propose 2 API :
-  \item HTTPUrlConnection de java.net : conseillé sur les nouvelles applications
+  \item HTTPUrlConnection de Java.net : conseillé sur les nouvelles applications
   \item HTTPClient de org.apache : conseillé sur les API $<=$2.2
   \item De nombreuses bibliothèques sont disponibles (robospice, android-async-http \ldots)
-  \item Pour les autres protocoles : utiliser la classe Socket de java.net
+  \item Pour les autres protocoles : utiliser la classe Socket de Java.net
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
@@ -1525,7 +1525,7 @@ try {
   \item L'application mobile se charge de la mise en forme et de l'affichage des données
   \item 1 webservice pour toutes les applications, peu importe l'OS
   \item Webservices publics (météo, transports \ldots)
-  \item Créer son propre webservice en JAVA (jersey), en PHP \ldots
+  \item Créer son propre webservice en Java (jersey), en PHP \ldots
 \end{itemize}    
 \end{frame}
 \begin{frame}[fragile]

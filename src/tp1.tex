@@ -4,6 +4,7 @@
 \usepackage{listings}
 \usepackage{hyperref}
 \usepackage{eurosym}
+\usepackage[margin=2.5cm]{geometry}
 \usepackage{graphicx}
 \hypersetup{urlcolor=,linkcolor=} % Does not apply color to href's
 \lstset{
@@ -29,7 +30,7 @@
 
 \title{ANDROID - TP1}
 \date{Source, pdf et corrigé de ce TP
-:\\\href{http://goo.gl/rA09Sp}{http://goo.gl/rA09Sp}}
+:\\\href{http://tiny.cc/techmob}{http://tiny.cc/techmob}}
 
 \begin{document}
 \maketitle
@@ -39,7 +40,8 @@ Ce TP a deux objectifs :
 \item Construire une petite application de conversion de devises
 \end{itemize}
 \includegraphics[width=100pt]{img/tp1.png}\\
-Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter à lire la documentation officielle
+Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter
+à se référer à la documentation officielle
 \href{http://d.android.com}{http://d.android.com} ainsi que la multitude de tutoriaux disponibles.
 \section{Mise en place}
 \subsection{Verifier l'installation}
@@ -98,7 +100,7 @@ Modifier le layout main pour y ajouter quelques composants :
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{3}
-\item Que faut-il prévoir pour pouvoir manipuler ces vues en java ?
+\item Que faut-il prévoir pour pouvoir manipuler ces vues en Java ?
 \end{enumerate}
 \subsection{Rendre l'interface vivante}
 \begin{itemize}
@@ -139,7 +141,8 @@ largeur
 \subsection{En multidevise c'est mieux}
 On souhaite maintenant donner le choix à l'utilisateur entre plusieurs
 devises.\\
-La vue correspondant à un menu déroulant est Spinner.
+La vue correspondant à un menu déroulant est
+\href{http://developer.android.com/guide/topics/ui/controls/spinner.html}{Spinner}.
 \begin{itemize}
 \item Ajouter deux vues Spinner au layout de l'activity
 \end{itemize}
@@ -156,8 +159,6 @@ devises
 ViewGroup, positionner les spinner sur la même ligne
 \end{itemize}
 \section{Aller plus loin}
-Attention : une partie de ce qui suit fait appel à des concepts qui seront
-abordés plus tard dans le cours.
 \subsection{Un peu de style}
 \begin{itemize}
 \item Changer le nom de l'application
@@ -177,29 +178,10 @@ abordés plus tard dans le cours.
 \item Lors d'un click sur le bouton, lancer un intent implicite pour partager le résultat
 \end{itemize}
 \begin{enumerate}
- \setcounter{enumi}{6}
+ \setcounter{enumi}{7}
 \item Que se passe-t-il si aucune activity n'est capable de répondre à l'intent
 ?
 \end{enumerate}
-\subsection{Créer un historique des calculs}
-\begin{enumerate}
- \setcounter{enumi}{7}
-\item Quelle solution de stockage de l'historique des calculs vous parait la mieux adaptée ? (Rappel : on a le choix entre préferences, BDD SQLite et fichier plat) 
-\end{enumerate}
-\begin{itemize}
-\item Mettre en place la solution choisie
-\item A chaque calcul, rajouter un élément à l'historique
-\end{itemize}
-\subsection{Afficher l'historique}
-\begin{itemize}
-\item L'historique sera affiché dans un écran séparé
-\item Créer une nouvelle Activity qui contiendra l'historique (penser à la déclarer dans le Manifest)
-\end{itemize}
-\begin{enumerate}
- \setcounter{enumi}{8}
-\item Quel ViewGroup vous paraît le plus adapté pour afficher l'historique (nombre indéfini d'éléments) ?
-\item Comment lancer cette activité ?
-\end{enumerate}
-\end{document}
 
+\end{document}
 
