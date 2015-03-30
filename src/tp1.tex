@@ -57,14 +57,19 @@ tutoriaux disponibles.
 \subsection{Hello world}
 \begin{itemize}
 \item Créer un nouveau projet android via File/New/Other/Android/Android
-Project. \textbf{Décocher ``Create custom launcher icon'' et choisir ``Empty
+Project. 
+\item Mettre ``API 19 : Android 4.4'' pour les 3 choix (min SDK, target SDK,
+compile with)
+\item \textbf{Décocher ``Create custom launcher icon'' et choisir ``Empty
 activity'' plutôt que ``Blank activity''}
 \end{itemize}
 ADT génère automatiquement toute la structure d'un projet android.
 \begin{itemize}
 \item Vérifier que la structure générée correspond à la structure vue dans le
 cours et que ADT a bien créé une activity basique
-\item Lancer l'appliation
+\item Lancer l'appliation (au besoin, utiliser click droit sur le projet : run
+as :
+Android application)
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{1}
@@ -78,7 +83,8 @@ L'AVD manager est aussi disponible via \textbf{Window / Android virtual
 device manager}
 \subsection{Créer un appareil virtuel}
 \begin{itemize}
-\item Créer un nouvel appareil avec le plus haut niveau d'API disponible
+\item Créer un nouvel appareil avec la configuration suivante : Nexus one,
+Android 4.4.2 - API level 19, Skin with dynamic hardware controls, RAM : 768.
 \item Démarrer l'appareil
 \item Manipuler un peu l'émulateur
 \item Lancer l'application sur l'émulateur
