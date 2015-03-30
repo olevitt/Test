@@ -44,7 +44,8 @@ Ce TP fera appel aux notions suivantes :
 \end{itemize}
 Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter
 à se référer à la documentation officielle
-\href{http://d.android.com}{http://d.android.com} ainsi que la multitude de tutoriaux disponibles.\\
+\href{http://d.android.com}{http://d.android.com} ainsi qu'à la multitude de
+tutoriaux disponibles.
 \section{Présentation des données star}
 \subsection{Contexte}
 Rennes a fait partie des premières villes à libérer ses données publiques
@@ -73,8 +74,60 @@ vélos et de places disponibles à une station vélo star, les heures de prochai
 passage des bus et métro \ldots\\
 La liste des données disponibles est disponible ici : 
 \href{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}\\
-L'accès à ces données se fait via un webservice.
-
+L'accès à ces données se fait via un webservice.\\
+\textbf{Dans un premier temps, nous ne nous occuperons que des données
+statiques.}
+\section{Hello World !}
+\begin{itemize} 
+  \item Créer un nouveau projet (EmptyActivity)
+  \item Télécharger les dernières données statiques disponibles sur le site
+  open-data de keolis
+  \item A l'intérieur du zip téléchargé, ouvrir le fichier routes.txt. Que
+  contient t-il ?
+  \item Inclure ce fichier dans les ressources de l'application
+  \item Créer un objet métier, Route, dont les attributs reflètent le contenu du
+  fichier routes
+\end{itemize}
+On souhaite maintenant écrire le code permettant d'instancier les objets Route à
+partir des informations présentes dans le fichier.\\
+L'analyse (parsing) d'un fichier CSV est relativement facile mais peut se
+réveler fastidieuse. Pour éviter de réécrire à chaque application le même code, on peut utiliser une des multiples bibliothèque disponibles : commons-csv de la
+fondation apache.
+\begin{itemize}
+  \item Télécharger cette bibliothèque à partir du site officiel : X
+  \item Ajouter cette bibliothèque à l'application
+\end{itemize}
+Le code suivant permet d'itérer sur chaque ligne du fichier :\\
+\begin{lstlisting}[language=XML]
+InputStream stream = context.getResources().openRawResource(R.raw.routes);
+Iterator<CSVRecord> iterateur = new CSVParser(new InputStreamReader(stream), CSVFormat.DEFAULT).iterator();
+CSVRecord enregistrementCourant = null;
+while (iterateur.hasNext()) {
+    enregistrementCourant = iterateur.next();
+}
+stream.close();
+\end{lstlisting}
+\begin{itemize}
+  \item Créer une classe DAO, RouteDAO, qui instancie une liste de Route à
+  partir du contenu du fichier
+  \item Afficher un toast, sur l'activity principale, indiquant le nombre de
+  lignes présentes sur le réseau STAR
+\end{itemize}
+\section{Un peu d'interface}
+\begin{itemize} 
+  \item Ajouter une ListView prenant toute la taille de l'écran à l'activity
+  principale
+  \item Afficher, dans cette ListView, la liste des lignes (au moins le nom)
+  \item Optionnel : personnaliser l'affichage en utilisant par exemple le code
+  couleur de chaque ligne fourni dans les données
+  \item Créer une nouvelle activity qui contiendra le détails des prochains des
+  bus de cette ligne
+  \item Lors d'un click sur un élément de la liste des lignes, lancer l'activity
+  en passant en paramètre l'identifiant de la route choisie
+\end{itemize}
+\section{Utilisation des données temps réel}
+On va maintenant utiliser les données temps réel pour récupérer les horaires des
+prochains passages pour la ligne choisie.
 \subsection{Principe d'un webservice}
 Un webservice est, comme son nom l'indique, un service accessible sur le web.\\
 Techniquement, il s'agit d'un programme tournant sur un serveur et déstiné à
@@ -86,7 +139,7 @@ navigateur préféré.
 Un webservice est toujours constitué d'une adresse de base suivi d'un paramètre
 indiquant le type d'information demandée et éventuellement de paramètres
 précisant cette information.\\
-Pour le webservice star, l'URL de base est la suivante : 
+Pour le webservice STAR, l'URL de base est la suivante : 
 \href{http://data.keolis-rennes.com/json/}{http://data.keolis-rennes.com/json/}\\
 Il y a ensuite 3 paramètres obligatoires :
 \begin{itemize}
@@ -95,13 +148,13 @@ Il y a ensuite 3 paramètres obligatoires :
   $cmd=getbusnextdepartures$
   \item version : la version du webservice que l'on utilise. Se référer à la
   documentation pour savoir quelle version utiliser pour chaque commande. 
-  \item key : la clé. Afin de savoir qui utilise le webservice, la star fournit
+  \item key : la clé. Afin de savoir qui utilise le webservice, la STAR fournit
   aux développeurs des clés correspondant à chaque application déclarée. Pour
   obtenir une clé, il faut s'inscrire sur le site. Pour tout ce TP, vous pouvez
   utiliser la clé suivante : 1RJLZ38TUFZSWTW
 \end{itemize}
 Ainsi, un appel au webservice peut se faire directement à l'URL suivante :\\
-\href{http://data.keolis-rennes.com/json/?cmd=getmetrostatus&version=2.2&key=1RJLZ38TUFZSWTW}{http://data.keolis-rennes.com/json/?cmd=getmetrostatus&version=2.2&key=1RJLZ38TUFZSWTW}
+\href{http://data.keolis-rennes.com/json/?cmd=getmetrostatus&version=2.2&key=1RJLZ38TUFZSWTW}{http://data.keolis-rennes.com/json/?cmd=getmetrostatus\&version=2.2\&key=1RJLZ38TUFZSWTW}
 \subsection{Résultat du webservice}
 Le webservice renvoie les données au format JSON ou au format XML (changer
 JSON en XML dans l'URL).\\
@@ -113,20 +166,23 @@ Des outils de visualisation JSON existent et sont très utiles dès lors que l'o
 manipule des fichiers JSON.\\
 Vous pouvez par exemple utiliser
 \href{http://jsonviewer.stack.hu/}{http://jsonviewer.stack.hu/}
-\section{Hello World !}
+\subsection{Intégration dans l'application} 
+On souhaite afficher, dans la nouvelle Activity, la liste des arrêts de la ligne
+choisie.
 \begin{itemize} 
-  \item Créer un nouveau projet (EmptyActivity)
-  \item Ajouter la permission INTERNET au manifest
+  \item Ajouter la permission (uses-permission) INTERNET au manifest
   \item Dans le onCreate de votre Activity, ajouter la ligne suivante 
 \begin{lstlisting}[language=XML]
 StrictMode.setThreadPolicy(new ThreadPolicy.Builder().permitAll().build());
 \end{lstlisting}
 Cette ligne sera expliquée plus tard dans le TP
+  \item Construire l'adresse qui sera appellée. La commande utilisée est
+  ``getbusnextdepartures'' en mode line.
+  \item Tester l'adresse dans un navigateur.
   \item Utiliser
-  \href{http://developer.android.com/reference/java/net/HttpURLConnection.html}{HttpURLConnection}
-  pour faire une requête HTTP vers le webservice
+  \href{http://developer.android.com/reference/java/net/HttpURLConnection.html}{HttpURLConnection} pour faire une requête HTTP vers le webservice
 \end{itemize}
-Pour lire le contenu d'un InputStream (flux entrant), on peut utiliser le code
+Pour lire le contenu d'un InputStream (flux entrant), on peut s'inspirer du code
 suivant :
  \begin{lstlisting}[language=XML]
  public String readStream(InputStream inputStream) throws IOException {
@@ -151,16 +207,15 @@ suivant :
   à partir des données récupérées précedemment
   \item En utilisant la méthode
   \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONArray(java.lang.String)}{getJSONArray},
-  récupérer le tableau des cours  
-  \item Afficher, dans un Toast, le nombre de cours  
+  récupérer le tableau des arrêts déservis par la ligne
+  \item Afficher, dans un Toast, le nombre d'arrêts
 \end{itemize}
 \subsection{Instancier les objets correspondants}
 \begin{itemize} 
-  \item Créer une classe JAVA ``Cours" représentant un cours de l'emploi du
-  temps
+  \item Créer une classe Java Arret 
   \item Donner à cette classe les mêmes attributs que les données disponibles dans la réponse JSON
   \item Instancier, à partir du JSONObject, une liste (ou un tableau) d'objet
-  JAVA ``Cours''
+  Arret
 \end{itemize}
 \section{Stockage des données}
 L'objectif est de stocker les données chargées pour éviter de devoir les
@@ -171,19 +226,18 @@ batterie \ldots)
 \item Quelle solution de stockage vous parait la plus adaptée ?
 \end{enumerate}
 \begin{itemize} 
-  \item Implémenter le nécessaire pour créer une base de données SQLite
-  (utiliser SQLiteOpenHelper)
+  \item En utilisant SQLiteOpenHelper, implémenter le nécessaire pour créer une
+  base de données SQLite
   \item Dans onCreate, éxecuter une requête de création de table pour créer
-  une table Cours avec tous les attributs de la classe Cours 
+  une table Arret avec tous les attributs de la classe Arret
   \item Exécuter une insertion avec des données fictives
   \item Exécuter une ``query'' pour récupérer les données stockées et instancier
-  les objets ``Cours'' correspondant aux données, les afficher dans la log
+  les objets Arret correspondant aux données, les afficher dans la log
   \item Insérer les données récupérées via le webservice
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{1}
-\item Imaginons qu'un jour pamplemousse change et fournisse des
-données en plus.\\
+\item Imaginons qu'un jour les données renvoyées par le webservice changent.\\
 Comment modifier la base de données SQLite si elle a déjà été crée sur l'appareil ?
 \end{enumerate}
 \section{Il est temps de faire les choses proprement}
@@ -209,7 +263,7 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
   séparé (utiliser new Thread(Runnable)), sourire.
 \end{itemize}
 \section{Afficher les données}
-\subsection{Afficher la liste des cours}
+\subsection{Afficher la liste des arrêts}
 \begin{enumerate}
  \setcounter{enumi}{3}
 \item Quel view / viewgroup vous parait le plus adapté pour afficher les cours ?
@@ -218,10 +272,10 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
   \item Ajouter cet élément au layout en lui faisant prendre toute la place en
   largeur / hauteur
   \item Il nous faut maintenant un adapter : créer une nouvelle classe
-  ``CoursAdapter'' qui extends BaseAdapter
+  ``ArretAdapter'' qui extends BaseAdapter
   \item Hériter de BaseAdapter implique d'écrire 4 méthodes
   \item Avant d'implémenter ces méthodes, construire un constructeur prenant un
-  Context et une List de Cours et stocker ces valeurs dans des attributs de
+  Context et une liste d'Arret et stocker ces valeurs dans des attributs de
   classe
  \end{itemize}
  \begin{description}
@@ -230,7 +284,7 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
    \item getItemId : renvoyer position (il suffit que l'id de chaque item soit
    unique)
    \item getView : ci-dessous un squelette d'une méthode getView. Il faut au
-   préalable créer un layout ``layoutcours'' représentant un élement de la
+   préalable créer un layout ``layoutarret'' représentant un élement de la
    liste.
  \end{description}
   \begin{lstlisting}[language=XML]
@@ -238,53 +292,29 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
 			View view;
 			
 			if (convertView == null) {
-				view = ((LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layoutcours, parent, false);
-			} else {
+				view = ((LayoutInflater)
+				context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layoutarret,
+				parent, false); 
+			} 
+			else { 
 				view = convertView;
 			}
-			Cours cours = (Cours) getItem(position);
+			Arret arret = (Arret) getItem(position);
 	
-			TextView nomCours = (TextView) view.findViewById(R.id.nomcours);
-			nomCours.setText(cours.getNom());
+			TextView idArret = (TextView) view.findViewById(R.id.arret);
+			idArret.setText(arret.getIdArret());
 			
 			return view;
 		}
 \end{lstlisting} 
 
  \begin{itemize} 
-  \item Instancier un CoursAdapter et l'affecter à la ListView via
-  listView.setAdapter
+  \item Instancier un ArretAdapter et l'affecter à la ListView via la méthode
+  setAdapter
   \item Il est possible d'affiner le layout de chaque item en rajoutant des
-  champs et d'autres informations. Rajouter la date de début du cours.
-\end{itemize}
-\subsection{Afficher le détail d'un cours}
-\begin{itemize} 
-  \item Créer une activity de visualisation d'un cours en particulier
-  \item En utilisant le bon listener, récupérer les clicks faits sur un élément
-  de la ListView
-  \item Lors d'un click sur un élément, ouvrir l'activity de visualisation
-\end{itemize}
-\begin{enumerate}
- \setcounter{enumi}{5}
- \item Il y a t'il des paramètres à passer à l'activity de visualisation ?
- \end{enumerate}
- \begin{itemize} 
-  \item Rajouter dans l'intent les données nécessaires à l'activity de
-  visualisation
-  \item Dans le onCreate de l'activity de visualisation, récupérer les données
-  de l'intent
-  \item A partir des données de l'intent, récupérer en base les données
-  correspondant à ce cours
-  \item Afficher ces données (vous êtes libres du layout)
+  champs et d'autres informations. Rajouter la date de prochain passage.
 \end{itemize}
 \section{Pour aller plus loin}
-  Wow, déjà tout fait ? Voici quelques pistes d'améliorations :
-\begin{itemize}
-  \item Ajouter un bouton dans l'activity principale pour recharger les données
-  \item Créer un écran de gestion des préférences pour que l'utilisateur puisse
-  renseigner son identifiant / mot de passe
-  \item Les bonnes pratiques (guidelines) recommandent d'informer l'utilisateur lors des chargements et en particulier lors de l'accès au réseau. Implémenter un ProgressDialog pour informer l'utilisateur des chargements.
- \end{itemize}
 \end{document}
 
 
