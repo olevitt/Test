@@ -6,8 +6,6 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -17,7 +15,9 @@ import android.widget.Button;
 import android.widget.ListView;
 
 import com.ensai.TP2.core.Element;
-import com.ensai.TP2.dao.ElementDAO;
+import com.ensai.TP2.dao.ElementDAOFactory;
+import com.ensai.TP2.dao.fichiers.ElementDAOFichiers;
+import com.ensai.TP2.dao.sqlite.ElementDAOSQLite;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 
@@ -51,7 +51,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		liste.add(new Element("Finir le TP2",""));
 
 		//Liste chargée à partir du fichier
-		liste = ElementDAO.chargerElements(this);
+		liste = ElementDAOFactory.getElementDAO(this).chargerElements();
 		for (Element element : liste) {
 			adapter.add(element);
 		}
@@ -75,7 +75,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		List<Element> elements = ElementDAO.chargerElements(this);
+		List<Element> elements = ElementDAOFactory.getElementDAO(this).chargerElements();
 		Intent intent = new Intent(this,VisualisationActivity.class);
 		intent.putExtra("nom", elements.get(position).getNom());
 		startActivity(intent);

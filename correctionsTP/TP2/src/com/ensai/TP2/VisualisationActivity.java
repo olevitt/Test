@@ -7,7 +7,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.ensai.TP2.core.Element;
-import com.ensai.TP2.dao.ElementDAO;
+import com.ensai.TP2.dao.ElementDAOFactory;
+import com.ensai.TP2.dao.sqlite.ElementDAOSQLite;
 
 public class VisualisationActivity extends Activity {
 
@@ -23,7 +24,7 @@ public class VisualisationActivity extends Activity {
 		String nomItem = getIntent().getExtras().getString("nom");
 		setTitle(nomItem);
 		nom.setText(nomItem);
-		List<Element> elements = ElementDAO.chargerElements(this);
+		List<Element> elements = ElementDAOFactory.getElementDAO(this).chargerElements();
 		for (Element element : elements) {
 			if (element.getNom().equals(nomItem)) {
 				description.setText(element.getDescription());

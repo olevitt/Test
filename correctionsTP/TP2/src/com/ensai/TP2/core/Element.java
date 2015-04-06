@@ -4,6 +4,11 @@ public class Element {
 
 	private String nom, description;
 
+	
+	public Element() {
+		
+	}
+	
 	public Element(String nom, String description) {
 		super();
 		this.nom = nom;

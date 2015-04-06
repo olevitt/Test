@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ensai.TP2.core.Element;
-import com.ensai.TP2.dao.ElementDAO;
+import com.ensai.TP2.dao.ElementDAOFactory;
 
 public class AjoutActivity extends Activity implements OnClickListener {
 
@@ -28,7 +28,7 @@ public class AjoutActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		Element element = new Element(nom.getText().toString(),description.getText().toString());
-		ElementDAO.ajouterElement(this, element);
+		ElementDAOFactory.getElementDAO(this).ajouterElement(element);
 		finish();
 	}
 	

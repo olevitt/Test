@@ -1,9 +1,8 @@
-package com.ensai.TP2.dao;
+package com.ensai.TP2.dao.fichiers;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -13,12 +12,18 @@ import android.content.Context;
 import android.util.Log;
 
 import com.ensai.TP2.core.Element;
+import com.ensai.TP2.dao.IElementDAO;
 
-public class ElementDAO {
+public class ElementDAOFichiers implements IElementDAO {
 
 	public static final String FILENAME = "elements.txt";
+	Context context;
+	
+	public ElementDAOFichiers(Context context) {
+		this.context = context;
+	}
 
-	public static void sauvegarderElements(Context context,List<Element> elements) {
+	public void sauvegarderElements(List<Element> elements) {
 		try {
 			FileOutputStream stream = context.openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			PrintWriter writer = new PrintWriter(stream);
@@ -32,7 +37,7 @@ public class ElementDAO {
 		}
 	}
 
-	public static List<Element> chargerElements(Context context) {
+	public List<Element> chargerElements() {
 		List<Element> liste = new ArrayList<Element>();
 		try {
 			FileInputStream stream = context.openFileInput(FILENAME);
@@ -54,10 +59,10 @@ public class ElementDAO {
 		return liste;
 	}
 	
-	public static void ajouterElement(Context context, Element element) {
-		List<Element> elements = chargerElements(context);
+	public void ajouterElement(Element element) {
+		List<Element> elements = chargerElements();
 		elements.add(element);
-		sauvegarderElements(context, elements);
+		sauvegarderElements(elements);
 	}
 
 }
