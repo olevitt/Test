@@ -3,17 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <Button 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/monbouton"
+        android:layout_alignParentBottom="true"/>
+    
     <ListView
         android:id="@+id/listview"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@id/bouton" />
+        android:layout_height="fill_parent"
+        android:layout_above="@id/monbouton"
+         />
 
-    <Button
-        android:id="@+id/bouton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Nouvelle tâche"
-        android:layout_alignParentBottom="true" />
+    
 
 </RelativeLayout>

@@ -38,18 +38,17 @@ Ce TP fera appel aux notions suivantes :
 \begin{itemize}
   \item Réseau / requêtes HTTP (webservice)
   \item Parsing JSON
-  \item Stockage de données SQLite
   \item Multithreading
-  \item ListView
+  \item Localisation GPS
 \end{itemize}
 Il est fortement conseillé d'avoir le cours à portée de main et à ne pas hésiter
 à se référer à la documentation officielle
 \href{http://d.android.com}{http://d.android.com} ainsi qu'à la multitude de
 tutoriaux disponibles.
-\section{Présentation des données star}
+\section{Présentation des données STAR}
 \subsection{Contexte}
 Rennes a fait partie des premières villes à libérer ses données publiques
-concernant les transports en commun. Ainsi, la star met à disposition des
+concernant les transports en commun. Ainsi, la STAR met à disposition des
 développeurs une grande partie des données concernant son réseau (stations,
 horaires, prochains passages \ldots).\\
 Les données sont disponibles pour tous, gratuitement.
@@ -57,11 +56,11 @@ Les données sont disponibles pour tous, gratuitement.
 Les données disponibles sont réparties en deux catégories : les données
 statiques et les données temps réel.
 \subsubsection{Les données statiques}
-Les données statiques contiennent les informations sur le réseau star : les
+Les données statiques contiennent les informations sur le réseau STAR : les
 stations et leurs emplacements, les lignes et leurs horaires, les équipements
 disponibles en station \ldots\\
 Ces données n'évoluent que quelques fois par an.\\
-La star publie ses données au standard \href{https://developers.google.com/transit/gtfs/reference}{GTFS (General
+La STAR publie ses données au standard \href{https://developers.google.com/transit/gtfs/reference}{GTFS (General
 Transit Feed Specification)}. Concretement, il s'agit simplement de plusieurs
 fichiers csv.\\
 La documentation sur ces données et la dernière version des données sont
@@ -69,8 +68,8 @@ disponibles ici :
 \href{http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-telechargeables.html)}
 
 \subsubsection{Les données temps réel}
-La star met aussi à disposition des données temps réel. On y trouve le nombre de
-vélos et de places disponibles à une station vélo star, les heures de prochain
+La STAR met aussi à disposition des données temps réel. On y trouve le nombre de
+vélos et de places disponibles à une station vélostar, les heures de prochain
 passage des bus et métro \ldots\\
 La liste des données disponibles est disponible ici : 
 \href{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}{http://data.keolis-rennes.com/fr/les-donnees/donnees-et-api.html}\\
@@ -79,25 +78,28 @@ L'accès à ces données se fait via un webservice.\\
 statiques.}
 \section{Hello World !}
 \begin{itemize} 
-  \item Créer un nouveau projet (EmptyActivity)
+  \item Créer un nouveau projet
   \item Télécharger les dernières données statiques disponibles sur le site
   open-data de keolis
-  \item A l'intérieur du zip téléchargé, ouvrir le fichier routes.txt. Que
-  contient t-il ?
-  \item Inclure ce fichier dans les ressources de l'application
+  \item A l'intérieur du zip téléchargé, ouvrir les fichiers routes.txt et
+  stops.txt.
+  Que contiennent t-ils ?
+  \item Inclure ces deux fichiers dans les ressources de l'application
   \item Créer un objet métier, Route, dont les attributs reflètent le contenu du
-  fichier routes
+  fichier routes (le fichier stops sera exploité plus tard)
 \end{itemize}
 On souhaite maintenant écrire le code permettant d'instancier les objets Route à
 partir des informations présentes dans le fichier.\\
 L'analyse (parsing) d'un fichier CSV est relativement facile mais peut se
-réveler fastidieuse. Pour éviter de réécrire à chaque application le même code, on peut utiliser une des multiples bibliothèque disponibles : commons-csv de la
-fondation apache.
+réveler fastidieuse. Pour éviter de réécrire à chaque application le même code,
+on peut utiliser une des multiples bibliothèques disponibles : commons-csv de la fondation apache.
 \begin{itemize}
-  \item Télécharger cette bibliothèque à partir du site officiel : X
+  \item Télécharger cette bibliothèque à partir du site officiel :
+  \href{https://commons.apache.org/proper/commons-csv/}{https://commons.apache.org/proper/commons-csv/}
   \item Ajouter cette bibliothèque à l'application
 \end{itemize}
-Le code suivant permet d'itérer sur chaque ligne du fichier :\\
+Pour itérer sur chaque ligne du fichier, on pourra s'inspirer du code suivant
+:\\
 \begin{lstlisting}[language=XML]
 InputStream stream = context.getResources().openRawResource(R.raw.routes);
 Iterator<CSVRecord> iterateur = new CSVParser(new InputStreamReader(stream), CSVFormat.DEFAULT).iterator();
@@ -118,10 +120,8 @@ stream.close();
   \item Ajouter une ListView prenant toute la taille de l'écran à l'activity
   principale
   \item Afficher, dans cette ListView, la liste des lignes (au moins le nom)
-  \item Optionnel : personnaliser l'affichage en utilisant par exemple le code
-  couleur de chaque ligne fourni dans les données
-  \item Créer une nouvelle activity qui contiendra le détails des prochains des
-  bus de cette ligne
+  \item Créer une nouvelle activity qui contiendra le détail des prochains
+  passages des bus de cette ligne (on implémentera son contenu plus tard)
   \item Lors d'un click sur un élément de la liste des lignes, lancer l'activity
   en passant en paramètre l'identifiant de la route choisie
 \end{itemize}
@@ -133,7 +133,7 @@ Un webservice est, comme son nom l'indique, un service accessible sur le web.\\
 Techniquement, il s'agit d'un programme tournant sur un serveur et déstiné à
 diffuser des données brutes (contrairement au HTML, il n'y a pas d'informations
 sur la façon d'afficher ces données) via le protocole HTTP.\\
-Toutes les requêtes sont testables directement et tapant l'URL dans votre
+Toutes les requêtes sont testables directement en tapant l'URL dans votre
 navigateur préféré.
 \subsection{Appel au webservice}
 Un webservice est toujours constitué d'une adresse de base suivi d'un paramètre
@@ -153,7 +153,10 @@ Il y a ensuite 3 paramètres obligatoires :
   obtenir une clé, il faut s'inscrire sur le site. Pour tout ce TP, vous pouvez
   utiliser la clé suivante : 1RJLZ38TUFZSWTW
 \end{itemize}
-Ainsi, un appel au webservice peut se faire directement à l'URL suivante :\\
+Les autres paramètres (subparams) doivent être entourés par param[].
+\\Par exemple : param[direction]=1
+\\\\Ainsi, un appel au webservice pour récupérer l'état du métro (panne,
+interruption, fermeture \ldots) peut se faire directement à l'URL suivante :\\
 \href{http://data.keolis-rennes.com/json/?cmd=getmetrostatus&version=2.2&key=1RJLZ38TUFZSWTW}{http://data.keolis-rennes.com/json/?cmd=getmetrostatus\&version=2.2\&key=1RJLZ38TUFZSWTW}
 \subsection{Résultat du webservice}
 Le webservice renvoie les données au format JSON ou au format XML (changer
@@ -165,18 +168,21 @@ difficile d'obtenir une vision globale des données présentes dans un résultat
 Des outils de visualisation JSON existent et sont très utiles dès lors que l'on
 manipule des fichiers JSON.\\
 Vous pouvez par exemple utiliser
-\href{http://jsonviewer.stack.hu/}{http://jsonviewer.stack.hu/}
+\href{http://jsonviewer.stack.hu/}{http://jsonviewer.stack.hu/} ou la multitude
+d'extensions chrome / firefox disponibles.
 \subsection{Intégration dans l'application} 
 On souhaite afficher, dans la nouvelle Activity, la liste des arrêts de la ligne
 choisie.
 \begin{itemize} 
+  \item Dans la nouvelle activity, récupérer le numéro de la ligne concernée. Si
+  ce numéro n'est pas défini, afficher un toast et fermer l'activity.
   \item Ajouter la permission (uses-permission) INTERNET au manifest
   \item Dans le onCreate de votre Activity, ajouter la ligne suivante 
 \begin{lstlisting}[language=XML]
 StrictMode.setThreadPolicy(new ThreadPolicy.Builder().permitAll().build());
 \end{lstlisting}
 Cette ligne sera expliquée plus tard dans le TP
-  \item Construire l'adresse qui sera appellée. La commande utilisée est
+  \item Construire l'adresse qui sera appelée. La commande utilisée est
   ``getbusnextdepartures'' en mode line.
   \item Tester l'adresse dans un navigateur.
   \item Utiliser
@@ -205,44 +211,22 @@ suivant :
   \item Créer un objet
   \href{http://developer.android.com/reference/org/json/JSONObject.html}{JSONObject}
   à partir des données récupérées précedemment
-  \item En utilisant la méthode
-  \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONArray(java.lang.String)}{getJSONArray},
-  récupérer le tableau des arrêts déservis par la ligne
+  \item En utilisant une combinaison des méthodes
+  \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONObject(java.lang.String)}{getJSONObject}
+  et 
+  \href{http://developer.android.com/reference/org/json/JSONObject.html#getJSONArray(java.lang.String)}{getJSONArray}, récupérer le tableau des arrêts déservis par la ligne
   \item Afficher, dans un Toast, le nombre d'arrêts
 \end{itemize}
 \subsection{Instancier les objets correspondants}
 \begin{itemize} 
-  \item Créer une classe Java Arret 
-  \item Donner à cette classe les mêmes attributs que les données disponibles dans la réponse JSON
+  \item Créer des classes Java ``Arret'' et ``Departure''
+  \item Donner à ces classes les mêmes attributs que les données disponibles
+  dans la réponse JSON
   \item Instancier, à partir du JSONObject, une liste (ou un tableau) d'objet
   Arret
 \end{itemize}
-\section{Stockage des données}
-L'objectif est de stocker les données chargées pour éviter de devoir les
-retélécharger à chaque fois (gain de temps, accès hors connexion, économie de
-batterie \ldots)
-\begin{enumerate}
- \setcounter{enumi}{0}
-\item Quelle solution de stockage vous parait la plus adaptée ?
-\end{enumerate}
-\begin{itemize} 
-  \item En utilisant SQLiteOpenHelper, implémenter le nécessaire pour créer une
-  base de données SQLite
-  \item Dans onCreate, éxecuter une requête de création de table pour créer
-  une table Arret avec tous les attributs de la classe Arret
-  \item Exécuter une insertion avec des données fictives
-  \item Exécuter une ``query'' pour récupérer les données stockées et instancier
-  les objets Arret correspondant aux données, les afficher dans la log
-  \item Insérer les données récupérées via le webservice
-\end{itemize}
-\begin{enumerate}
- \setcounter{enumi}{1}
-\item Imaginons qu'un jour les données renvoyées par le webservice changent.\\
-Comment modifier la base de données SQLite si elle a déjà été crée sur l'appareil ?
-\end{enumerate}
 \section{Il est temps de faire les choses proprement}
 \begin{enumerate}
- \setcounter{enumi}{2}
 \item Quel point, vu dans les bonus, a été complétement ignoré depuis le début de ce TP ?
 \end{enumerate}
 \begin{itemize}
@@ -260,20 +244,17 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
   : main / UI). Depuis le niveau d'API 11, c'est le comportement par défaut.\\La
   ligne ajoutée en début de TP disait à StrictMode de tout laisser passer.
   \item Déplacer le bloc de code correspondant à la requête HTTP dans un Thread
-  séparé (utiliser new Thread(Runnable)), sourire.
+  séparé, sourire.
 \end{itemize}
 \section{Afficher les données}
 \subsection{Afficher la liste des arrêts}
-\begin{enumerate}
- \setcounter{enumi}{3}
-\item Quel view / viewgroup vous parait le plus adapté pour afficher les cours ?
-\end{enumerate}
 \begin{itemize} 
-  \item Ajouter cet élément au layout en lui faisant prendre toute la place en
-  largeur / hauteur
+  \item Ajouter une ListView au layout
   \item Il nous faut maintenant un adapter : créer une nouvelle classe
   ``ArretAdapter'' qui extends BaseAdapter
-  \item Hériter de BaseAdapter implique d'écrire 4 méthodes
+  \end{itemize}
+Hériter de BaseAdapter implique d'écrire 4 méthodes
+  \begin{itemize} 
   \item Avant d'implémenter ces méthodes, construire un constructeur prenant un
   Context et une liste d'Arret et stocker ces valeurs dans des attributs de
   classe
@@ -281,40 +262,98 @@ Comment modifier la base de données SQLite si elle a déjà été crée sur l'a
  \begin{description}
    \item getCount : renvoyer le nombre d'éléments de la liste
    \item getItem : renvoyer le n-ième élément de la liste
-   \item getItemId : renvoyer position (il suffit que l'id de chaque item soit
-   unique)
+   \item getItemId : renvoyer la position (la contrainte sur ItemId est que
+   chaque id soit unique)
    \item getView : ci-dessous un squelette d'une méthode getView. Il faut au
    préalable créer un layout ``layoutarret'' représentant un élement de la
    liste.
  \end{description}
   \begin{lstlisting}[language=XML]
-   public View getView(int position, View convertView, ViewGroup parent) {
-			View view;
-			
-			if (convertView == null) {
-				view = ((LayoutInflater)
-				context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layoutarret,
-				parent, false); 
-			} 
-			else { 
-				view = convertView;
-			}
-			Arret arret = (Arret) getItem(position);
+public View getView(int position, View convertView, ViewGroup parent) {
+	View view;
 	
-			TextView idArret = (TextView) view.findViewById(R.id.arret);
-			idArret.setText(arret.getIdArret());
-			
-			return view;
-		}
-\end{lstlisting} 
+	if (convertView == null) {
+		view = ((LayoutInflater)
+		context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.layoutarret
+		,parent, false); 
+	} 
+	else { 
+		view = convertView;
+	}
+	Arret arret = (Arret) getItem(position);
 
+	TextView idArret = (TextView) view.findViewById(R.id.arret);
+	idArret.setText(arret.getIdArret());
+	
+	return view;
+}
+\end{lstlisting} 
  \begin{itemize} 
-  \item Instancier un ArretAdapter et l'affecter à la ListView via la méthode
-  setAdapter
-  \item Il est possible d'affiner le layout de chaque item en rajoutant des
-  champs et d'autres informations. Rajouter la date de prochain passage.
+  \item Utiliser cet ArretAdapter pour afficher les données venant du webservice
+  (identifiant de l'arrêt, heure de prochain passage)
+\end{itemize}
+Optionnel : les informations dont le nom des arrêts sont disponibles dans le
+fichier stops.txt.
+\section{Station de métro la plus proche}
+Le webservice donne accès à bien plus d'informations, on peut par exemple
+trouver toutes les stations de métro ou de vélostar à proximité à partir de la
+latitude et la longitude.\\\\
+Pendant les tests, il est possible de truquer la position du GPS de l'émulateur
+ou d'un appareil à partir de la vue DDMS.\\
+Une multitude de sites permettent de récupérer la latitude / longitude d'un
+endroit dont par exemple google maps.
+\begin{itemize} 
+  \item Utiliser la commande $getmetrostations$ pour récupérer les arrêts de
+  métro les plus proches d'une position de votre choix
+  \item Ajouter la permission ACCESS\_FINE\_LOCATION au manifest 
+\end{itemize}
+En s'inspirant du code suivant, récupérer la position GPS et chercher les
+stations de métro les plus proches.
+\begin{lstlisting}[language=XML]
+LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+LocationListener locationListener = new LocationListener() {
+		
+		@Override
+		public void onStatusChanged(String provider, int status, Bundle extras) {
+			
+		}
+		
+		@Override
+		public void onProviderEnabled(String provider) {
+			
+		}
+		
+		@Override
+		public void onProviderDisabled(String provider) {
+		
+		}
+		
+		@Override
+		public void onLocationChanged(Location location) {
+			//La localisation a changé
+		}
+	};
+locationManager.requestLocationUpdates(
+LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
+\end{lstlisting}
+Une icône dans la barre d'état indique quand le service de localisation
+  est utilisé. Afin de réduire au minimum la consommation de batterie, il est
+  important de libérer les ressources quand elles ne sont plus utilisées. 
+\begin{itemize} 
+  \item En utilisant le cycle de vie d'une activity et la méthode
+  \href{http://developer.android.com/reference/android/location/LocationManager.html#removeUpdates(android.location.LocationListener)}{removeUpdates},
+  libérer les ressources lors de la fermeture de l'activity
 \end{itemize}
 \section{Pour aller plus loin}
+\begin{itemize}
+  \item Les chargements de données pouvant être longs, rajouter des popups ou
+  des icônes indiquant que l'application charge des données. Eventuellement,
+  afficher l'avancement du chargement.
+  \item Plutôt que de lire à chaque fois les fichiers de données statiques, il
+  est préférable, au lancement de l'application, de créer une base de données
+  avec le contenu des fichiers routes et stops. Créer cette base et en profiter
+  pour afficher le nom des arrêts dans l'activity des horaires.
+\end{itemize}
 \end{document}
 
 

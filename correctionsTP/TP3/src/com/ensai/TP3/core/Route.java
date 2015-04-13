@@ -68,6 +68,10 @@ public class Route {
 	public void setRouteTextColor(String routeTextColor) {
 		this.routeTextColor = routeTextColor;
 	}
+	@Override
+	public String toString() {
+		return routeShortName+" : "+routeLongName;
+	}
 	
 	
 }

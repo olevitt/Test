@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.ensai.TP2.AjoutActivity"
+            android:name=".AjoutActivity"
             android:label="@string/ajoutactivity" >
         </activity>
         <activity

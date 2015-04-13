@@ -1,5 +1,8 @@
 package com.ensai.TP2;
 
+import java.io.BufferedWriter;
+import java.io.PrintWriter;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
