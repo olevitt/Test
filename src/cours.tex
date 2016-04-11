@@ -56,12 +56,12 @@
 \frame{
 \frametitle{Planning}
 \begin{itemize}
-  \item{31 mars : 3h de cours, 3h de TP}
-  \item{7 avril : 3h de cours, 3h de TP}
-  \item{14 avril : 6h de TP}
-  \item{Validation des sujets de projet avant le 27 avril}
-  \item{28 avril : 3h de TP dédiées au projet}
-  \item{19 mai : Soutenance du projet}
+  \item{19 avril : 3h de cours}
+  \item{26 avril : 3h de TP, 3h de cours}
+  \item{3 mai : 6h de TP}
+  \item{Validation des sujets de projet avant le 10 mai}
+  \item{10 mai : 3h de TP, 3h de TP dédiées au projet}
+  \item{24 mai : Soutenance du projet}
 \end{itemize}
 }
 
@@ -86,6 +86,9 @@
   \item{Statistiques d'un jeu en ligne}
 \end{itemize}
 }
+
+
+
 \subsection{Contexte et objectifs}
 \frame{
 \frametitle{Contexte et objectifs}
@@ -104,10 +107,10 @@
 \frametitle{Des appareils suréquipés}
 \begin{itemize}
   \item Téléphonie (SMS, MMS, appels)
-  \item Internet (GPRS, EDGE, 3G, 4G, WIFI)
-  \item Réseaux locaux (Bluetooth, réseaux adhoc)
+  \item Internet (GPRS, EDGE, 3G, 4G, WiFi)
+  \item Réseaux locaux (Bluetooth, WiFi direct, tethering)
   \item Capteurs (Luminosité, proximité, podomètre, NFC)
-  \item Localisation (GPS, triangulation, SSID wifi)
+  \item Localisation (GPS, triangulation, SSID WiFi)
   \item Notifications (Vibreur, haut-parleurs, LED)
   \item Photo / vidéo / visio
   \item Stockage de données (Mémoire flash, SD externe, SQLite)
@@ -147,9 +150,9 @@ différents !\\
 Comment gérer toutes les tailles d'écran ? 
 \begin{itemize}
   \item Montres connectées : de 1 à 2 pouces
-  \item Smartphones lowcost : 3 pouces (Galaxy pocket, galaxy Y)
-  \item Smartphones high-end : 4 à 5 pouces (iPhone 5, HTC 8X, nexus 5)
-  \item Phablets : 5 à 6 pouces (Galaxy note, Oneplus one, iPhone 6)
+  \item Smartphones lowcost : 3 pouces (Galaxy pocket, Galaxy Y)
+  \item Smartphones high-end : 4 à 5 pouces (iPhone 5, HTC 8X, Nexus 5)
+  \item Phablets : 5 à 6 pouces (Galaxy note, Oneplus two, iPhone 6)
   \item Tablettes : 7 pouces (Nexus 7, iPad mini), 8 pouces (Archos 80g9), 10
   pouces (Nexus 10, iPad)
 \end{itemize}
@@ -194,7 +197,7 @@ Comment gérer toutes les tailles d'écran ?
 \frametitle{iOS}
 \includegraphics[width=60pt]{img/ios.png}
 \begin{itemize}
-  \item Soutenu par Apple\textregistered
+  \item Soutenu par Apple
   \item Présenté le 9 janvier 2007
   \item Réservé aux produits Apple (iPhone, iPad, iPod, iWatch)
   \item Programmation en objective-C, sur mac OS X uniquement
@@ -203,14 +206,13 @@ Comment gérer toutes les tailles d'écran ?
 }
 \frame{
 \frametitle{Android}
-
 \includegraphics[width=30pt]{img/android-robot.png}
 \begin{itemize}
   \item Soutenu par Google
   \item Version 1.0 en septembre 2008, commercial 1.5 en avril 2009
   \item Plus de 6000 appareils officiellement supportés, plus de 50
   constructeurs
-  \item Programmation en Java, sur windows / OS X / linux
+  \item Programmation en Java, sur Windows / OS X / Linux
   \item Noyau open-source (Apache 2.0)
   \item Google playstore : ``pas de validation'' + 25\$
 \end{itemize}
@@ -333,19 +335,30 @@ Téléchargement gratuit : www.d.android.com/sdk
   \ldots)
 \end{itemize}
 }
+\frame {
+\frametitle{ADB}
+\begin{itemize}
+  \item Android Debugging Bridge
+  \item Outil du SDK
+  \item Communication ordinateur $<$=$>$ appareil / émulateur
+  \item Installation d'application, lancement, log \ldots
+  \item Intégré dans l'IDE ou ligne de commande
+\end{itemize}
+}
 \frame{
-\frametitle{Plugin android pour eclipse : ADT}
+\frametitle{IDE | Plugin android pour eclipse : ADT}
 \begin{itemize}
   \item Installation comme un plugin eclipse classique
   \item \url{https://dl-ssl.google.com/android/eclipse/}
   \item ADT fait le lien entre eclipse et le SDK android
+  \item \textbf{DEPRECATED}
 \end{itemize}
 \includegraphics[width=100pt]{img/adt.png}
 \includegraphics[width=200pt]{img/views.png}\\\\
 \includegraphics[width=100pt]{img/project.png}
 }
 \frame{
-\frametitle{Android studio}
+\frametitle{IDE | Android studio}
 \begin{itemize}
   \item Basé sur IntelliJ IDEA
   \item IDE retravaillé pour android
@@ -359,6 +372,7 @@ Téléchargement gratuit : www.d.android.com/sdk
 \begin{itemize}
   \item Utile pour tester certaines configurations
   \item (très) lent
+  \item Se comporte comme un appareil Android classique (ADB)
   \item Utiliser un appareil android à la place quand c'est possible
 \end{itemize}
 \includegraphics[width=200pt]{img/avd.png}
@@ -375,22 +389,38 @@ Téléchargement gratuit : www.d.android.com/sdk
 }
 \subsection{Architecture}
 \frame{
-\frametitle{Organisation d'un projet android}
-\includegraphics[width=150pt]{img/structure.png}
+\frametitle{Gradle}
+\begin{itemize}
+  \item Gestion des dépendances et du build
+  \item ``Successeur'' de maven
+  \item Optionnel mais fortement recommandé
+\end{itemize}
+}
+\frame{
+\frametitle{Organisation d'un projet Android gradleisé}
+\includegraphics[width=120pt]{img/structure-studio.png}
 }
 \frame{
 \frametitle{Détail de l'organisation}
 \begin{itemize}
-  \item src : code source Java
-  \item gen : identifiants des ressources (généré par le sdk)
+  \item .gradle / gradle : dossiers interne gradle
+  \item .idea : dossier interne android studio
+  \item mobile : module téléphone / tablette
+  \item wear : module android wear (montre)
+  \item build : résultats des compilations (APK, .class)
+  \item libs : dépendances manuelles
+  \item src : code source
+  \item main / java : code source Java
+  \item main / res : Ressources (strings, drawables \ldots)
+  \item AndroidManifest.xml : métadonnées sur l'application, composants,
+  permissions \ldots
   \item Android 4.2 : jar correspondant à l'API cible
   \item Android Dependencies : jar rajoutés, correspond à libs
   \item assets : fichiers fournis avec l'app
   \item bin : résultats des compilations (dont l'apk)
   \item libs : jar rajoutés
   \item res : ressources (layouts, strings, images \ldots)
-  \item AndroidManifest.xml : métadonnées sur l'application, composants,
-  permissions \ldots
+ 
   \item proguard-project.txt : configuration de proguard
   \item project.properties : généré par le sdk
  \end{itemize}
@@ -402,7 +432,7 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item Déclaration des composants
   \item Déclaration des permissions
   \item Déclaration d'autres métadonnées de l'application
-  \item Analysé par android à l'installation
+  \item Analysé par Android à l'installation
  \end{itemize}
 }
 \begin{frame}[fragile]
@@ -476,10 +506,9 @@ Téléchargement gratuit : www.d.android.com/sdk
 \includegraphics[width=50pt]{img/runas.png}
 \includegraphics[width=300pt]{img/console.png}
 \begin{itemize}
-  \item Comme pour une application Java classique, ctrl + F11
-  \item Eclipse demande au SDK de builder l'APK
-  \item Eclipse signe l'APK avec la clé debug 
-  \item Eclipse demande à adb (SDK) d'installer l'application
+  \item Android Studio demande au SDK de builder l'APK
+  \item AS signe l'APK avec la clé debug 
+  \item AS demande à ADB (SDK) d'installer l'application
   \item Soit sur un appareil android connecté soit sur un émulateur
  \end{itemize}
 }
@@ -547,7 +576,7 @@ public void sauvegarderScore(int score) {
 \frame{
 \frametitle{Une exécution moins linéaire qu'en Java classique}
 \begin{itemize}
-  \item Une application android est un ensemble de composants
+  \item Une application Android est un ensemble de composants
   \item Pas de méthode main
   \item Des points d'entrée multiples possibles
   \item Exemple : appli SMS
@@ -1702,8 +1731,8 @@ Astuce 2 : Exécuter du code dans le thread UI depuis un autre thread
 \end{frame}
 \begin{frame}[fragile] 
 \frametitle{Validation des groupes / idées de projet}
-Pensez à envoyer les idées de projet et les compositions de groupe avant le 28
-avril\\
+Pensez à faire valider vos idées de projet et les compositions de groupe avant
+le 10 mai\\
 Email : ungawa14@gmail.com
 \end{frame}
 \end{document}
