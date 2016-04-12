@@ -44,8 +44,9 @@
 \begin{center}
 \includegraphics[width=30pt]{img/android-robot.png}
 \includegraphics[width=60pt]{img/ios.png}
-\includegraphics[width=60pt]{img/wp8.jpg}
+\includegraphics[width=100pt,height=30pt]{img/windows10.png}  
 \includegraphics[width=60pt]{img/bb10.jpg}
+\includegraphics[width=80pt]{img/firefox.png}
 \end{center}
 } 
 
@@ -64,7 +65,6 @@
   \item{24 mai : Soutenance du projet}
 \end{itemize}
 }
-
 
 \frame{
 \frametitle{Evaluation}
@@ -218,12 +218,12 @@ Comment gérer toutes les tailles d'écran ?
 \end{itemize}
 }
 \frame{
-\frametitle{Windows phone}
-\includegraphics[width=60pt]{img/wp8.jpg}
+\frametitle{Windows 10 mobile}
+\includegraphics[width=60pt]{img/windows10.png}
 \begin{itemize}
   \item Soutenu par Microsoft
-  \item Présentation au public le 29 octobre 2012
-  \item Plusieurs constructeurs dont Nokia, HTC et Samsung
+  \item Première version en février 2015
+  \item Téléphones Lumia (ex Nokia)
   \item Programmation en C\# sur windows 
   \item Windows Store : validation + gratuit
 \end{itemize}
@@ -241,6 +241,7 @@ Comment gérer toutes les tailles d'écran ?
 }
 \frame{
 \frametitle{Firefox OS}
+\includegraphics[width=60pt]{img/firefox.png}
 \begin{itemize}
   \item Soutenu par Mozilla
   \item Premiers téléphones présentés le 22 janvier 2012 (geeksphone)
@@ -254,14 +255,14 @@ Comment gérer toutes les tailles d'écran ?
 \begin{itemize}
   \item Soutenu par Canonical
   \item Teaser le 2 janvier 2012
-  \item Premiers ubuntu phones promis pour début 2014
-  \item Facilement utilisable sur les téléphones android ?
+  \item Constructeur BQ + installable sur Android
   \item HTML5, C/C++ + QML
   \item Open-source
-  \item Peu d'infos sur le store
+  \item Convergence PC
+  \item Ubuntu store : validation automatique + gratuit
 \end{itemize}
 }
-\section{Le développement sur android} 
+\section{Le développement sur Android} 
 
 \subsection{Mise en place}
 \frame{
@@ -332,7 +333,7 @@ Téléchargement gratuit : www.d.android.com/sdk
   \item \textbf{DEPRECATED}
 \end{itemize}
 \includegraphics[width=100pt]{img/adt.png}
-\includegraphics[width=200pt]{img/views.png}\\\\
+\includegraphics[width=200pt]{img/views.png}~\\
 \includegraphics[width=100pt]{img/project.png}
 }
 \frame{
@@ -410,20 +411,15 @@ première semaine d'avril 2016}
   \item .idea : dossier interne android studio
   \item mobile : module téléphone / tablette
   \item wear : module android wear (montre)
-  \item build : résultats des compilations (APK, .class)
+  \item build : résultats des compilations dont APK
   \item libs : dépendances manuelles
   \item src : code source
   \item main / java : code source Java
   \item main / res : Ressources (strings, drawables \ldots)
   \item AndroidManifest.xml : métadonnées sur l'application, composants,
   permissions \ldots
-  \item Android 4.2 : jar correspondant à l'API cible
-  \item Android Dependencies : jar rajoutés, correspond à libs
   \item assets : fichiers fournis avec l'app
-  \item bin : résultats des compilations (dont l'apk)
-  \item libs : jar rajoutés
   \item res : ressources (layouts, strings, images \ldots)
- 
   \item proguard-project.txt : configuration de proguard
   \item project.properties : généré par le sdk
  \end{itemize}
@@ -759,7 +755,7 @@ public Class MyActivity extends Activity {
  \item Système de listeners (cf swing)
  \item Il se passe quelque chose sur la vue (touch, focus \ldots) : le listener
  est prévenu
- \item Pour simplifier, sur android on n'a en général qu'un listener par
+ \item Pour simplifier, sur Android on n'a en général qu'un listener par
  événement et par view (setXListener au lieu de addXListener sous swing)
  \end{itemize}
 \end{frame}
@@ -1179,7 +1175,7 @@ Pour le contenu utilisé uniquement par l'application :
 \begin{lstlisting}
 File file = new File(getExternalFilesDir(null), "DemoFile.jpg");
 \end{lstlisting}
-Ces fichiers seront supprimés lors de la désinstallation de l'application\\\\
+Ces fichiers seront supprimés lors de la désinstallation de l'application~\\
 Pour le contenu destiné à être partagé (donc persistant même après une
 désinstallation) :
 \begin{lstlisting}
@@ -1267,8 +1263,8 @@ SQLiteDatabase readableDB = helper.getReadableDatabase();
 \end{itemize}
 \begin{lstlisting}
 SQLiteDatabase writableDB = helper.getWritableDatabase();
-Cursor cursor1 = writableDB.rawQuery("SELECT nom,score FROM table WHERE id =?",new String[] {"1"}); 
-Cursor cursor2 = writableDB.query("table",new String[] {"nom","score"}, "id =?",new String[] {"1"}, null, null, null );
+Cursor cursor1 = writableDB.rawQuery("SELECT nom,score FROM table WHERE id =?",new String[] {"1"}); 
+Cursor cursor2 = writableDB.query("table",new String[] {"nom","score"}, "id =?",new String[] {"1"}, null, null, null );
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile]
@@ -1300,7 +1296,7 @@ int update(String table, ContentValues values, String whereClause, String[] wher
 \begin{lstlisting}
 ContentValues values = new ContentValues();
 values.put("score", 43);
-int nbRowsAffected = bdd.update(table, values, "nom = ?",new String[] {"Bob"});
+int nbRowsAffected = bdd.update(table, values, "nom = ?",new String[] {"Bob"});
 \end{lstlisting}
 int delete (String table, String whereClause, String[] whereArgs)
 \begin{lstlisting}
@@ -1568,7 +1564,7 @@ URL url = new URL("http://www.ensai.com/");
 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 try {
      BufferedInputStream in = new BufferedInputStream(urlConnection.getInputStream());
-     readStream(in); 
+     readStream(in); 
     } finally {
      urlConnection.disconnect();
     }
@@ -1693,7 +1689,7 @@ public void calculLong() {
   long}
   \item \textbf{Inversement, tout le code touchant à l'UI doit être exécuté dans le thread UI}
   \item Pour les API $>$ 9, possibilité d'activer StrictMode via la classe StrictMode
-  \item Sur android 4.0+, possibilité d'activer StrictMode dans les options développeur
+  \item Sur Android 4.0+, possibilité d'activer StrictMode dans les options développeur
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile] 
