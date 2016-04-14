@@ -26,6 +26,7 @@
         xleftmargin=\parindent
 }
 
+
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 
@@ -176,7 +177,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Evolution technologique permanente (nouveaux appareils, nouvelles
   versions des OS)
   \item Evolution du marché (parts de marché des OS)
-  \item Nouveaux OS (Firefox OS, Blackberry 10 \ldots)
+  \item Nouveaux OS
   \item Concurrence sur les stores
   \item Développement des réseaux et nouveaux usages (4G)
 \end{itemize}
@@ -418,10 +419,9 @@ première semaine d'avril 2016}
   \item main / res : Ressources (strings, drawables \ldots)
   \item AndroidManifest.xml : métadonnées sur l'application, composants,
   permissions \ldots
-  \item assets : fichiers fournis avec l'app
-  \item res : ressources (layouts, strings, images \ldots)
-  \item proguard-project.txt : configuration de proguard
-  \item project.properties : généré par le sdk
+  \item tests / androidTest : tests unitaires / tests fonctionnels
+  \item build.gradle : configuration gradle
+  \item proguard-rules.pro : configuration proguard
  \end{itemize}
 }
 \frame{
@@ -489,7 +489,7 @@ première semaine d'avril 2016}
   \item Une application android = un APK (équivalent d'un jar)
   \item Une application android doit être signée 
   \item Attention à ne pas perdre la clé !
-  \item Création et signature de l'APK simplifié sous eclipse (export)
+  \item Création et signature de l'APK simplifié par l'IDE
  \end{itemize}
 }
 \frame{
@@ -974,7 +974,7 @@ Et d'informations secondaires :
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Lancer un intent implicite}
-``Je veux envoyer un mail à annee2@ensai.fr avec le titre URGENT : FOOT''
+``Je veux envoyer un mail à annee2@ensai.fr avec le titre URGENT : Android''
 \begin{lstlisting}
 public MyActivity extends Activity {
     
@@ -982,7 +982,7 @@ public MyActivity extends Activity {
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_EMAIL  , "annee2@ensai.fr");
-        i.putExtra(Intent.EXTRA_SUBJECT,"URGENT : FOOT"); 
+        i.putExtra(Intent.EXTRA_SUBJECT,"URGENT : Android"); 
         i.putExtra(Intent.EXTRA_TEXT   , "...");
         try {
             startActivity(i);
