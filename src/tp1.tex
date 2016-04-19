@@ -36,7 +36,7 @@
 \maketitle
 Ce TP a deux objectifs :
 \begin{itemize}
-\item Se familiariser avec le SDK android et le plugin ADT pour eclipse
+\item Se familiariser avec le SDK Android et l'IDE Android Studio
 \item Construire une petite application de conversion de devises
 \end{itemize}
 \includegraphics[width=100pt]{img/tp1.png}\\
@@ -47,51 +47,50 @@ tutoriaux disponibles.
 \section{Mise en place}
 \subsection{Verifier l'installation}
 \begin{itemize}
-\item Lancer Eclipse
-\item Vérifier dans \textbf{Window/Preferences} la présence du menu android
-\item Vérifier que le chemin du SDK est bien rempli
+\item Lancer Android Studio
+\item Vérifier dans \textbf{Tools/Android/SDK Manager} que le chemin vers le SDK
+est bien renseigné
 \end{itemize}
 \begin{enumerate}
 \item Quels sont les niveaux d'API disponibles ?
 \end{enumerate}
 \subsection{Hello world}
 \begin{itemize}
-\item Créer un nouveau projet android via File/New/Other/Android/Android
-Project. 
-\item Mettre ``API 19 : Android 4.4'' pour les 3 choix (min SDK, target SDK,
-compile with)
-\item \textbf{Décocher ``Create custom launcher icon'' et choisir ``Empty
-activity'' plutôt que ``Blank activity''}
+\item Créer un nouveau projet android via \textbf{File/New/New Project}
+\item On souhaite cibler plus de 95\% des utilisateurs actifs d'Android. Choisir
+le bon niveau minimum d'API
+\item Notre application ne supportera pour l'instant que les téléphones et les
+tablettes
+\item Pour simplifier, choisir une Empty Activity
 \end{itemize}
-ADT génère automatiquement toute la structure d'un projet android.
+Android Studio génère automatiquement toute la structure d'un projet android
+gradleisé.
 \begin{itemize}
 \item Vérifier que la structure générée correspond à la structure vue dans le
-cours et que ADT a bien créé une activity basique
-\item Lancer l'appliation (au besoin, utiliser click droit sur le projet : run
-as :
-Android application)
+cours et que votre projet contient déjà une première activity
+\item Lancer l'application
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{1}
 \item Pourquoi l'application ne se lance t'elle pas ?
 \end{enumerate}
 \begin{itemize}
-\item L'Android Virtual Device manager s'ouvre et permet de créer un
-émulateur
+\item L'Android Virtual Device manager permet de créer un émulateur afin d'y
+déployer votre application
 \end{itemize}
-L'AVD manager est aussi disponible via \textbf{Window / Android virtual
-device manager}
+L'AVD manager est aussi disponible via \textbf{Tools / Android / AVD Manager}
 \subsection{Créer un appareil virtuel}
+Un émulateur a déjà été crée sur vos postes
 \begin{itemize}
-\item Créer un nouvel appareil avec la configuration suivante : Nexus one,
-Android 4.4.2 - API level 19, Skin with dynamic hardware controls, RAM : 768.
+\item Vérifier que l'architecture choisie est bien la plus performante pour vos
+machines
 \item Démarrer l'appareil
 \item Manipuler un peu l'émulateur
 \item Lancer l'application sur l'émulateur
 \end{itemize}
 \begin{enumerate}
  \setcounter{enumi}{2}
-\item Comment voir la log de l'émulateur ?
+\item Comment voir la log de l'émulateur ? (2 façons)
 \end{enumerate}
 \section{Construire notre convertisseur de devises}
 \subsection{Logcat}
@@ -100,9 +99,12 @@ Android 4.4.2 - API level 19, Skin with dynamic hardware controls, RAM : 768.
 \item Verifier dans logcat que les messages apparaissent bien
 \end{itemize}
 \subsection{Un peu d'IHM}
-Modifier le layout main pour y ajouter quelques composants :
 \begin{itemize}
-\item Un champ de texte modifiable : montant en euros
+  \item Simplifier le layout main pour utiliser un LinearLayout
+\end{itemize}
+Modifier le layout pour y ajouter quelques composants :
+\begin{itemize}
+\item Un champ de texte modifiable : montant (en euros)
 \item Un bouton : convertir
 \end{itemize}
 \begin{enumerate}
