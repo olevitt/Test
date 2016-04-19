@@ -682,6 +682,31 @@ public Class MainActivity extends Activity {
  \item On précise la classe Java correspondante
  \end{itemize}
 \end{frame}
+\begin{frame}[fragile] 
+\frametitle{Previously on Android}
+\begin{itemize}
+  \item Une appli = un ensemble de composants
+  \item Plusieurs points d'entrée possibles
+  \item Tous les composants doivent être définis dans le manifest
+  \item Activity, composant {\raise.17ex\hbox{$\scriptstyle\sim$}} un écran
+  \item Créer une activity = hériter de Activity
+  \item Méthodes du cycle de vie (onCreate, onPause, onResume \ldots)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Previously on Android, les layouts}
+\begin{itemize}
+  \item Les composants graphiques sont définis dans des layouts XML
+  \item Layout = hiérarchie de ViewGroup et de View
+  \item Exemple de ViewGroup : LinearLayout
+  \item Exemples de View : Button, TextView, EditText
+  \item Tous les élements doivent définir layout\_width et layout\_height
+  \item Wrap\_content : seulement la place nécessaire
+  \item Match\_parent : toute la place du père
+  \item Plaquer (inflate) un layout à une activity :
+  setContentView(R.layout.xxx)
+\end{itemize}
+\end{frame}
 \begin{frame}[fragile]
 \frametitle{Manipuler les éléments de l'UI en Java}
 Etape 1 : donner un identifiant à la vue
@@ -875,31 +900,6 @@ public MyActivity extends Activity {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile] 
-\frametitle{Previously on Android}
-\begin{itemize}
-  \item Une appli = un ensemble de composants
-  \item Plusieurs points d'entrée possibles
-  \item Tous les composants doivent être définis dans le manifest
-  \item Activity, composant {\raise.17ex\hbox{$\scriptstyle\sim$}} un écran
-  \item Créer une activity = hériter de Activity
-  \item Méthodes du cycle de vie (onCreate, onPause, onResume \ldots)
-\end{itemize}
-\end{frame}
-\begin{frame}[fragile] 
-\frametitle{Previously on Android, les layouts}
-\begin{itemize}
-  \item Les composants graphiques sont définis dans des layouts XML
-  \item Layout = hiérarchie de ViewGroup et de View
-  \item Exemple de ViewGroup : LinearLayout
-  \item Exemples de View : Button, TextView, EditText
-  \item Tous les élements doivent définir layout\_width et layout\_height
-  \item Wrap\_content : seulement la place nécessaire
-  \item Match\_parent : toute la place du père
-  \item Plaquer (inflate) un layout à une activity :
-  setContentView(R.layout.xxx)
-\end{itemize}
-\end{frame}
-\begin{frame}[fragile] 
 \frametitle{Previously on Android, manipuler les élements UI}
 \begin{itemize}
   \item Pour manipuler les éléments UI en Java : leur donner un ID
@@ -1029,7 +1029,7 @@ public ProfilActivity extends Activity {
     \item startActivity(), startService() et sendBroadcast() déclenchent des
     intents
 	\item android filtre les composants susceptibles de recevoir l'intent en
-	fonction à partir des intent-filters de chaque composant
+	fonction des intent-filters de chaque composant
 \end{itemize}
 
 \begin{lstlisting}
