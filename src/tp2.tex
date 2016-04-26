@@ -52,7 +52,7 @@ tutoriaux disponibles.
 \section{L'écran principal : affichage des tâches}
 \begin{itemize}
   \item Créer un nouveau projet android avec les mêmes paramètres que dans le
-  TP1 (EmptyActivity et Android 4.4 comme API min, max, cible)
+  TP1
   \item Modifier le layout de cette activity pour y placer une ListView qui
   prendra toute la largeur et toute la hauteur
 \end{itemize}
@@ -61,7 +61,7 @@ tutoriaux disponibles.
  \item Quel composant est chargé de faire le lien entre les données et la
  ListView ? (on l'implémentera plus tard)
  \end{enumerate}
- On souhaite ajouter un bouton ``ajouter une tâche'' en dessous de la ListView.
+ On souhaite ajouter un bouton ``Nouvelle tâche'' en dessous de la ListView.
  \begin{enumerate}
  \setcounter{enumi}{1}
 \item Pourquoi un LinearLayout ``naïf'' ne convient t'il pas ?
@@ -100,7 +100,7 @@ Lors d'un click sur le bouton ``ajouter'' de l'activity d'ajout, on souhaite ret
 \end{enumerate}
  En réalité, android construit une pile des activités lancées (stack). \href{http://developer.android.com/guide/components/tasks-and-back-stack.html}{Documentation officielle sur le stack} 
   \begin{itemize}
-  \item En faire l'éxpérience en allant sur l'activity d'ajout puis en appuyant
+  \item En faire l'expérience en allant sur l'activity d'ajout puis en appuyant
   sur le bouton retour de l'appareil.
   \item Utiliser la méthode
   \href{http://developer.android.com/reference/android/app/Activity.html#finish()}{finish()} de Activity pour fermer l'activity et ainsi revenir à l'écran principal lors d'un click sur le bouton ajouter.
