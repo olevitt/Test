@@ -92,11 +92,13 @@ On souhaite maintenant écrire le code permettant d'instancier les objets Route 
 partir des informations présentes dans le fichier.\\
 L'analyse (parsing) d'un fichier CSV est relativement facile mais peut se
 réveler fastidieuse. Pour éviter de réécrire à chaque application le même code,
-on peut utiliser une des multiples bibliothèques disponibles : commons-csv de la fondation apache.
+on peut utiliser une des multiples bibliothèques disponibles : commons-csv de la
+fondation apache.\\
+La documentation est disponible sur ce site : 
+\href{https://commons.apache.org/proper/commons-csv/}{https://commons.apache.org/proper/commons-csv/}
 \begin{itemize}
-  \item Télécharger cette bibliothèque à partir du site officiel :
-  \href{https://commons.apache.org/proper/commons-csv/}{https://commons.apache.org/proper/commons-csv/}
-  \item Ajouter cette bibliothèque à l'application
+  \item Ajouter cette bibliothèque à l'application en utilisant la dépendance
+  gradle : 'org.apache.commons:commons-csv:1.2'
 \end{itemize}
 Pour itérer sur chaque ligne du fichier, on pourra s'inspirer du code suivant
 :\\
