@@ -30,7 +30,7 @@
 \title{Technologies mobiles} 
 \author{Olivier Levitt} 
 
-\date{Source et pdf de ce cours et des TP :\\\url{http://tiny.cc/techmob}}
+\date{Source et pdf de ce cours et des TP :\\\url{https://goo.gl/eIPv5B}}
 \AtBeginSubsection[]
 {
   \begin{frame}
@@ -38,7 +38,6 @@
   \tiny{\tableofcontents[currentsubsection]}
   \end{frame}
 }
-
 
 \frame{
 \titlepage
@@ -54,18 +53,19 @@
 \frame{\frametitle{Sommaire}\tableofcontents} 
  
 \section{Présentation et objectifs du cours}
-\subsection{Organisation administrative}
+\subsection{Organisation}
 \frame{
 \frametitle{Planning}
 \begin{itemize}
-  \item{19 avril : 3h de cours}
-  \item{26 avril : 3h de TP, 3h de cours}
-  \item{3 mai : 6h de TP}
-  \item{Validation des sujets de projet avant le 10 mai}
-  \item{10 mai : 3h de TP, 3h de TP dédiées au projet}
-  \item{24 mai : Soutenance du projet}
+  \item{13 avril : 3h de cours}
+  \item{25 avril : 3h de TP, 3h de cours}
+  \item{2 mai : 6h de TP}
+  \item{Validation des sujets de projet avant le 9 mai}
+  \item{9 mai : 3h de TP, 3h de TP dédiées au projet}
+  \item{31 mai : Soutenance du projet}
 \end{itemize}
 }
+
 
 \frame{
 \frametitle{Evaluation}
@@ -81,14 +81,13 @@
 \frametitle{Evaluation, exemples de sujets}
 \begin{itemize}
   \item{Gestion d'une bibliothèque}
-  \item{Quiz}
-  \item{Tape-taupes}
+  \item{Client twitter}
   \item{Répondeur SMS}
-  \item{Statistiques d'un jeu en ligne}
+  \item{Quiz}
+  \item{Transports de rennes}
+  \item Open data (ex : \url{http://data.gouv.fr})
 \end{itemize}
 }
-
-
 
 \subsection{Contexte et objectifs}
 \frame{
@@ -96,11 +95,12 @@
 \begin{itemize}
   \item Smartphones, tablettes et assimilés (TV, montre, autoradio, consoles de
   jeu \ldots)
-  \item Développement d'application, pas de dev système
+  \item Développement natif d'application, pas de dev système
   \item 1ère partie : le développement mobile en général
-  \item 2ème partie : application sous android
+  \item 2ème partie : application sous Android
 \end{itemize}
 }
+
 
 \section{Le développement mobile} 
 \subsection{Spécificités du développement mobile}
@@ -110,7 +110,7 @@
   \item Téléphonie (SMS, MMS, appels)
   \item Internet (GPRS, EDGE, 3G, 4G, WiFi)
   \item Réseaux locaux (Bluetooth, WiFi direct, tethering)
-  \item Capteurs (Luminosité, proximité, podomètre, NFC)
+  \item Capteurs (Luminosité, proximité, gyroscope, NFC)
   \item Localisation (GPS, triangulation, SSID WiFi)
   \item Notifications (Vibreur, haut-parleurs, LED)
   \item Photo / vidéo / visio
@@ -205,7 +205,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Soutenu par Apple
   \item Présenté le 9 janvier 2007
   \item Réservé aux produits Apple (iPhone, iPad, iPod, iWatch)
-  \item Programmation en objective-C, sur mac OS X uniquement
+  \item Programmation en objective-C (+ swift), sur mac OS X uniquement
   \item Appstore : validation + 100\$ / an
 \end{itemize}
 }
@@ -214,10 +214,10 @@ Comment gérer toutes les tailles d'écran ?
 \includegraphics[width=30pt]{img/android-robot.png}
 \begin{itemize}
   \item Soutenu par Google
-  \item Version 1.0 en septembre 2008, commercial 1.5 en avril 2009
+  \item Version 1.0 en septembre 2008, commerciale 1.5 en avril 2009
   \item Plus de 6000 appareils officiellement supportés, plus de 50
   constructeurs
-  \item Programmation en Java, sur Windows / OS X / Linux
+  \item Programmation en Java (+kotlin), sur Windows / OS X / Linux
   \item Noyau open-source (Apache 2.0)
   \item Google playstore : ``pas de validation'' + 25\$
 \end{itemize}
@@ -229,7 +229,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Soutenu par Microsoft
   \item Première version en février 2015
   \item Téléphones Lumia (ex Nokia)
-  \item Programmation en C\# sur windows 
+  \item Programmation en C\# sur Windows 
   \item Windows Store : validation + gratuit
 \end{itemize}
 }
@@ -254,6 +254,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Open-source
   \item Firefox marketplace : validation + gratuit
 \end{itemize}
+\textbf{RIP}
 }
 \frame{
 \frametitle{Ubuntu on phones}
@@ -266,6 +267,7 @@ Comment gérer toutes les tailles d'écran ?
   \item Convergence PC
   \item Ubuntu store : validation automatique + gratuit
 \end{itemize}
+\textbf{RIP}
 }
 \section{Le développement sur Android} 
 
@@ -292,32 +294,23 @@ Obligatoire :\\
 \end{itemize}
 Conseillé :\\
 \begin{itemize}
-  \item Un appareil android (l'émulateur est \ldots moyen)
+  \item Un appareil Android
   \item Parler anglais
   \item Suivre l'actualité
 \end{itemize}
 }
 \frame{
-\frametitle{Présentation du SDK android}
-Téléchargement gratuit : www.d.android.com/sdk
-\includegraphics[width=300pt]{img/sdk.png}
+\frametitle{Outils de développement}
+Téléchargement : \\\url{https://developer.android.com/studio/index.html}
+\begin{itemize}
+  \item SDK
+  \item IDE
+\end{itemize}
 }
 \frame{
-\frametitle{Présentation du SDK android}
-\begin{itemize}
-  \item add-ons : Google APIs
-  \item docs : Copie de la documentation disponible sur d.android.com
-  \item extras : Lib de compatibilité, lib pour les achats in-app \ldots
-  \item platforms : 1 dossier par niveau d'API téléchargé
-  \item platform-tools : Binaires de communication avec les appareils android
-  (adb, fastboot \ldots)
-  \item samples : Exemples de projets
-  \item sources : Sources de chaque niveau d'API
-  \item system-images : Images pour l'émulateur
-  \item temp
-  \item tools : Outils pour le dev (ddms, apkbuilder, lint
-  \ldots)
-\end{itemize}
+\frametitle{Le SDK}
+\includegraphics[width=300pt]{img/sdk.png}
+
 }
 \frame {
 \frametitle{ADB}
@@ -355,13 +348,14 @@ Téléchargement gratuit : www.d.android.com/sdk
 \frametitle{L'émulateur}
 \begin{itemize}
   \item Utile pour tester certaines configurations
-  \item (très) lent
+  \item Lent
   \item Se comporte comme un appareil Android classique (ADB)
   \item Utiliser un appareil android à la place quand c'est possible
 \end{itemize}
 \includegraphics[width=200pt]{img/avd.png}
 \includegraphics[width=80pt]{img/emu.png}
 }
+
 \frame{
 \frametitle{Utiliser un appareil android}
 \begin{itemize}
@@ -379,20 +373,21 @@ Téléchargement gratuit : www.d.android.com/sdk
   \hline
   Version & Nom & API level & Distribution & Rétrocumul \\
   \hline
-  2.2 & Froyo & 8 & 0.1\% & 100\% \\
-  2.3 & Gingerbread & 9/10 & 2.6\% & 99.9\% \\
-  4.0 & Ice cream sandwich & 15 & 2.2\% & 97.3\% \\
-  4.1 & Jelly bean & 16 & 7.8\% & 95.1\% \\
-  4.2 & Jelly bean & 17 & 10.5\% & 87.3\% \\
-  4.3 & Jelly bean & 18 & 3.0\% & 76.8\% \\
-  4.4 & Kitkat & 19 & 33.4\% & 73.8\% \\
-  5.0 & Lollipop & 21 & 16.4\% & 40.4\% \\
-  5.1 & Lollipop & 22 & 19.4\% & 24\% \\
-  6.0 & Marshmallow & 23 & 4.6\% & 4.6\% \\
+  2.3 & Gingerbread & 10 & 0.9\% & 100\% \\
+  4.0 & Ice cream sandwich & 15 & 0.9\% & 99.1\% \\
+  4.1 & Jelly bean & 16 & 3.5\% & 98.2\% \\
+  4.2 & Jelly bean & 17 & 5.1\% & 94.7\% \\
+  4.3 & Jelly bean & 18 & 1.5\% & 89.6\% \\
+  4.4 & Kitkat & 19 & 20.0\% & 88.1\% \\
+  5.0 & Lollipop & 21 & 9.0\% & 68.1\% \\
+  5.1 & Lollipop & 22 & 23.0\% & 59.1\% \\
+  6.0 & Marshmallow & 23 & 31.2\% & 36.1\% \\
+  7.0 & Nougat & 24 & 4.5\% & 4.9\% \\
+  7.1 & Nougat & 25 & 0.4\% & 0.4\% \\
   \hline
 \end{tabular}
 \caption{\label{s}Répartition des versions pour les accès au google play sur la
-première semaine d'avril 2016}
+première semaine d'avril 2017}
 \end{table}
 }
 \subsection{Architecture}
@@ -402,6 +397,7 @@ première semaine d'avril 2016}
   \item Gestion des dépendances et du build
   \item ``Successeur'' de maven
   \item Optionnel mais fortement recommandé
+  \item Conf dans build.gradle
 \end{itemize}
 }
 \frame{
@@ -451,6 +447,9 @@ première semaine d'avril 2016}
 <uses-permission android:name="android.permission.READ_SMS"/>
 <uses-permission android:name="android.permission.CAMERA"/>
 \end{lstlisting}
+\begin{itemize}
+  \item Depuis Android 6.0 (API 23), permissions au runtime
+ \end{itemize}
 \end{frame} 
 
 
@@ -527,19 +526,20 @@ première semaine d'avril 2016}
 }
 \frame{
 \frametitle{Le mode débug}
-\includegraphics[width=170pt]{img/ddms.png}
+\includegraphics[width=320pt]{img/ddms.png}
 \begin{itemize}
   \item Le debugger Java fonctionne aussi sur Android
-  \item La vue eclipse ``DDMS'' apporte de nombreux outils
+  \item Intégré directement à Android Studio
  \end{itemize}
 }
+
 \frame{
 \frametitle{Logcat}
 \includegraphics[width=120pt]{img/logcat.jpg}
 \begin{itemize}
   \item Le SDK fournit un outil très pratique : logcat
-  \item On appelle logcat par adb : adb logcat ou on utilise la vue LogCat du
-  plugin eclipse
+  \item On appelle logcat par adb : adb logcat ou on utilise la vue LogCat
+  d'Android Studio
   \item Logcat affiche l'ensemble des logs, système et application
  \end{itemize}
 }
@@ -574,6 +574,12 @@ public void sauvegarderScore(int score) {
         }
 }
 \end{lstlisting}
+\end{frame}
+\begin{frame}[fragile]
+\frametitle{Démo}
+\begin{itemize}
+  \item Démotime !
+ \end{itemize}
 \end{frame}
 \subsection{IHM}
 \frame{
@@ -681,31 +687,6 @@ public Class MainActivity extends Activity {
  \item Balise Activity à l'interieur de la balise Application
  \item On précise la classe Java correspondante
  \end{itemize}
-\end{frame}
-\begin{frame}[fragile] 
-\frametitle{Previously on Android}
-\begin{itemize}
-  \item Une appli = un ensemble de composants
-  \item Plusieurs points d'entrée possibles
-  \item Tous les composants doivent être définis dans le manifest
-  \item Activity, composant {\raise.17ex\hbox{$\scriptstyle\sim$}} un écran
-  \item Créer une activity = hériter de Activity
-  \item Méthodes du cycle de vie (onCreate, onPause, onResume \ldots)
-\end{itemize}
-\end{frame}
-\begin{frame}[fragile] 
-\frametitle{Previously on Android, les layouts}
-\begin{itemize}
-  \item Les composants graphiques sont définis dans des layouts XML
-  \item Layout = hiérarchie de ViewGroup et de View
-  \item Exemple de ViewGroup : LinearLayout
-  \item Exemples de View : Button, TextView, EditText
-  \item Tous les élements doivent définir layout\_width et layout\_height
-  \item Wrap\_content : seulement la place nécessaire
-  \item Match\_parent : toute la place du père
-  \item Plaquer (inflate) un layout à une activity :
-  setContentView(R.layout.xxx)
-\end{itemize}
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Manipuler les éléments de l'UI en Java}
@@ -900,6 +881,31 @@ public MyActivity extends Activity {
 \end{lstlisting}
 \end{frame}
 \begin{frame}[fragile] 
+\frametitle{Previously on Android}
+\begin{itemize}
+  \item Une appli = un ensemble de composants
+  \item Plusieurs points d'entrée possibles
+  \item Tous les composants doivent être définis dans le manifest
+  \item Activity, composant {\raise.17ex\hbox{$\scriptstyle\sim$}} un écran
+  \item Créer une activity = hériter de Activity
+  \item Méthodes du cycle de vie (onCreate, onPause, onResume \ldots)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
+\frametitle{Previously on Android, les layouts}
+\begin{itemize}
+  \item Les composants graphiques sont définis dans des layouts XML
+  \item Layout = hiérarchie de ViewGroup et de View
+  \item Exemple de ViewGroup : LinearLayout
+  \item Exemples de View : Button, TextView, EditText
+  \item Tous les élements doivent définir layout\_width et layout\_height
+  \item Wrap\_content : seulement la place nécessaire
+  \item Match\_parent : toute la place du père
+  \item Plaquer (inflate) un layout à une activity :
+  setContentView(R.layout.xxx)
+\end{itemize}
+\end{frame}
+\begin{frame}[fragile] 
 \frametitle{Previously on Android, manipuler les élements UI}
 \begin{itemize}
   \item Pour manipuler les éléments UI en Java : leur donner un ID
@@ -1069,7 +1075,7 @@ Il existe plusieurs façons de stocker les données sur un appareil android
     \item \textbf{SharedPreferences}: stockage de données primitives
     \item \textbf{Fichiers}: contenus sur la mémoire interne ou externe
     \item \textbf{Bases de données}: SQLite
-    \item \textbf{Stockage distant}: webservice
+    \item \textbf{Stockage distant}: Webservice / cloud
 \end{itemize}
 Documentation android officielle sur le stockage de données : \url{http://developer.android.com/guide/topics/data/data-storage.html}
 \end{frame}
@@ -1120,10 +1126,6 @@ public void sauvegarderScore() {
     editor.commit();
 }
 \end{lstlisting}
-\end{frame}
-\begin{frame}[fragile]
-\frametitle{Séquence souvenirs}
-Séquence souvenir sur la gestion des flux et des fichiers en Java
 \end{frame}
 \begin{frame}[fragile]
 \frametitle{Les fichiers}
@@ -1547,9 +1549,7 @@ public class CustomView extends View {
 \begin{itemize}
   \item La qualité de la connexion est TRES variable
   \item L'utilisation du réseau est TRES consommateur de batterie 
-  \item Pour le HTTP, le SDK android propose 2 API :
-  \item HTTPUrlConnection de Java.net : conseillé sur les nouvelles applications
-  \item HTTPClient de org.apache : conseillé sur les API $<=$2.2
+  \item Api : java.net.HTTPUrlConnection
   \item De nombreuses bibliothèques sont disponibles (robospice, android-async-http \ldots)
   \item Pour les autres protocoles : utiliser la classe Socket de Java.net
 \end{itemize}
@@ -1692,8 +1692,7 @@ public void calculLong() {
   \item \textbf{Le thread UI (main thread) doit être préservé de tout calcul
   long}
   \item \textbf{Inversement, tout le code touchant à l'UI doit être exécuté dans le thread UI}
-  \item Pour les API $>$ 9, possibilité d'activer StrictMode via la classe StrictMode
-  \item Sur Android 4.0+, possibilité d'activer StrictMode dans les options développeur
+  \item Le police du fun : StrictMode
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile] 
@@ -1735,7 +1734,7 @@ Astuce 2 : Exécuter du code dans le thread UI depuis un autre thread
 \begin{frame}[fragile] 
 \frametitle{Validation des groupes / idées de projet}
 Pensez à faire valider vos idées de projet et les compositions de groupe avant
-le 10 mai\\
+le 9 mai\\
 Email : ungawa14@gmail.com
 \end{frame}
 \end{document}
