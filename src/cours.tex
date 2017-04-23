@@ -1313,6 +1313,26 @@ int nbRowsAffected = bdd.delete(table,"nom = ?", new String[] {"Bob"});
 \frametitle{Démo}
 Démo
 \end{frame}
+\begin{frame}[fragile]
+\frametitle{Realm, un exemple d'ORM}
+\begin{lstlisting}
+Realm realm = Realm.getDefaultInstance();
+realm.beginTransaction();
+// Add a person
+Person person = realm.createObject(Person.class);
+person.setName("Young Person");
+person.setAge(14);
+realm.commitTransaction();
+RealmResults<User> result = realm.where(User.class)
+                                 .greaterThan("age", 10)
+                                 .beginGroup()
+                                      .equalTo("name", "Peter")
+                                      .or()
+                                      .contains("name", "Jo")
+                                 .endGroup()
+                                 .findAll();
+\end{lstlisting}
+\end{frame}
 \subsection{Bonus}
 \begin{frame}[fragile]
 \frametitle{La propriété Layout\_weight de LinearLayout}
@@ -1358,23 +1378,26 @@ Démo
 \end{itemize}
 \end{frame}
 \begin{frame}[fragile]
-\frametitle{Exemples de ViewGroups : RelativeLayout}
-Plus évolué que LinearLayout, permet de placer les composants les uns par rapport aux autres
+\frametitle{Exemples de ViewGroups : ConstraintLayout}
+\begin{itemize}
+  \item Version 1.0 le 22 février 2017
+  \item Support library (API 9+)
+  \item Android studio layout editor
+\end{itemize}
 \begin{lstlisting}
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout 
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     <EditText
     	android:id="@+id/text1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true" />
+        android:layout_height="wrap_content" />
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/text1" />
+        app:layout_constraintLeft_toRightOf="@+id/buttonA" />
 </RelativeLayout> 
 \end{lstlisting}
 \end{frame}
